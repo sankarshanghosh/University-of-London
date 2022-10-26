@@ -29,30 +29,26 @@ should use ONLY the following commands:
 
 var img;
 
-function preload()
-{
-	img = loadImage('img.jpg');
+function preload() {
+  img = loadImage("img.jpg");
 }
 
-function setup()
-{
-	createCanvas(img.width,img.height);
-	noFill();
-	stroke(0);
-	strokeWeight(2);
+function setup() {
+  createCanvas(img.width, img.height);
+  noFill();
+  stroke(0);
+  strokeWeight(2);
 }
 
-function draw()
-{
-	image(img,0,0);
+function draw() {
+  image(img, 0, 0);
 
-	//Write your code below here ...
-    rect(299, 88, 150, 305)
-	//A helpful mouse pointer
-	push();
-		fill(0);
-		noStroke();
-		text(mouseX + "," + mouseY, mouseX,mouseY);
-	pop();
-
+  //Write your code below here ...
+  rect(150);
+  //A helpful mouse pointer
+  push();
+  fill(0);
+  noStroke();
+  text(mouseX + "," + mouseY, mouseX, mouseY);
+  pop();
 }
