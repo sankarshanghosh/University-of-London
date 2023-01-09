@@ -63,9 +63,6 @@ function draw() {
   //body
   fill(255, 165, 0);
   rect(gameChar_x - 12, gameChar_y - 30, 24, 24, 5);
-  fill(0);
-  textSize(6);
-  text("WALL-E", gameChar_x - 11, gameChar_y - 15);
 
   //neck
   fill(255, 165, 0);
@@ -107,9 +104,6 @@ function draw() {
   //body
   fill(255, 165, 0);
   rect(gameChar_x - 12, gameChar_y - 40, 24, 24, 5);
-  fill(0);
-  textSize(6);
-  text("WALL-E", gameChar_x - 11, gameChar_y - 25);
 
   //neck
   fill(255, 165, 0);
