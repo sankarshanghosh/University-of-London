@@ -1,89 +1,52 @@
-### The Game Project 4 – Side Scrolling
+### The Game Project 5 - multiple interactables
 
-1. Make a copy of your code from part 3b
+It's time to level up our game by making multiple interactable items to populate our game world. Our code is getting quite complex now so first we'll take this opportunity to do some refactoring making it more navigable.
 
-2. Make an array of tree positions
 
-Declare a variable called `trees_x`
+1. Refactor background items rendering [3 marks]
+	- At the bottom of your code, create three new functions called `drawClouds`, `drawMountains`, and `drawTrees`
+	- Cut and paste each `for loop` from your `draw` function into the relevant new function.
+	- In the `draw` function, where the drawing code was previously, call each of the three new functions (eg. `drawClouds()`)
+	- You should now see all of the above items drawn to the screen as before
 
-In `setup`, initialise it with an array of numbers.
+2. Refactor collectable rendering [3  marks]
+	- We're going to do something slightly different in this case, we're going to pass the collectable as an argument to our render function
+	- At the bottom of your code, create a function called `drawCollectable`
+	- It should take a single argument called `t_collectable` like so `function drawCollectable(t_collectable)`
+	- Cut and paste the drawing code for the collectable from the `draw` function and into your `drawCollectable` function
+	- Now replace any reference to collectable with t_collectable
+	- Finally in the `draw` function, where the drawing code was previously, call `drawCollectable` passing collectable as an argument
+	- You should see your collectable appearing in the same place as previously
 
-Each number should represent the x-position at which a tree will be drawn on the canvas.
+3. Refactor canyon rendering [3 marks]
+	- Repeat the same process for canyon as in step 2
+	- You should end up with a function called `drawCanyon` which is called from the `draw` function passing `canyon` as an argument
 
-3. Draw the trees
+4. Refactor collectable interaction [3 marks]
+	- Your code which sets the `isFound` property of collectable to true should still be in the draw loop. Lets refactor that too
+	- Create a function called `checkCollectable` which takes an argument called `t_collectable`
+	- Cut and paste your collectable interaction code from the `draw` function into this new function replacing all references to `collectable` with `t_collectable`
+	- Finally in the `draw` function, where the interaction code was previously, call `checkCollectable` passing collectable as an argument
+	- You should find that your collectable interaction works just as before
 
-In the `draw` function create a for loop to traverse the `trees_x` array.
+5. Refactor canyon interaction [3 marks]
+	- Repeat stage 4 but for the canyon
+	- You should end up with a function called `checkCanyon` which is called from the `draw` function passing `canyon` as an argument
+	- Make sure your canyon interaction works for all of your canyons
 
-HINT: you need to use `trees_x.length` to make sure you loop over every item in the array.
+6. Create multiple collectables [3 marks]
+	- Create a global variable called `collectables` and initialise it to an array
+	- Fill the array with lots of collectable objects. You can copy and paste from your original collectable object but be sure to alter the x_pos property so that the collectables appear in different places in your game world.
+	- In the `draw` function, wrap the calls to `drawCollectable` and `checkCollectable` in a for loop which traverses collectables
+	- Instead of passing `collectable` to your functions pass a reference to the particular collectable in your `collectables` array (eg. `drawCollectable(collectables[i])`).
+	- Once you've done this delete the declaration and initialisation of your old single `collectable` . It's now redundant code.
+	- If every thing is working correctly you should see multiple collectables and be able to interact with them independently.
 
-Copy your tree drawing code from part 2b into the body of the for loop
+7. Create multiple canyons [3 marks]
+	- Repeat stage 6 but for canyons. 
+	- Once you're satisfied that the interaction and rendering is working try varying the width of the canyons
 
-Now modify your code so that each tree is drawn using the corresponding x position from `trees_x`.
 
-HINT: If your for loop uses a variable called `i` you can get the x position by using `trees_x[i]` - You should end up with lots of trees in different positions.
-
-4. Make an array of clouds
-
-In `setup`, declare and initialise a `clouds` variable with an array containing some cloud objects (e.g. at least 3).
-
-HINT: you can copy the one from part 2b but vary the x and y positions of each object.
-
-5. Draw the clouds
-
-In the `draw` function create a for loop to traverse the `clouds` array.
-
-Copy your cloud drawing code from part 2b into the body of the for loop.
-
-Now modify your code so that each cloud is drawn with the position and size determined by the corresponding object in the array
-
-6. And now for the mountains
-
-Repeat stages 4 and 5 for the mountains
-
-7. Implement scrolling
-
-To create an expansive game world we need to make a virtual camera which follows the game character as they move about the game world
-
-We're going to do this by making the background scenery scroll in the opposite direction when the game character moves left or right.
-
-We can achieve this by using p5’s [`translate`](https://p5js.org/reference/#/p5/translate) function in combination with [`push`](https://p5js.org/reference/#/p5/push) and [`pop`](https://p5js.org/reference/#/p5/pop)
-
-Make sure you've read about how these work before attempting the following steps
-
-Declare a variable called `cameraPosX` and initialise it to 0
-
-Make sure that all of code which draws all of your game scenery appears consecutively within your draw loop directly BEFORE the code which draws your game character.
-
-Just _After_ the code which draws the ground and just _Before_ your first item of game scenery, add the command `push()` followed by the command `translate(-cameraPosX, 0)`
-
-Just _After_ the code which draws the game character add the command `pop()`
-
-Now `cameraPosX` controls the left most position of where the camera is within the game world.
-
-At the start of the draw loop, write a line of code to continually change the value of cameraPosX so that the game character always appears in the center of the screen but the background moves behind them.
-
-Test that your canyon and collectable still interact as expected
-
-8. Code Presentation
-
-   Make sure you produce readable code:
-
-Use correct indentation
-
-Remove unnecessary whitespace
-
-Remove any unused commented-out code
-
-Remove old and redundant variable declarations
-
-Make sure all variables are declared
-
-Name your variables carefully
-
-Include brief, descriptive comments for each section
-
-9. Submission format
-
-Before submitting make sure that your code runs and that all the necessary files are included in the sketch folder
-
-Zip the sketch folder. Make sure that it is only zipped at one level and that the file extension is a .zip
+#### Things to watch out for ####
+- For collectables and canyons, make sure you are using the passed in arguments in your refactored code . You should be using `t_canyon` , NOT `canyon` or `canyons[i]` 
+- Delete your unused variables. You will lose marks for leaving redundant code in.
