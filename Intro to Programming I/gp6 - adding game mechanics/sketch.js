@@ -23,6 +23,14 @@ var lives;
 
 var cameraPosX;
 
+window.addEventListener('mousemove', function(e) {
+  var mouseX = e.clientX;
+  var mouseY = e.clientY;
+  
+  console.log("Mouse X: " + mouseX + ", Mouse Y: " + mouseY);
+});
+
+
 function setup() {
   createCanvas(1024, 576);
   floorPos_y = (height * 3) / 4;
