@@ -1,5 +1,5 @@
 /*
-    The Game Project Part 6 - adding game mechanics
+    The Game Project - Final Submission | Candidate Number: EX0100
 */
 
 var gameChar_x;
