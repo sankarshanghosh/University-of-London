@@ -1,3 +1,4 @@
+/* Skip navigation bar for better accessibility */
 .skip-navigation {
   position: absolute;
   left: -10000px;
@@ -106,6 +107,10 @@ section h2 {
   color: #222;
 }
 
+.home-page-content {
+  flex-basis: 500px;
+}
+
 article {
   margin: 10px;
   border-radius: 10px;
@@ -190,12 +195,12 @@ article {
 
 .carousel-slide {
   display: flex;
-  width: 300%; /* three times the width of a single image */
+  width: 300%;
 }
 
 .carousel-slide img {
-  width: 33.33%; /* takes up one third of the carousel-slide */
-  object-fit: cover; /* ensures the image fills the space of the carousel-slide */
+  width: 33.33%;
+  object-fit: cover;
 }
 
 .gallery_button {
@@ -227,7 +232,6 @@ article {
   background-color: #555;
 }
 
-/* Ask Anything Submission Page */
 /* Style for the form */
 form {
   display: flex;
@@ -298,7 +302,7 @@ textarea {
   border: 2px solid #ccc;
   font-size: 1rem;
   min-width: 1000px;
-  box-sizing: border-box; /* Add this line */
+  box-sizing: border-box;
 }
 
 textarea {

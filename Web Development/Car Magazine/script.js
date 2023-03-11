@@ -17,10 +17,10 @@ toggleButton.addEventListener("click", () => {
 window.onload = () => {
   const dark = localStorage.getItem("darkmode");
   if (dark === "dark") {
-    body.classList.add('dark-mode');
+    body.classList.add("dark-mode");
     toggleButton.innerText = "Light Mode";
   } else {
-    body.classList.remove('dark-mode');
+    body.classList.remove("dark-mode");
     toggleButton.innerText = "Dark Mode";
   }
 };
@@ -34,9 +34,9 @@ const images = document.querySelectorAll(".carousel-slide img");
 if (carouselSlide && prevButton && nextButton && images.length > 0) {
   let counter = 1;
   const size = images[0].clientWidth;
-  
+
   carouselSlide.style.transform = `translateX(-${size * counter}px)`;
-  
+
   nextButton.addEventListener("click", () => {
     if (counter >= images.length - 1) {
       carouselSlide.style.transition = "none";
@@ -47,14 +47,14 @@ if (carouselSlide && prevButton && nextButton && images.length > 0) {
     }
     carouselSlide.style.transform = `translateX(-${size * counter}px)`;
   });
-  
+
   prevButton.addEventListener("click", () => {
     if (counter <= 0) return;
     carouselSlide.style.transition = "transform 0.4s ease-in-out";
     counter--;
     carouselSlide.style.transform = `translateX(-${size * counter}px)`;
   });
-  
+
   carouselSlide.addEventListener("transitionend", () => {
     if (images[counter].id === "last-clone") {
       carouselSlide.style.transition = "none";
@@ -70,19 +70,19 @@ if (carouselSlide && prevButton && nextButton && images.length > 0) {
 }
 
 /* Submission Form Functionality */
-const askAnythingForm = document.querySelector('form');
+const askAnythingForm = document.querySelector("form");
 
 if (askAnythingForm) {
-  const nameInput = document.querySelector('#name');
-  const emailInput = document.querySelector('#email');
-  const mobileInput = document.querySelector('#mobile');
-  const countryInput = document.querySelector('#country');
-  const brandInput = document.querySelector('#brand');
-  const modelInput = document.querySelector('#model');
-  const yearInput = document.querySelector('#year');
-  const messageInput = document.querySelector('#message');
+  const nameInput = document.querySelector("#name");
+  const emailInput = document.querySelector("#email");
+  const mobileInput = document.querySelector("#mobile");
+  const countryInput = document.querySelector("#country");
+  const brandInput = document.querySelector("#brand");
+  const modelInput = document.querySelector("#model");
+  const yearInput = document.querySelector("#year");
+  const messageInput = document.querySelector("#message");
 
-  askAnythingForm.addEventListener('submit', (event) => {
+  askAnythingForm.addEventListener("submit", (event) => {
     event.preventDefault();
     const formData = {
       name: nameInput.value,
@@ -92,11 +92,9 @@ if (askAnythingForm) {
       brand: brandInput.value,
       model: modelInput.value,
       year: yearInput.value,
-      message: messageInput.value
+      message: messageInput.value,
     };
     console.log(formData);
     askAnythingForm.reset();
   });
 }
-
-

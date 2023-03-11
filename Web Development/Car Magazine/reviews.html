@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>News Magazine</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header section containing navigation and dark mode toggle -->
+    <header>
+      <!-- Accessibility feature to skip the navigation links -->
+      <a href="#main-content" class="skip-navigation">Skip to main content</a>
+      <nav>
+        <ul>
+          <li><a href="/index.html">Home</a></li>
+          <li><a href="/gallery.html">Gallery</a></li>
+          <li><a class="active" href="/reviews.html">Reviews</a></li>
+          <li><a href="/news.html">News</a></li>
+          <li><a href="/ask-anything.html">Ask Anything</a></li>
+        </ul>
+        <div class="dark-mode-toggle">
+          <button id="dark-mode-toggle">Dark Mode</button>
+        </div>
+      </nav>
+    </header>
+    <!-- Main content section -->
+    <main id="main-content">
+      <!-- Video review section -->
+      <section class="reviews">
+        <h2>Reviews</h2>
+        <article>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/OYe_v0HcdY8"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+          <h3>NEW Ferrari Purosangue Review: V12 SUV Game Changer</h3>
+          <p>Rory reviews the new Ferrari SUV - known as the Purosangue.</p>
+        </article>
+        <article>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/VCUoyM79S6o"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+          <h3>2023 MG GT Sport Review</h3>
+          <p>
+            The MG GT is on this episode of Behind a Wheel, and it's one heck of
+            a looker.
+          </p>
+        </article>
+        <article>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/xR_xYBnuRYk"
+            frameborder="0"
+            allowfullscreen
+          ></iframe>
+          <h3>BMW i7 Review: The Car They HATE to LOVE?</h3>
+          <p>
+            The BMW i7 is a difficult car to love due to its unorthodox looks,
+            or is it?
+          </p>
+        </article>
+      </section>
+    </main>
+    <!-- Footer section with about me, address and contact details-->
+    <footer>
+      <div class="footer-container">
+        <div class="footer-column">
+          <h3>About Us</h3>
+          <p>
+            Our goal is to provide a one-stop-shop for all your car-related
+            needs. Whether you are a casual car enthusiast or a die-hard
+            gearhead, we have something for you. We are committed to delivering
+            high-quality content that informs, educates, and entertains. Thank
+            you for visiting our website, and we hope you enjoy reading our
+            articles as much as we enjoy creating them.
+          </p>
+        </div>
+        <div class="footer-column">
+          <h3>Contact Us</h3>
+          <p>Email: news@carmagazine.com</p>
+          <p>Phone: +1-123-456-7890</p>
+          <p>Address: 123 Main Street, Anytown USA</p>
+        </div>
+      </div>
+      <div class="bottom-bar">
+        <p>&copy; 2023 Car Magazine. All Rights Reserved.</p>
+      </div>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
