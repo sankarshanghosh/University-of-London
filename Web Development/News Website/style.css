@@ -1,3 +1,12 @@
+.skip-navigation {
+  position: absolute;
+  left: -10000px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+
 /* Navigation Bar */
 nav {
   background-color: #222;
@@ -14,24 +23,6 @@ nav {
   z-index: 999;
 }
 
-#dark-mode-toggle {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  font-weight: bold;
-  color: #fff;
-  background-color: #e74c3c;
-  border: none;
-  border-radius: 30px;
-  cursor: pointer;
-  transition: all 0.3s ease-in-out;
-}
-
-#dark-mode-toggle:hover {
-  background-color: #fff;
-  color: #000000;
-}
-
 nav ul {
   list-style: none;
   margin: 0;
@@ -45,6 +36,7 @@ nav li {
 
 nav a {
   display: block;
+  border-radius: 5px;
   color: white;
   text-align: center;
   text-decoration: none;
@@ -61,45 +53,41 @@ nav a:hover {
 
 .active {
   background-color: #e74c3c;
-  color: white;
 }
 
-/* Top Stories, Featured Stories, Latest Stories */
+/* Content Section */
 section {
   display: flex;
   flex-direction: column;
   background-color: #f2f2f2;
   padding: 20px;
   margin-top: 60px;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-.featured-stories {
+.latest-news {
   margin-top: 10px;
 }
 
-.latest-stories {
+.latest-reviews {
   margin-top: 10px;
-  margin-bottom: 50px;
+  margin-bottom: 30px;
 }
 
-.entertainment-stories {
-  margin-bottom: 50px;
+.gallery {
+  margin-bottom: 30px;
 }
 
-.lifestyle-stories {
-  margin-bottom: 50px;
+.news {
+  margin-bottom: 30px;
 }
 
-.political-stories {
-  margin-bottom: 50px;
+.reviews {
+  margin-bottom: 30px;
 }
 
-.sports-stories {
-  margin-bottom: 50px;
-}
-
-.technology-stories {
-  margin-bottom: 50px;
+.ask-anything {
+  margin-bottom: 30px;
 }
 
 .story-wrapper {
@@ -120,6 +108,7 @@ section h2 {
 
 article {
   margin: 10px;
+  border-radius: 10px;
   padding: 20px;
   background-color: white;
   box-shadow: 0px 0px 10px #888888;
@@ -131,6 +120,15 @@ article {
 article:hover {
   box-shadow: 0px 0px 20px #888888;
   transform: translateY(-5px);
+}
+
+article a {
+  text-decoration: none;
+  color: #000000;
+}
+
+article p {
+  color: #000000;
 }
 
 /* Text styles */
@@ -163,11 +161,165 @@ nav a:hover {
 }
 
 section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: #f2f2f2;
 }
 
 article {
   background-color: white;
+}
+
+/* Image Carousal in Gallery Page */
+
+.gallery {
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.carousel-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.carousel-slide {
+  display: flex;
+  width: 300%; /* three times the width of a single image */
+}
+
+.carousel-slide img {
+  width: 33.33%; /* takes up one third of the carousel-slide */
+  object-fit: cover; /* ensures the image fills the space of the carousel-slide */
+}
+
+.gallery_button {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 50px;
+  height: 50px;
+  background-color: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+}
+
+.gallery_button button {
+  background-color: #222;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  margin: 0 10px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.gallery_button button:hover {
+  background-color: #555;
+}
+
+/* Ask Anything Submission Page */
+/* Style for the form */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 800px;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 0;
+}
+
+/* Style for fieldsets */
+fieldset {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+  flex-basis: calc(33.33% - 20px);
+}
+
+legend {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Style for form inputs */
+form {
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  align-items: center;
+  margin: 0 auto;
+}
+
+/* Style for fieldsets */
+fieldset {
+  margin-bottom: 20px;
+  padding: 20px;
+  border: 2px solid #ccc;
+  border-radius: 5px;
+}
+
+legend {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+/* Style for form inputs */
+label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  border: 2px solid #ccc;
+  font-size: 1rem;
+  min-width: 1000px;
+  box-sizing: border-box; /* Add this line */
+}
+
+textarea {
+  height: 150px;
+}
+
+/* Style for submit button */
+button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #008cba;
+  color: #fff;
+  border-radius: 5px;
+  border: none;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  align-self: center;
+}
+
+button[type="submit"]:hover {
+  background-color: #005a80;
 }
 
 /* Footer */
@@ -177,6 +329,10 @@ footer {
   padding: 0px 0;
   text-align: center;
   font-size: 16px;
+}
+
+footer h3 {
+  color: #e74c3c;
 }
 
 .footer-container {
@@ -213,6 +369,24 @@ footer {
 }
 
 /* Dark Mode Styles */
+#dark-mode-toggle {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  font-weight: bold;
+  color: #fff;
+  background-color: #e74c3c;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+#dark-mode-toggle:hover {
+  background-color: #fff;
+  color: #000000;
+}
+
 .dark-mode {
   background-color: #2a2a2a;
   color: #f2f2f2;
@@ -240,7 +414,7 @@ footer {
 }
 
 .dark-mode article a {
-  color: #e74c3c;
+  color: #f2f2f2;
 }
 
 .dark-mode h2 {
@@ -257,7 +431,7 @@ footer {
 }
 
 .dark-mode .footer-column h3 {
-  color: #f2f2f2;
+  color: #e74c3c;
 }
 
 .dark-mode .bottom-bar p {
