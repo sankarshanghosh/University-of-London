@@ -373,6 +373,8 @@ footer h3 {
 }
 
 /* Dark Mode Styles */
+
+/* w3schools.com, 'CSS Buttons', [Online], Available: https://www.w3schools.com/css/css3_buttons.asp, [Accessed: 10 - March - 2023]. */
 #dark-mode-toggle {
   display: inline-block;
   padding: 10px 20px;
