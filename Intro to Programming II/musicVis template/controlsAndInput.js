@@ -12,6 +12,12 @@ function ControlsAndInput(){
 		//???
 		//check if the playback button has been clicked
 		//if not make the visualisation fullscreen
+		if (!this.playbackButton.hitCheck()) {
+			// If not clicked, toggle fullscreen mode
+			let fs = fullscreen(); // Get the current fullscreen state
+			fullscreen(!fs); // Set to the opposite state
+		}
+		// If the button was clicked, the hitCheck method will handle the pla
 	};
 
 	//responds to keyboard presses
@@ -49,9 +55,16 @@ function ControlsAndInput(){
 	};
 
 	this.menu = function(){
-		//draw out menu items for each visualisation
-		//???
-	};
+		// Start the y position offset for the first menu item
+		let yPos = 78;
+		// Loop over the visuals array in the vis object
+		for (var i = 0; i < vis.visuals.length; i++) {
+			// Write each visualisation name to the screen with a number prefix
+			text((i + 1) + ": " + vis.visuals[i].name, 100, yPos);
+			// Increment the y position for the next item
+			yPos += 50;
+		}
+	};	
 }
 
 
