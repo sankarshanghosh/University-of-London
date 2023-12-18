@@ -1,0 +1,32 @@
+body, html {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+#mainInterface {
+    text-align: center;
+}
+
+#wordInput {
+    padding: 10px;
+    margin-right: 5px;
+}
+
+#findRhymesBtn {
+    padding: 10px;
+}
+
+#rhymeResults {
+    margin-top: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    width: 300px;
+    border: 1px solid #ddd;
+    padding: 10px;
+}
