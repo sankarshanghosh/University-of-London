@@ -1,5 +1,4 @@
-//global variables that will store the toolbox colour palette
-//amnd the helper functions
+//global variables that will store the toolbox colour palette and the helper functions
 var toolbox = null;
 var colourP = null;
 var helpers = null;
@@ -24,8 +23,10 @@ function setup() {
 	toolbox.addTool(new LineToTool());
 	toolbox.addTool(new SprayCanTool());
 	toolbox.addTool(new mirrorDrawTool());
+	// I have added this code
 	toolbox.addTool(new shapeTool());
 	toolbox.addTool(new stampTool());
+	// End of added code
 	background(255);
 
 }

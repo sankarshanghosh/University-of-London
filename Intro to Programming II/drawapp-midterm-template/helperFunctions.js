@@ -17,9 +17,9 @@ function HelperFunctions() {
     saveCanvas("myPicture", "jpg");
   });
 }
-
+// I added this below
 // Function to check if the mouse is within the canvas bounds
 function mousePressOnCanvas() {
-  // Simply checks if the mouse is within the width and height bounds of the canvas
   return mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height;
 }
+// End of added code

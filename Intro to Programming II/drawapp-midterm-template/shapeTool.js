@@ -1,3 +1,4 @@
+// I adapted and added this code
 function shapeTool() {
   this.name = "shapeTool";
   this.icon = "assets/shape.jpg";
@@ -75,3 +76,4 @@ function shapeTool() {
     endShape();
   };
 }
+// End of addition

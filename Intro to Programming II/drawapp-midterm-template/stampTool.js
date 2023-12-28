@@ -1,3 +1,4 @@
+// I adapted and added this code
 function stampTool() {
   this.name = "stampTool";
   this.icon = "assets/stamp.jpg";
@@ -21,13 +22,13 @@ function stampTool() {
     nImgSlider = createSlider(1, 20, 5).parent("#nImgSlider");
 
     // Create an input element to accept an image file
-    //event parameter is an object that contains information about the event that triggered the callback function
-    //event targer is the element that triggered the event
-    //Learnt about event interface and URL interface from:
-    //https://developer.mozilla.org/en-US/docs/Web/API/Event
-    //https://developer.mozilla.org/en-US/docs/Web/API/Event/target
-    //https://youtu.be/xXrs4j-p3yE?si=Kla08uFJObSLjQ9s
-    //https://p5js.org/reference/#/p5/loadImage
+    // event parameter is an object that contains information about the event that triggered the callback function
+    // event targer is the element that triggered the event
+    // Learnt about event interface and URL interface from:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Event
+    // https://developer.mozilla.org/en-US/docs/Web/API/Event/target
+    // https://youtu.be/xXrs4j-p3yE?si=Kla08uFJObSLjQ9s
+    // https://p5js.org/reference/#/p5/loadImage
     select("#imageInput").input(function (event) {
       var fileInput = event.target;
       if (fileInput.files && fileInput.files[0]) {
@@ -55,7 +56,7 @@ function stampTool() {
       var imageSize = imgSizeSlider.value();
 
       for (var i = 0; i < numImages; i++) {
-        // If only one image, stamp it at the mouse position
+        // If only one image, stamp it at the mouse position such that the tool can also be used as an image brush
         if (numImages === 1) {
           image(
             uploadedImage,
@@ -80,3 +81,4 @@ function stampTool() {
     }
   };
 }
+// End of added code
