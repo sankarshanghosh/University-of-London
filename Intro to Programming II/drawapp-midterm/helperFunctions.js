@@ -1,8 +1,7 @@
-function HelperFunctions() {
-  //Jquery click events. Notice that there is no this. at the
-  //start we don't need to do that here because the event will
-  //be added to the button and doesn't 'belong' to the object
+var undoStack = []; //global variable to store the undo stack
+var redoStack = []; //global variable to store the redo stack
 
+function HelperFunctions() {
   //event handler for the clear button event. Clears the screen
   select("#clearButton").mouseClicked(function () {
     background(255, 255, 255);
@@ -15,6 +14,7 @@ function HelperFunctions() {
   select("#saveImageButton").mouseClicked(function () {
     saveCanvas("myPicture", "jpg");
   });
+
   // I added this below
   // Event handler for the undo button
   select("#undoButton").mouseClicked(function () {
@@ -29,20 +29,56 @@ function HelperFunctions() {
   });
 }
 
+// Function to save the current canvas state
+function saveCanvasState() {
+  // Ensure we don't exceed memory by limiting the stack size
+  if (undoStack.length >= 20) {
+    undoStack.shift(); // Remove the oldest state
+  }
+
+  // Save the current canvas state
+  undoStack.push(get()); // 'get()' captures the current canvas
+}
+
 // Undo function
 function undo() {
   // Logic to undo the last action
-  // This will typically involve popping from the undo stack and redrawing the canvas
+  // Save the current state to the redo stack before undoing
+  redoStack.push(get()); // Adding the current canvas state to the redo stack before undoing
+  background(255, 255, 255);
+  loadPixels();
+  if (undoStack.length > 0) {
+    // Pop the last state from the undo stack
+    undoStack.pop();
+    let lastState = undoStack.pop(); // Popping twice to get the previous state
+
+    // Load the last state onto the canvas
+    image(lastState, 0, 0);
+  }
 }
 
 // Redo function
 function redo() {
   // Logic to redo the previously undone action
-  // This will typically involve popping from the redo stack and redrawing the canvas
+  if (redoStack.length > 0) {
+    // Pop the last state from the redo stack
+    let redoState = redoStack.pop();
+
+    // Save the current state to the undo stack before redoing
+    undoStack.push(get());
+
+    // Load the redo state onto the canvas
+    image(redoState, 0, 0);
+  }
 }
 
 // Function to check if the mouse is within the canvas bounds
 function mousePressOnCanvas() {
   return mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height;
 }
+
+function mouseReleased() {
+  saveCanvasState();
+}
+
 // End of added code

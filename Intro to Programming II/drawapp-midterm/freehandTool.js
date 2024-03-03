@@ -9,10 +9,12 @@ function FreehandTool(){
 	//we haven't started drawing yet.
 	var previousMouseX = -1;
 	var previousMouseY = -1;
+	var drawing = false;
 
 	this.draw = function(){
 		//if the mouse is pressed
 		if(mouseIsPressed){
+			drawing = true;
 			//check if they previousX and Y are -1. set them to the current
 			//mouse X and Y if they are.
 			if (previousMouseX == -1){
@@ -33,6 +35,11 @@ function FreehandTool(){
 		else{
 			previousMouseX = -1;
 			previousMouseY = -1;
+			drawing = false;
+		}
+		if (drawing){
+			saveCanvasState();
+			loadPixels();
 		}
 	};
 }
