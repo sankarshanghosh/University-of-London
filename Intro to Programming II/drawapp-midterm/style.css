@@ -42,6 +42,7 @@ html, body {
 .options{
 	grid-area: options;
 	padding: 15px;
+	font-family: Helvetica, sans-serif;
 }
 
 .colourSwatches{

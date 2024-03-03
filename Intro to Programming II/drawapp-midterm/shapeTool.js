@@ -1,21 +1,49 @@
 // I adapted and added this code
-function shapeTool() {
+function shapeTool(colourPalette) {
   this.name = "shapeTool";
   this.icon = "assets/shape.jpg";
 
   var editMode = false;
   var currentShape = [];
+  var fillColor; //Variable to store the selected fill color
 
   noFill();
   loadPixels();
 
+  // Separate function to handle filling the shape
+  function fillShape() {
+    if (fillColor) {
+      fill(fillColor);
+    } else {
+      noFill();
+    }
+    this.draw();
+    beginShape();
+    for (var i = 0; i < currentShape.length; i++) {
+      vertex(currentShape[i].x, currentShape[i].y);
+    }
+    endShape(); // close the shape to fill it
+    loadPixels();
+  }
+
   // Method to create options for the shape tool
-  this.populateOptions = function() {
-    // Create the "Edit Shape" button
-    var buttonHTML = "<button id='editShapeButton'>Edit Shape</button>";
-    // Create the "Finish Shape" button
-    buttonHTML += "<button id='finishShapeButton' style='margin-left: 5px;'>Finish Shape</button>";
-    select('.options').html(buttonHTML);
+  this.populateOptions = function () {
+    // HTML for the buttons and color picker in the options area
+    var buttonHTML =
+      "<div id='buttonContainer' style='margin-bottom: 8px;'>" +
+      "<button id='editShapeButton'>Edit Shape</button>" +
+      "<button id='finishShapeButton' style='margin-left: 5px;'>Finish Shape</button>" +
+      "</div>";
+
+    // HTML for the color picker
+    var colorPickerHTML =
+      "<div id='colorPickerContainer'>" +
+      "<label for='fillColorPicker' style='display:block;'>Fill Color:</label>" +
+      "<input type='color' id='fillColorPicker' value='#ff0000'>" +
+      "</div>";
+
+    // Combine the HTML for the buttons and color picker
+    select(".options").html(buttonHTML + colorPickerHTML);
 
     // Event handler for "Edit Shape" button
     select("#editShapeButton").mousePressed(() => {
@@ -24,28 +52,31 @@ function shapeTool() {
       select("#editShapeButton").html(btnText);
     });
 
+    // Event handler to update fillColor when a new color is picked
+    select("#fillColorPicker").input(function () {
+      fillColor = this.elt.value;
+    });
+
     // Event handler for "Finish Shape" button
     select("#finishShapeButton").mousePressed(() => {
       editMode = false;
-      // Finalize the shape
-      this.draw();
-      loadPixels();
+      fillShape(); // Calling a separate function to handle filling the shape
       currentShape = []; // Reset the current shape
-      select('.options').html(""); // Clear options
+      select(".options").html(""); // Clear options
     });
   };
 
   // Method to handle the deselection of the shape tool
-  this.unselectTool = function() {
+  this.unselectTool = function () {
     // Clear the options area when another tool is selected
-    select('.options').html("");
+    select(".options").html("");
     updatePixels();
     currentShape = []; // Reset the current shape
     editMode = false; // Reset edit mode
   };
 
   // The draw method for the shape tool
-  this.draw = function() {
+  this.draw = function () {
     updatePixels();
     if (mouseIsPressed && mousePressOnCanvas()) {
       if (!editMode) {
@@ -68,7 +99,7 @@ function shapeTool() {
       vertex(currentShape[i].x, currentShape[i].y);
       if (editMode) {
         // Highlight the vertex if in edit mode
-        fill('red');
+        fill("red");
         ellipse(currentShape[i].x, currentShape[i].y, 10);
         noFill();
       }
