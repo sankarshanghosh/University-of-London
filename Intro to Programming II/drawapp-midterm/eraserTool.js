@@ -1,35 +1,24 @@
 function eraserTool() {
   this.name = "eraserTool";
-  this.icon = "assets/eraser.jpg"; // Ensure you have an eraser icon in your assets directory
+  this.icon = "assets/eraser.jpg";
 
   var eraserSize = 10; // Default eraser size
 
+  // Method to handle drawing with the eraser tool
   this.draw = function () {
-    // No fill is needed as we are erasing
-    noFill();
-
-    // If the mouse is pressed and within the canvas
     if (mouseIsPressed && mousePressOnCanvas()) {
-      // Loop over a square of pixels centered at the mouse position
-      loadPixels();
-      for (let x = mouseX - eraserSize; x < mouseX + eraserSize; x++) {
-        for (let y = mouseY - eraserSize; y < mouseY + eraserSize; y++) {
-          // Calculate the index for the pixels array from x and y
-          let index = (x + y * width) * 4;
-          // Set the alpha value of this pixel to fully transparent
-          pixels[index + 3] = 0;
-        }
-      }
-      updatePixels();
+      stroke(255); // Set stroke color to white for the eraser
+      strokeWeight(eraserSize); // Set the thickness of the eraser line
+      line(mouseX, mouseY, pmouseX, pmouseY); // Draw a line from the previous mouse position to the current position
     }
   };
 
   // Function to populate the options for the eraser tool
   this.populateOptions = function () {
-    // HTML for eraser size slider
+    // Create a slider for the eraser size
     var sliderHTML =
       "<label for='eraserSizeSlider'>Eraser Size:</label>" +
-      "<input type='range' id='eraserSizeSlider' min='5' max='50' value='" +
+      "<input type='range' id='eraserSizeSlider' min='5' max='100' value='" +
       eraserSize +
       "' class='slider'>";
     select(".options").html(sliderHTML);
@@ -44,9 +33,4 @@ function eraserTool() {
   this.unselectTool = function () {
     select(".options").html(""); // Clear options
   };
-}
-
-// Helper function to check if the mouse is within the canvas
-function mousePressOnCanvas() {
-  return mouseX > 0 && mouseX < width && mouseY > 0 && mouseY < height;
 }

@@ -29,7 +29,6 @@ function setup() {
 	toolbox.addTool(new eraserTool());
 	toolbox.addTool(new textTool());
 	// End of added code
-	background(255);
 
 }
 

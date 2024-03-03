@@ -42,7 +42,7 @@ function shapeTool(colourPalette) {
       "<input type='color' id='fillColorPicker' value='#ff0000'>" +
       "</div>";
 
-    // Combine the HTML for the buttons and color picker
+    // Combined the HTML for the buttons and color picker
     select(".options").html(buttonHTML + colorPickerHTML);
 
     // Event handler for "Edit Shape" button
