@@ -42,6 +42,4 @@ function LineToTool(){
 			startMouseY = -1;
 		}
 	};
-
-
 }
