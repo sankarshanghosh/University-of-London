@@ -26,6 +26,8 @@ function setup() {
 	// I have added this code
 	toolbox.addTool(new shapeTool());
 	toolbox.addTool(new stampTool());
+	toolbox.addTool(new eraserTool());
+	toolbox.addTool(new textTool());
 	// End of added code
 	background(255);
 
