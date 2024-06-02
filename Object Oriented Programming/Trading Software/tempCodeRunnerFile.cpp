@@ -1,0 +1,1 @@
+    cout << "You entered: " << userOption << endl; // Debugging output
