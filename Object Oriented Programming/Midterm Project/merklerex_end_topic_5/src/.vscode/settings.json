@@ -105,6 +105,9 @@
         "__memory": "cpp",
         "filesystem": "cpp",
         "stack": "cpp",
-        "__tree": "cpp"
+        "__tree": "cpp",
+        "__verbose_abort": "cpp",
+        "charconv": "cpp",
+        "variant": "cpp"
     }
 }
