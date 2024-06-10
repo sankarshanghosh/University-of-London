@@ -6,6 +6,20 @@
 #include <string>
 #include <iomanip>
 #include <stdexcept>
+#include <limits>
+#include <numeric>
+
+class Candlestick {
+public:
+    std::string date;
+    float open;
+    float high;
+    float low;
+    float close;
+
+    Candlestick(const std::string& d, float o, float h, float l, float c)
+        : date(d), open(o), high(h), low(l), close(c) {}
+};
 
 std::map<std::string, std::map<std::string, std::vector<float> > > extractTemperatures(const std::string& filePath) {
     std::ifstream file(filePath);
@@ -55,22 +69,42 @@ std::map<std::string, std::map<std::string, std::vector<float> > > extractTemper
     return temperatures;
 }
 
-void outputTemperaturesToFile(const std::map<std::string, std::map<std::string, std::vector<float> > >& temperatures, const std::string& outputPath) {
+float computeAverage(const std::vector<float>& temperatures) {
+    return std::accumulate(temperatures.begin(), temperatures.end(), 0.0f) / temperatures.size();
+}
+
+Candlestick computeYearlyCandlestick(const std::vector<float>& temperatures, const std::vector<float>& previousYearTemperatures, const std::string& year) {
+    float open;
+    if (!previousYearTemperatures.empty()) {
+        open = computeAverage(previousYearTemperatures);
+    } else {
+        open = temperatures.front(); // For the first year, use the first temperature
+    }
+    float close = computeAverage(temperatures);
+    float high = *std::max_element(temperatures.begin(), temperatures.end());
+    float low = *std::min_element(temperatures.begin(), temperatures.end());
+    return Candlestick(year, open, high, low, close);
+}
+
+void outputCandlesticksToFile(const std::map<std::string, std::map<std::string, std::vector<float> > >& temperatures, const std::string& outputPath) {
     std::ofstream outFile(outputPath);
     if (!outFile.is_open()) {
         throw std::runtime_error("Failed to open file: " + outputPath);
     }
 
+    std::map<std::string, std::map<std::string, std::vector<float> > >::const_iterator previousYearIter = temperatures.end();
     for (std::map<std::string, std::map<std::string, std::vector<float> > >::const_iterator yearIter = temperatures.begin(); yearIter != temperatures.end(); ++yearIter) {
         outFile << "Year: " << yearIter->first << std::endl;
         for (std::map<std::string, std::vector<float> >::const_iterator countryIter = yearIter->second.begin(); countryIter != yearIter->second.end(); ++countryIter) {
-            outFile << "  Country: " << countryIter->first << std::endl;
-            outFile << "    Temperatures: ";
-            for (std::vector<float>::const_iterator tempIter = countryIter->second.begin(); tempIter != countryIter->second.end(); ++tempIter) {
-                outFile << *tempIter << " ";
+            std::vector<float> previousYearTemperatures;
+            if (previousYearIter != temperatures.end()) {
+                previousYearTemperatures = previousYearIter->second.at(countryIter->first);
             }
-            outFile << std::endl;
+            Candlestick cs = computeYearlyCandlestick(countryIter->second, previousYearTemperatures, yearIter->first);
+            outFile << "  Country: " << countryIter->first << std::endl;
+            outFile << "    Open: " << cs.open << ", High: " << cs.high << ", Low: " << cs.low << ", Close: " << cs.close << std::endl;
         }
+        previousYearIter = yearIter;
         outFile << std::endl;
     }
 
@@ -78,12 +112,12 @@ void outputTemperaturesToFile(const std::map<std::string, std::map<std::string, 
 }
 
 int main() {
-    std::string filePath = "weather_data_EU_1980-2019_temp_only.csv";
-    std::string outputPath = "temperatures_output.txt";
+    std::string filePath = "simpleData.csv";
+    std::string outputPath = "candlesticks_output.txt";
     try {
         std::map<std::string, std::map<std::string, std::vector<float> > > temperatures = extractTemperatures(filePath);
-        outputTemperaturesToFile(temperatures, outputPath);
-        std::cout << "Temperature data has been successfully written to " << outputPath << std::endl;
+        outputCandlesticksToFile(temperatures, outputPath);
+        std::cout << "Candlestick data has been successfully written to " << outputPath << std::endl;
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }
