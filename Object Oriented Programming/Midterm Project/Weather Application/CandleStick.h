@@ -3,6 +3,7 @@
 #include <string>
 #include <numeric>
 #include <map>
+#include "WeatherApp.h"
 
 class Candlestick
 {
