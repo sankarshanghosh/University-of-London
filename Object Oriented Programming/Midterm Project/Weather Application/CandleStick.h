@@ -5,12 +5,15 @@
 class Candlestick
 {
 public:
-    std::string date; // The year or specific date string
-    double open;      // Average temperature at the start of the period
-    double high;      // Highest temperature in the period
-    double low;       // Lowest temperature in the period
-    double close;     // Average temperature at the end of the period
+    std::string date;
+    float open;
+    float high;
+    float low;
+    float close;
 
-    Candlestick(std::string d, double o, double h, double l, double c)
-        : date(d), open(o), high(h), low(l), close(c) {}
-};
+    Candlestick(const std::string &d, float o, float h, float l, float c);
+
+    static float computeAverage(const std::vector<float> &temperatures);
+
+    static Candlestick computeYearlyCandlestick(const std::vector<float> &temperatures, const std::vector<float> &previousYearTemperatures, const std::string &year);
+};;
