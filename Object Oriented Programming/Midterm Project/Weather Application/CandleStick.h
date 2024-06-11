@@ -1,6 +1,8 @@
 #pragma once
 
 #include <string>
+#include <numeric>
+#include <map>
 
 class Candlestick
 {
@@ -16,4 +18,6 @@ public:
     static float computeAverage(const std::vector<float> &temperatures);
 
     static Candlestick computeYearlyCandlestick(const std::vector<float> &temperatures, const std::vector<float> &previousYearTemperatures, const std::string &year);
+
+    static std::vector<Candlestick> getCandlesticksForCountry(const std::string &country, const std::map<std::string, std::map<std::string, std::vector<float> > > &temperatures);
 };

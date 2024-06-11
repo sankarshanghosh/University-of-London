@@ -1,15 +1,10 @@
-#include <iostream>
+#include "CSVReader.h"
 #include <fstream>
 #include <sstream>
-#include <map>
-#include <vector>
-#include <string>
-#include <iomanip>
+#include <iostream>
 #include <stdexcept>
-#include <limits>
-#include <numeric>
 
-std::map<std::string, std::map<std::string, std::vector<float> > > extractTemperatures(const std::string &filePath)
+std::map<std::string, std::map<std::string, std::vector<float>>> extractTemperatures(const std::string &filePath)
 {
     std::ifstream file(filePath);
     if (!file.is_open())
@@ -18,7 +13,7 @@ std::map<std::string, std::map<std::string, std::vector<float> > > extractTemper
     }
 
     std::string line;
-    std::map<std::string, std::map<std::string, std::vector<float> > > temperatures;
+    std::map<std::string, std::map<std::string, std::vector<float>>> temperatures;
 
     // Read the header to get country codes
     std::getline(file, line);

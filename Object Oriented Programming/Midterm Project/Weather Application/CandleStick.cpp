@@ -1,6 +1,5 @@
 #include "CandleStick.h"
-#include <numeric>
-#include <map>
+
 
 Candlestick::Candlestick(const std::string &d, float o, float h, float l, float c)
     : date(d), open(o), high(h), low(l), close(c) {}
@@ -27,7 +26,7 @@ Candlestick Candlestick::computeYearlyCandlestick(const std::vector<float> &temp
     return Candlestick(year, open, high, low, close);
 }
 
-std::vector<Candlestick> getCandlesticksForCountry(const std::string &country, const std::map<std::string, std::map<std::string, std::vector<float> > > &temperatures)
+std::vector<Candlestick> Candlestick::getCandlesticksForCountry(const std::string &country, const std::map<std::string, std::map<std::string, std::vector<float> > > &temperatures)
 {
     std::vector<Candlestick> candlesticks;
 
