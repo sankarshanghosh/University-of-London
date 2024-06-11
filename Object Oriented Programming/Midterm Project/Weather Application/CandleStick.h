@@ -16,4 +16,4 @@ public:
     static float computeAverage(const std::vector<float> &temperatures);
 
     static Candlestick computeYearlyCandlestick(const std::vector<float> &temperatures, const std::vector<float> &previousYearTemperatures, const std::string &year);
-};;
+};

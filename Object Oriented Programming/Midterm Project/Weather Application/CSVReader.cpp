@@ -9,10 +9,11 @@
 #include <limits>
 #include <numeric>
 
-
-std::map<std::string, std::map<std::string, std::vector<float> > > extractTemperatures(const std::string& filePath) {
+std::map<std::string, std::map<std::string, std::vector<float> > > extractTemperatures(const std::string &filePath)
+{
     std::ifstream file(filePath);
-    if (!file.is_open()) {
+    if (!file.is_open())
+    {
         throw std::runtime_error("Failed to open file: " + filePath);
     }
 
@@ -26,12 +27,14 @@ std::map<std::string, std::map<std::string, std::vector<float> > > extractTemper
     std::string token;
     // Skip the timestamp column
     std::getline(headerStream, token, ',');
-    while (std::getline(headerStream, token, ',')) {
+    while (std::getline(headerStream, token, ','))
+    {
         countryCodes.push_back(token);
     }
 
     // Read the rest of the data
-    while (std::getline(file, line)) {
+    while (std::getline(file, line))
+    {
         std::istringstream ss(line);
         std::string year = line.substr(0, 4); // Assume date format is "YYYY-MM-DDTHH:MM:SSZ"
         std::string temperature;
@@ -39,16 +42,22 @@ std::map<std::string, std::map<std::string, std::vector<float> > > extractTemper
         std::getline(ss, temperature, ',');
 
         int index = 0;
-        while (std::getline(ss, temperature, ',')) {
-            if (!temperature.empty()) {
-                try {
+        while (std::getline(ss, temperature, ','))
+        {
+            if (!temperature.empty())
+            {
+                try
+                {
                     float tempValue = std::stof(temperature);
                     temperatures[year][countryCodes[index]].push_back(tempValue);
-                } catch (const std::exception& e) {
+                }
+                catch (const std::exception &e)
+                {
                     std::cerr << "Failed to convert temperature: " << temperature << " for country " << countryCodes[index] << std::endl;
                 }
             }
-            if (index < static_cast<int>(countryCodes.size() - 1)) {
+            if (index < static_cast<int>(countryCodes.size() - 1))
+            {
                 index++;
             }
         }
@@ -56,11 +65,4 @@ std::map<std::string, std::map<std::string, std::vector<float> > > extractTemper
 
     file.close();
     return temperatures;
-}
-
-int main() {
-    std::string filePath = "simpleData.csv";
-    std::string outputPath = "candlesticks_output.txt";
-
-    return 0;
 }
