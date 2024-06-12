@@ -42,6 +42,7 @@ void displayCandlestickPlot(const std::vector<Candlestick> &candlesticks)
     }
 }
 
+// Select a country and display the candlestick plot for the selected country
 void plotCandlestickData(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures, const std::string &startYear, const std::string &endYear)
 {
     std::vector<std::string> countryCodes;

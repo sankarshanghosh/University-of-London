@@ -4,6 +4,7 @@
 #include "CandleStick.h"
 #include "PrintCandleStickVector.h"
 
+// Function to print the candlestick vector for a selected country
 void printCandlestickVector(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures)
 {
     // Extract country codes from the map (assuming they are keys in the submap of the first year)

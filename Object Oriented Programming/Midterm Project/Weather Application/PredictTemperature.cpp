@@ -3,6 +3,7 @@
 #include <vector>
 #include <numeric>
 
+// Function to predict the average temperature for the next year
 void predictTemperature(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures)
 {
     if (temperatures.empty())

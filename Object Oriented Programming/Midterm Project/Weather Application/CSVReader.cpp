@@ -4,6 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 
+// Function to extract temperatures from the CSV file
 std::map<std::string, std::map<std::string, std::vector<float> > > extractTemperatures(const std::string &filePath)
 {
     std::ifstream file(filePath);

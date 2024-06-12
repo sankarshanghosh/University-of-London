@@ -1,6 +1,7 @@
 #include "CandleStick.h"
 #include <algorithm>
 
+// Constructor to initialize the Candlestick object
 Candlestick::Candlestick(const std::string &d, float o, float h, float l, float c)
     : date(d), open(o), high(h), low(l), close(c) {}
 
@@ -9,6 +10,7 @@ float Candlestick::computeAverage(const std::vector<float> &temperatures)
     return std::accumulate(temperatures.begin(), temperatures.end(), 0.0f) / temperatures.size();
 }
 
+// Function to compute the yearly candlestick data
 Candlestick Candlestick::computeYearlyCandlestick(const std::vector<float> &temperatures, const std::vector<float> &previousYearTemperatures, const std::string &year)
 {
     float open;
@@ -26,6 +28,7 @@ Candlestick Candlestick::computeYearlyCandlestick(const std::vector<float> &temp
     return Candlestick(year, open, high, low, close);
 }
 
+// Function to display the candlestick plot for a given country
 std::vector<Candlestick> Candlestick::getCandlesticksForCountry(const std::string &country, const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures)
 {
     std::vector<Candlestick> candlesticks;
@@ -55,6 +58,7 @@ std::vector<Candlestick> Candlestick::getCandlesticksForCountry(const std::strin
     return candlesticks;
 }
 
+// Function to display the candlestick plot for a given country and year range
 std::vector<Candlestick> Candlestick::getCandlesticksForCountry(const std::string &country, const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures, const std::string &startYear, const std::string &endYear)
 {
     std::vector<Candlestick> candlesticks;
