@@ -7,4 +7,4 @@
 #include <vector>
 #include <map>
 
-void plotCandlestickData(const std::map<std::string, std::map<std::string, std::vector<float> > > &temperatures);
+void plotCandlestickData(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures, const std::string &startYear = "", const std::string &endYear = "");

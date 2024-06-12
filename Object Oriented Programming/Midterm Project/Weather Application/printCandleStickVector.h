@@ -7,4 +7,4 @@
 #include <vector>
 #include <map>
 
-void printCandlestickVector(const std::map<std::string, std::map<std::string, std::vector<float> > > &temperatures);
+void printCandlestickVector(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures);

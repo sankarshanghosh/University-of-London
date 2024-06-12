@@ -13,10 +13,9 @@ void displayCandlestickPlot(const std::vector<Candlestick> &candlesticks)
     {
         std::cout << "Year: " << candle.date << "\n";
         std::cout << "     High: |" << "\n";
-        float range = candle.high - candle.low; // Calculate the temperature range
-        int steps = 10;                         // You can adjust the granularity of the plot
+        float range = candle.high - candle.low;
+        int steps = 10;
 
-        // Calculate positions for open and close within the range
         int openPos = static_cast<int>((candle.open - candle.low) / range * steps);
         int closePos = static_cast<int>((candle.close - candle.low) / range * steps);
 
@@ -43,21 +42,18 @@ void displayCandlestickPlot(const std::vector<Candlestick> &candlesticks)
     }
 }
 
-void plotCandlestickData(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures)
+void plotCandlestickData(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures, const std::string &startYear, const std::string &endYear)
 {
-
-    // Extract country codes from the map (assuming they are keys in the submap of the first year)
     std::vector<std::string> countryCodes;
     if (!temperatures.empty())
     {
-        auto firstYear = temperatures.begin()->second; // Accessing temperatures of the first year
+        auto firstYear = temperatures.begin()->second;
         for (const auto &entry : firstYear)
         {
-            countryCodes.push_back(entry.first); // Push country code
+            countryCodes.push_back(entry.first);
         }
     }
 
-    // Display available countries and map them to integers
     std::cout << "Select a country by entering the corresponding number:\n";
     for (size_t i = 0; i < countryCodes.size(); ++i)
     {
@@ -69,11 +65,13 @@ void plotCandlestickData(const std::map<std::string, std::map<std::string, std::
     if (choice < 1 || choice > countryCodes.size())
     {
         std::cerr << "Invalid choice!" << std::endl;
+        return;
     }
 
-    std::string countryCode = countryCodes[choice - 1]; // Get the selected country code and offset by 1 for 0-based indexing
+    std::string countryCode = countryCodes[choice - 1];
 
-    std::vector<Candlestick> candlesticks = Candlestick::getCandlesticksForCountry(countryCode, temperatures);
+    std::vector<Candlestick> candlesticks;
+    candlesticks = Candlestick::getCandlesticksForCountry(countryCode, temperatures, startYear, endYear);
 
     std::cout << "Candlestick data for " << countryCode << ":\n";
     displayCandlestickPlot(candlesticks);

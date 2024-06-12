@@ -4,7 +4,7 @@
 #include <iostream>
 #include <stdexcept>
 
-std::map<std::string, std::map<std::string, std::vector<float> > > extractTemperatures(const std::string &filePath)
+std::map<std::string, std::map<std::string, std::vector<float>>> extractTemperatures(const std::string &filePath)
 {
     std::ifstream file(filePath);
     if (!file.is_open())
@@ -13,7 +13,7 @@ std::map<std::string, std::map<std::string, std::vector<float> > > extractTemper
     }
 
     std::string line;
-    std::map<std::string, std::map<std::string, std::vector<float> > > temperatures;
+    std::map<std::string, std::map<std::string, std::vector<float>>> temperatures;
 
     // Read the header to get country codes
     std::getline(file, line);
@@ -31,7 +31,7 @@ std::map<std::string, std::map<std::string, std::vector<float> > > extractTemper
     while (std::getline(file, line))
     {
         std::istringstream ss(line);
-        std::string year = line.substr(0, 4); // Assume date format is "YYYY-MM-DDTHH:MM:SSZ"
+        std::string year = line.substr(0, 4);
         std::string temperature;
         // Skip the timestamp token
         std::getline(ss, temperature, ',');

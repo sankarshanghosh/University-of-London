@@ -1,6 +1,7 @@
 #include "WeatherApp.h"
 
-int main() {
+int main()
+{
     WeatherApp app;
     app.run();
     return 0;
