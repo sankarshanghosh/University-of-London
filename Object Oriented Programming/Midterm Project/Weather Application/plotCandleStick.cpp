@@ -4,7 +4,7 @@
 #include <map>
 #include "CandleStick.h"
 #include "CSVReader.h"
-#include "plotCandleStick.h"
+#include "PlotCandleStick.h"
 
 // Function to display the candlestick plot for a given country
 void displayCandlestickPlot(const std::vector<Candlestick> &candlesticks)

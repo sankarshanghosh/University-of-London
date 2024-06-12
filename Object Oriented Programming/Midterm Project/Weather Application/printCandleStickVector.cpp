@@ -2,7 +2,7 @@
 #include <vector>
 #include <string>
 #include "CandleStick.h"
-#include "printCandleStickVector.h"
+#include "PrintCandleStickVector.h"
 
 void printCandlestickVector(const std::map<std::string, std::map<std::string, std::vector<float>>> &temperatures)
 {
