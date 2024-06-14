@@ -9,4 +9,15 @@ module.exports = function (app) {
   app.get("/search", function (req, res) {
     res.render("search.html");
   });
+  app.get("/search-result", function (req, res) {
+    //searching in the database
+    res.send(req.query);
+  });
+  app.get("/register", function (req, res) {
+    res.render("register.html");
+  });
+  app.post("/registered", function (req, res) {
+    // saving data in database
+    res.send("Hello "+ req.body.first + " "+ req.body.last +", you are now registered!");
+  });
 };
