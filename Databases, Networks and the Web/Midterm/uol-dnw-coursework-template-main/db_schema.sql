@@ -1,34 +1,46 @@
-
--- This makes sure that foreign_key constraints are observed and that errors will be thrown for violations
+-- This ensures that foreign_key constraints are observed and errors will be thrown for violations
 PRAGMA foreign_keys=ON;
 
 BEGIN TRANSACTION;
 
--- Create your tables with SQL commands here (watch out for slight syntactical differences with SQLite vs MySQL)
-
-CREATE TABLE IF NOT EXISTS users (
-    user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_name TEXT NOT NULL
+-- Create the Articles table
+CREATE TABLE IF NOT EXISTS Articles (
+    article_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    title TEXT NOT NULL,
+    subtitle TEXT,
+    body TEXT NOT NULL,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    last_modified_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    published_at DATETIME
 );
 
-CREATE TABLE IF NOT EXISTS email_accounts (
-    email_account_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    email_address TEXT NOT NULL,
-    user_id  INT, --the user that the email account belongs to
-    FOREIGN KEY (user_id) REFERENCES users(user_id)
+-- Create the Comments table
+CREATE TABLE IF NOT EXISTS Comments (
+    comment_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    article_id INTEGER,
+    comment_text TEXT NOT NULL,
+    posted_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    commenter_name TEXT,
+    FOREIGN KEY (article_id) REFERENCES Articles(article_id) ON DELETE CASCADE
 );
 
--- Insert default data (if necessary here)
+-- Create the Reactions table
+CREATE TABLE IF NOT EXISTS Reactions (
+    reaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    article_id INTEGER,
+    reaction_type TEXT NOT NULL,
+    FOREIGN KEY (article_id) REFERENCES Articles(article_id) ON DELETE CASCADE
+);
 
--- Set up three users
-INSERT INTO users ('user_name') VALUES ('Simon Star');
-INSERT INTO users ('user_name') VALUES ('Dianne Dean');
-INSERT INTO users ('user_name') VALUES ('Harry Hilbert');
+-- Create the BlogSettings table
+CREATE TABLE IF NOT EXISTS BlogSettings (
+    setting_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    blog_title TEXT NOT NULL,
+    blog_subtitle TEXT,
+    author_name TEXT NOT NULL
+);
 
--- Give Simon two email addresses and Diane one, but Harry has none
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@gmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('simon@hotmail.com', 1); 
-INSERT INTO email_accounts ('email_address', 'user_id') VALUES ('dianne@yahoo.co.uk', 2); 
+-- Insert default blog settings
+INSERT INTO BlogSettings (blog_title, blog_subtitle, author_name) VALUES ('Adventures In Code', 'Explorations in Programming', 'Sankarshan Ghosh');
 
 COMMIT;
-
