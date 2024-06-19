@@ -187,40 +187,6 @@ router.post("/post-comment", (req, res) => {
   );
 });
 
-/**
- * @desc Article page - shows a single article and its comments and reactions
- */
-router.get("/article/:id", (req, res) => {
-  const articleQuery = "SELECT * FROM Articles WHERE article_id = ?";
-  const commentsQuery = "SELECT * FROM Comments WHERE article_id = ?";
-  const reactionsQuery =
-    "SELECT reaction_type, COUNT(*) as count FROM Reactions WHERE article_id = ? GROUP BY reaction_type";
-
-  global.db.get(articleQuery, [req.params.id], (err, article) => {
-    if (err) {
-      res.status(500).send("Error accessing article");
-    } else {
-      global.db.all(commentsQuery, [req.params.id], (err, comments) => {
-        if (err) {
-          res.status(500).send("Error accessing comments");
-        } else {
-          global.db.all(reactionsQuery, [req.params.id], (err, reactions) => {
-            if (err) {
-              res.status(500).send("Error accessing reactions");
-            } else {
-              res.render("article", {
-                // Assuming your article page EJS template is named 'article'
-                article: article,
-                comments: comments,
-                reactions: reactions,
-              });
-            }
-          });
-        }
-      });
-    }
-  });
-});
 
 router.post("/save-article", (req, res) => {
   const { articleTitle, articleSubtitle, articleText } = req.body;
