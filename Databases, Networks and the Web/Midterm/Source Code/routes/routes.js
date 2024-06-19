@@ -1,12 +1,9 @@
 const express = require("express");
 const router = express.Router();
 
-/**
- * @desc Home page - lists all published articles or a simple welcome message
- */
+// Home page route
 router.get("/", (req, res) => {
-  // For now, just render a static home page; later, you can add logic to list articles, etc.
-  res.render("index"); // Make sure you have 'index.ejs' in your views directory
+  res.render("index");
 });
 
 // Author home page route
@@ -35,7 +32,7 @@ router.get("/author-home", (req, res) => {
           .status(500)
           .send("Error fetching published articles: " + err.message);
       }
-      // Similarly, convert for published
+
       published = published.map((article) => ({
         ...article,
         published_at: new Date(article.published_at),
@@ -52,7 +49,7 @@ router.get("/author-home", (req, res) => {
 
 // Author settings page route
 router.get("/author-settings", (req, res) => {
-  // Assuming there's only one settings row, hence fetching directly without a WHERE clause
+
   const query = "SELECT * FROM BlogSettings ORDER BY setting_id DESC LIMIT 1";
 
   global.db.get(query, (err, settings) => {
@@ -66,7 +63,7 @@ router.get("/author-settings", (req, res) => {
 
 router.post("/update-settings", (req, res) => {
   const { blogTitle, blogSubtitle, authorName } = req.body;
-  // Update the first row only since this is a singular settings instance
+
   const updateQuery =
     "UPDATE BlogSettings SET blog_title = ?, blog_subtitle = ?, author_name = ? WHERE setting_id = (SELECT setting_id FROM BlogSettings ORDER BY setting_id ASC LIMIT 1)";
 
@@ -111,7 +108,7 @@ router.get("/reader-home", (req, res) => {
       // Convert date strings to Date objects
       const articlesWithDates = articles.map((article) => ({
         ...article,
-        published_at: new Date(article.published_at), // Convert the date string to a Date object
+        published_at: new Date(article.published_at), 
       }));
       res.render("reader-home", { articles: articlesWithDates });
     }
@@ -176,7 +173,7 @@ router.post("/post-comment", (req, res) => {
     function (err) {
       if (err) {
         console.error("Error posting comment:", err);
-        // Optionally, pass error message to the article page to display to the user
+
         res.redirect(
           `/reader-article/${articleId}?error=Unable to post comment`
         );
@@ -190,7 +187,7 @@ router.post("/post-comment", (req, res) => {
 
 router.post("/save-article", (req, res) => {
   const { articleTitle, articleSubtitle, articleText } = req.body;
-  const isNewArticle = !req.body.articleId; // Assume we have an articleId field to determine if it's new
+  const isNewArticle = !req.body.articleId;
 
   if (isNewArticle) {
     // Insert new article into the database

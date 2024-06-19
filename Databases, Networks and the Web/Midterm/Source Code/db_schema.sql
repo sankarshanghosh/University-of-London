@@ -1,4 +1,3 @@
--- This ensures that foreign_key constraints are observed and errors will be thrown for violations
 PRAGMA foreign_keys=ON;
 
 BEGIN TRANSACTION;

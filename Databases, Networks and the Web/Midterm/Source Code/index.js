@@ -39,11 +39,10 @@ function fetchBlogSettings(req, res, next) {
     });
 }
 
-// Use fetchBlogSettings middleware before the route handlers
 app.use(fetchBlogSettings);
 
 // Routes setup
-const routes = require('./routes/routes'); // Make sure the path matches your file system
+const routes = require('./routes/routes');
 app.use('/', routes);
 
 // Start the server
