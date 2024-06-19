@@ -4,27 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reader Home Page</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
     <header>
-        <h1>Adventures In Code</h1>
-        <h2>Explorations in Programming</h2>
-        <p>by Simon Katan</p>
+        <h1><%= settings.blog_title %></h1>
+        <h2><%= settings.blog_subtitle %></h2>
+        <p>by <%= settings.author_name %></p>
     </header>
     <h2 class="page-title">Reader: Home Page</h2>
     <section>
         <h2>Articles</h2>
         <ul>
-            <!-- Example of a list item -->
-            <li>
-                <a href="/reader-article">
-                    <h3>Getting Started</h3>
-                    <p>Subtitle: A daunting task</p>
-                    <p>Published: 2022-11-10</p>
-                </a>
-            </li>
-            <!-- Additional articles would be dynamically populated here -->
+            <% articles.forEach(function(article) { %>
+                <li>
+                    <a href="/reader-article/<%= article.article_id %>">
+                        <h3><%= article.title %></h3>
+                    </a>
+                    <div class="no-underline">
+                        <p>Subtitle: <%= article.subtitle %></p>
+                        <p>Published: <%= article.published_at.toLocaleString() %></p>
+                    </div>
+                                     
+                </li>
+            <% }); %>
         </ul>
     </section>
     <footer>

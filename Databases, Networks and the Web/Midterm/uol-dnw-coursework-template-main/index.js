@@ -25,6 +25,23 @@ global.db = new sqlite3.Database('./database.db', (err) => {
     }
 });
 
+// Define fetchBlogSettings middleware
+function fetchBlogSettings(req, res, next) {
+    const query = "SELECT * FROM BlogSettings ORDER BY setting_id DESC LIMIT 1";
+    global.db.get(query, (err, settings) => {
+        if (err) {
+            console.error("Failed to fetch blog settings:", err);
+            next(err);  // Continue without settings
+        } else {
+            res.locals.settings = settings;
+            next();
+        }
+    });
+}
+
+// Use fetchBlogSettings middleware before the route handlers
+app.use(fetchBlogSettings);
+
 // Routes setup
 const routes = require('./routes/routes'); // Make sure the path matches your file system
 app.use('/', routes);

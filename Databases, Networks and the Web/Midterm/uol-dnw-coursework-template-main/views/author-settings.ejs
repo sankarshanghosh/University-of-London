@@ -4,25 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Author Settings</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/main.css">
 </head>
 <body>
     <header>
-        <h1>Settings</h1>
+        <h1><%= settings.blog_title %></h1>
+        <h2><%= settings.blog_subtitle %></h2>
+        <p>by <%= settings.author_name %></p>
     </header>
     <h2 class="page-title">Author: Settings Page</h2>
-    <form action="update-settings.php" method="POST">
+    <form action="/update-settings" method="POST">
         <div>
             <label for="blogTitle">Blog Title:</label>
-            <input type="text" id="blogTitle" name="blogTitle" value="Adventures In Code" required>
+            <input type="text" id="blogTitle" name="blogTitle" value="<%= settings.blog_title %>" required>
         </div>
         <div>
             <label for="blogSubtitle">Blog Subtitle:</label>
-            <input type="text" id="blogSubtitle" name="blogSubtitle" value="Explorations in Programming" required>
+            <input type="text" id="blogSubtitle" name="blogSubtitle" value="<%= settings.blog_subtitle %>" required>
         </div>
         <div>
             <label for="authorName">Author Name:</label>
-            <input type="text" id="authorName" name="authorName" value="Simon Katan" required>
+            <input type="text" id="authorName" name="authorName" value="<%= settings.author_name %>" required>
         </div>
         <button type="submit">Update Settings</button>
     </form>

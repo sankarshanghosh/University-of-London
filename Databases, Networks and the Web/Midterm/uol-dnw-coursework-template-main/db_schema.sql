@@ -25,10 +25,9 @@ CREATE TABLE IF NOT EXISTS Comments (
 );
 
 -- Create the Reactions table
-CREATE TABLE IF NOT EXISTS Reactions (
-    reaction_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    article_id INTEGER,
-    reaction_type TEXT NOT NULL,
+CREATE TABLE IF NOT EXISTS Likes (
+    like_id INTEGER PRIMARY KEY AUTOINCREMENT,
+    article_id INTEGER NOT NULL,
     FOREIGN KEY (article_id) REFERENCES Articles(article_id) ON DELETE CASCADE
 );
 
@@ -41,6 +40,6 @@ CREATE TABLE IF NOT EXISTS BlogSettings (
 );
 
 -- Insert default blog settings
-INSERT INTO BlogSettings (blog_title, blog_subtitle, author_name) VALUES ('Adventures In Code', 'Explorations in Programming', 'Sankarshan Ghosh');
+INSERT INTO BlogSettings (blog_title, blog_subtitle, author_name) VALUES ('Adventures In Code', 'Explorations in Programming', 'Sankarshan Ghosh    ');
 
 COMMIT;

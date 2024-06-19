@@ -1,16 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Author Home Page</title>
-    <link rel="stylesheet" href="main.css">
+    <link rel="stylesheet" href="/main.css">
+    <script>
+        function shareArticle(relativeUrl) {
+            const fullUrl = window.location.origin + relativeUrl;
+            copyToClipboard(fullUrl);
+            alert('URL copied to clipboard. You can share it manually.');
+        }
+
+        function copyToClipboard(text) {
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+        }
+    </script>
 </head>
+
 <body>
     <header>
-        <h1>Adventures In Code</h1>
-        <h2>Explorations in Programming</h2>
-        <p>by Simon Katan</p>
+        <h1><%= settings.blog_title %></h1>
+        <h2><%= settings.blog_subtitle %></h2>
+        <p>by <%= settings.author_name %></p>
     </header>
     <h2 class="page-title">Author: Home Page</h2>
     <nav>
@@ -20,34 +38,55 @@
         <h2>Draft Articles</h2>
         <button onclick="location.href='/edit-article';">Create New Draft</button>
         <ul>
-            <!-- Example of a list item -->
-            <li>
-                <h3>Getting Started</h3>
-                <p>Subtitle: A beginner's guide to coding</p>
-                <p>Created: 2022-11-10 | Last Modified: 2022-11-10</p>
-                <button>Edit</button>
-                <button>Publish</button>
-                <button>Delete</button>
-            </li>
-            <!-- List will be dynamically populated -->
+            <% drafts.forEach(function(draft) { %>
+                <li>
+                    <h3>
+                        <%= draft.title %>
+                    </h3>
+                    <p>Subtitle: <%= draft.subtitle %>
+                    </p>
+                    <p>Created: <%= draft.created_at.toLocaleString() %> | Last Modified: <%=
+                                draft.last_modified_at.toLocaleString() %>
+                    </p>
+                    <!-- Link to edit an existing draft -->
+                    <button onclick="location.href='/edit-article/<%= draft.article_id %>';">Edit</button>
+                    <form action="/publish-article" method="POST" style="display: inline;">
+                        <input type="hidden" name="articleId" value="<%= draft.article_id %>">
+                        <button type="submit">Publish</button>
+                    </form>
+                    <form action="/delete-article" method="POST" style="display: inline;">
+                        <input type="hidden" name="articleId" value="<%= draft.article_id %>">
+                        <button type="submit">Delete</button>
+                    </form>
+
+                </li>
+                <% }); %>
         </ul>
     </section>
     <section>
         <h2>Published Articles</h2>
         <ul>
-            <!-- Example of a list item -->
-            <li>
-                <h3><a href="/reader-article">Learning SQL</a></h3>
-                <p>Subtitle: Mastering database management</p>
-                <p>Published: 2022-11-10 | Reactions: 25 <span class="reactions-tooltip">Likes: 15, Hearts: 5, Laughs: 5</span></p>
-                <button>Share</button>
-                <button>Delete</button>
-            </li>
-            <!-- List will be dynamically populated -->
+            <% published.forEach(function(article) { %>
+                <li>
+                    <h3><a href="/reader-article/<%= article.article_id %>">
+                            <%= article.title %>
+                        </a></h3>
+                    <p>Subtitle: <%= article.subtitle %>
+                    </p>
+                    <p>Published: <%= article.published_at.toLocaleString() %> </p>
+                    <form action="/delete-article" method="POST" style="display: inline;">
+                        <input type="hidden" name="articleId" value="<%= article.article_id %>">
+                        <button type="submit">Delete</button>
+                    </form>
+                    <button onclick="shareArticle('/reader-article/<%= article.article_id %>')">Share</button>
+                </li>
+                <% }); %>
         </ul>
+
     </section>
     <footer>
         <a href="/">Back to Main Home</a>
     </footer>
 </body>
+
 </html>

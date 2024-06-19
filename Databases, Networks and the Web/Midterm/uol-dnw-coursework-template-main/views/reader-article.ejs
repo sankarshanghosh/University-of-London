@@ -1,42 +1,69 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reader Article Page</title>
-    <link rel="stylesheet" href="main.css">
+    <title>Reader Article Page - <%= article.title %>
+    </title>
+    <link rel="stylesheet" href="/main.css">
 </head>
+
 <body>
     <header>
-        <h1>Adventures In Code</h1>
-        <h2>Explorations in Programming</h2>
-        <p>by Simon Katan</p>
+        <h1>
+            <%= settings.blog_title %>
+        </h1>
+        <h2>
+            <%= settings.blog_subtitle %>
+        </h2>
+        <p>by <%= settings.author_name %>
+        </p>
     </header>
     <h2 class="page-title">Reader: Article Page</h2>
     <article>
-        <h2>Getting Started</h2>
-        <p>Subtitle: A daunting task</p>
-        <p>Published: 2022-11-10</p>
-        <p>It was my first time writing a server, and I was very scared.</p>
-        <button>Like <span class="reaction-count">15</span></button>
-        <button>Heart <span class="reaction-count">7</span></button>
-        <button>Laugh <span class="reaction-count">20</span></button>
-
+        <h2>
+            <%= article.title %>
+        </h2>
+        <p>Subtitle: <%= article.subtitle %>
+        </p>
+        <p>Published: <%= new Date(article.published_at).toISOString().slice(0, 10) %>
+        </p>
+        <p>
+            <%= article.body %>
+        </p>
+        <form action="/like-article" method="POST">
+            <input type="hidden" name="articleId" value="<%= article.article_id %>">
+            <button type="submit">Like <span class="reaction-count">
+                    <%= likesCount %>
+                </span></button>
+        </form>
     </article>
     <section>
         <h3>Comments</h3>
-        <form action="post-comment.php" method="POST">
+        <form action="/post-comment" method="POST">
+            <input type="hidden" name="articleId" value="<%= article.article_id %>">
             <input type="text" name="commenterName" placeholder="Your name" required>
             <textarea name="commentText" placeholder="Your comment" required></textarea>
             <button type="submit">Add Comment</button>
         </form>
         <ul>
-            <li><strong>John Doe:</strong> I don’t like this.</li>
-            <li><strong>Jane Smith:</strong> I think this is great!</li>
+            <% comments.forEach(function(comment) { %>
+                <li>
+                    <strong>
+                        <%= comment.commenter_name %>:
+                    </strong>
+                    <%= comment.comment_text %>
+                        <br>
+                        <small>Posted: <%= new Date(comment.posted_at).toLocaleString() %></small>
+                </li>
+                <% }); %>
         </ul>
     </section>
+
     <footer>
         <a href="/reader-home">Back to Reader Home</a>
     </footer>
 </body>
+
 </html>
