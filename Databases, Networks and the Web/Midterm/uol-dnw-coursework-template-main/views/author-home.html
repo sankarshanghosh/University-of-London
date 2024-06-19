@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Home Page</title>
+    <link rel="stylesheet" href="../public/main.css">
+</head>
+<body>
+    <header>
+        <h1>Adventures In Code</h1>
+        <h2>Explorations in Programming</h2>
+        <p>by Simon Katan</p>
+    </header>
+    <h2 class="page-title">Author: Home Page</h2>
+    <nav>
+        <a href="author-settings.html">Settings</a>
+    </nav>
+    <section>
+        <h2>Draft Articles</h2>
+        <button onclick="location.href='edit-article.html';">Create New Draft</button>
+        <ul>
+            <!-- Example of a list item -->
+            <li>
+                <h3>Getting Started</h3>
+                <p>Subtitle: A beginner's guide to coding</p>
+                <p>Created: 2022-11-10 | Last Modified: 2022-11-10</p>
+                <button>Edit</button>
+                <button>Publish</button>
+                <button>Delete</button>
+            </li>
+            <!-- List will be dynamically populated -->
+        </ul>
+    </section>
+    <section>
+        <h2>Published Articles</h2>
+        <ul>
+            <!-- Example of a list item -->
+            <li>
+                <h3><a href="reader-article.html">Learning SQL</a></h3>
+                <p>Subtitle: Mastering database management</p>
+                <p>Published: 2022-11-10 | Reactions: 25 <span class="reactions-tooltip">Likes: 15, Hearts: 5, Laughs: 5</span></p>
+                <button>Share</button>
+                <button>Delete</button>
+            </li>
+            <!-- List will be dynamically populated -->
+        </ul>
+    </section>
+    <footer>
+        <a href="index.html">Back to Main Home</a>
+    </footer>
+    <style>
+        .reactions-tooltip {
+            visibility: hidden;
+            background-color: black;
+            color: white;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;
+            position: absolute;
+            z-index: 1;
+        }
+
+        p:hover .reactions-tooltip {
+            visibility: visible;
+        }
+    </style>
+</body>
+</html>

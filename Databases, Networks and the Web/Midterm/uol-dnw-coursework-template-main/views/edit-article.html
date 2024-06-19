@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Article</title>
+    <link rel="stylesheet" href="../public/main.css">
+</head>
+<body>
+    <header>
+        <h1>Edit Article</h1>
+    </header>
+    <h2 class="page-title">Author: Edit Article Page</h2>
+    <div>
+        <p>Created: 2022-11-10 14:00:57</p>
+        <p>Last modified: 2022-11-10 14:10:31</p>
+        <p>Status: Draft</p>
+    </div>
+    <form action="save-article.php" method="POST">
+        <div>
+            <label for="articleTitle">Title:</label>
+            <input type="text" id="articleTitle" name="articleTitle" value="Getting Started" required>
+        </div>
+        <div>
+            <label for="articleSubtitle">Subtitle:</label>
+            <input type="text" id="articleSubtitle" name="articleSubtitle" value="A daunting task" required>
+        </div>
+        <div>
+            <label for="articleText">Body:</label>
+            <textarea id="articleText" name="articleText" required>It was my first time writing a server</textarea>
+        </div>
+        <button type="submit">Update</button>
+    </form>
+    <footer>
+        <a href="author-home.html">Back to Author Home</a>
+    </footer>
+</body>
+</html>

@@ -1,1 +1,147 @@
-/* Define styles */
+/* General body and layout styles */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+}
+
+header {
+    background: #0056b3;
+    color: #fff;
+    padding: 20px 0;
+    text-align: center;
+}
+
+header h1, header h2, header p {
+    margin: 0.5rem;
+}
+
+.page-title {
+    font-size: 24px; /* Optimal size for visibility */
+    background-color: #d1eaff; /* Light blue that complements the darker blue header */
+    color: #0056b3; /* A shade of the header blue for the text to maintain theme consistency */
+    text-align: center; /* Center the text */
+    padding: 10px 0; /* Padding for vertical space */
+    width: 100%; /* Ensure it spans the full width */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1); /* Subtle shadow for depth */
+    font-family: 'Arial', sans-serif; /* Clean, modern font */
+    margin-top: -20px; /* Pulls the title up closer to the header */
+}
+
+
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav a {
+    text-decoration: none;
+    color: #ffffff;
+    background: #007bff;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+
+nav a:hover {
+    background: #0056b3;
+}
+
+/* Section and article styles */
+section, article {
+    background: #fff;
+    padding: 20px;
+    margin: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+h2, h3 {
+    color: #333;
+}
+
+/* Forms and buttons */
+form {
+    margin-top: 20px;
+}
+
+input[type="text"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+button {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin: 5px; /* Adjusted margin */
+    cursor: pointer;
+    border-radius: 5px;
+    position: relative; /* Position relative for positioning the count */
+    display: inline-flex; /* To center text and count */
+    align-items: center; /* Align items vertically */
+    justify-content: center; /* Center horizontally */
+}
+
+/* Style for the reaction count display */
+span.reaction-count {
+    background: #fff;
+    color: #28a745;
+    border-radius: 30%; /* Circle */
+    padding: 3px 6px; /* Padding inside the circle */
+    margin-left: 5px; /* Space between text and circle */
+    font-size: 0.8em; /* Smaller font size */
+    height: 20px;
+    width: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+button:hover {
+    background: #218838;
+}
+
+
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    background: #ddd;
+}
+
+footer a {
+    color: #333;
+    text-decoration: none;
+}
+
+/* Tooltip styles for reactions */
+.reactions-tooltip {
+    visibility: hidden;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 6px;
+    padding: 5px 0;
+    position: absolute;
+    z-index: 1;
+}
+
+p:hover .reactions-tooltip {
+    visibility: visible;
+}

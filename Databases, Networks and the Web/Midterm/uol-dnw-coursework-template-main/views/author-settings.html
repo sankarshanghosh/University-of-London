@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Author Settings</title>
+    <link rel="stylesheet" href="../public/main.css">
+</head>
+<body>
+    <header>
+        <h1>Settings</h1>
+    </header>
+    <h2 class="page-title">Author: Settings Page</h2>
+    <form action="update-settings.php" method="POST">
+        <div>
+            <label for="blogTitle">Blog Title:</label>
+            <input type="text" id="blogTitle" name="blogTitle" value="Adventures In Code" required>
+        </div>
+        <div>
+            <label for="blogSubtitle">Blog Subtitle:</label>
+            <input type="text" id="blogSubtitle" name="blogSubtitle" value="Explorations in Programming" required>
+        </div>
+        <div>
+            <label for="authorName">Author Name:</label>
+            <input type="text" id="authorName" name="authorName" value="Simon Katan" required>
+        </div>
+        <button type="submit">Update Settings</button>
+    </form>
+    <footer>
+        <a href="author-home.html">Back to Author Home</a>
+    </footer>
+</body>
+</html>
