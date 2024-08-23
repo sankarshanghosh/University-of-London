@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "JUCE/extras/Build",
+		"source" : "/Users/sankarshanghosh/Documents/GitHub/University-of-London/Object Oriented Programming/Final Project/JUCE/extras/Build"
+	}
+}
