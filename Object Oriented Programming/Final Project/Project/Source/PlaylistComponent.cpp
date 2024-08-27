@@ -108,14 +108,24 @@ void PlaylistComponent::loadPlaylistFromXML(const juce::File &xmlFile)
     return;
   }
 
+  // Hardcode the path to the tracks directory
+  juce::File tracksDirectory("/Users/sankarshanghosh/Documents/GitHub/University-of-London/Object Oriented Programming/Final Project/Project");
+
   forEachXmlChildElement(*mainElement, trackElement)
   {
     if (trackElement->hasTagName("TRACK"))
     {
-      juce::String path = trackElement->getStringAttribute("path");
-      juce::File file(path);
-      trackTitles.push_back(file.getFileNameWithoutExtension().toStdString());
-      trackPaths.push_back(path.toStdString());
+      juce::String relativePath = trackElement->getStringAttribute("path");
+      juce::File trackFile = tracksDirectory.getChildFile(relativePath);
+      if (trackFile.exists())
+      {
+        trackTitles.push_back(trackFile.getFileNameWithoutExtension().toStdString());
+        trackPaths.push_back(trackFile.getFullPathName().toStdString());
+      }
+      else
+      {
+        DBG("Track file does not exist: " + trackFile.getFullPathName());
+      }
     }
   }
 
