@@ -43,6 +43,8 @@ public:
 
   void timerCallback() override;
 
+  void loadTrack(const juce::String& trackPath);
+
 private:
   juce::FileChooser fChooser{"Select a file..."};
 

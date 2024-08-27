@@ -1453,4 +1453,7 @@ CMakeFiles/OtoDecks.dir/Source/PlaylistComponent.cpp.o: \
   /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/JUCE/modules/juce_audio_utils/players/juce_SoundPlayer.h \
   /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/JUCE/modules/juce_audio_utils/players/juce_AudioProcessorPlayer.h \
   /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/JUCE/modules/juce_audio_utils/audio_cd/juce_AudioCDBurner.h \
-  /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/JUCE/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.h
+  /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/JUCE/modules/juce_audio_utils/audio_cd/juce_AudioCDReader.h \
+  /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/Project/Source/DeckGUI.h \
+  /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/Project/Source/DJAudioPlayer.h \
+  /Users/sankarshanghosh/Documents/GitHub/University-of-London/Object\ Oriented\ Programming/Final\ Project/Project/Source/WaveformDisplay.h

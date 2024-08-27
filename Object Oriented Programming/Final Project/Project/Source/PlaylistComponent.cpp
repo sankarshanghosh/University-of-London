@@ -122,9 +122,27 @@ void PlaylistComponent::loadPlaylistFromXML(const juce::File &xmlFile)
   tableComponent.updateContent();
 }
 
+void PlaylistComponent::setDeckGUI1(DeckGUI *deck)
+{
+  deckGUI1 = deck;
+}
+void PlaylistComponent::setDeckGUI2(DeckGUI *deck)
+{
+  deckGUI2 = deck;
+}
+
 void PlaylistComponent::buttonClicked(juce::Button *button)
 {
-  int id = std::stoi(button->getComponentID().toStdString());
-  std::cout << "Selected: " << trackTitles[id] << " (" << trackPaths[id] << ")" << std::endl;
-  // Logic to load the selected track into one of the decks goes here
+  String id = button->getComponentID();
+  int row = std::stoi(id.substring(0, id.length() - 2).toStdString()); // Remove last two chars to get the row number
+  bool isPlayerOne = id.endsWith("P1");
+
+  if (isPlayerOne && deckGUI1)
+  {
+    deckGUI1->loadTrack(trackPaths[row]);
+  }
+  else if (!isPlayerOne && deckGUI2)
+  {
+    deckGUI2->loadTrack(trackPaths[row]);
+  }
 }

@@ -13,6 +13,7 @@
 #include "../JuceLibraryCode/JuceHeader.h"
 #include <vector>
 #include <string>
+#include "DeckGUI.h"
 
 //==============================================================================
 /*
@@ -37,11 +38,17 @@ public:
 
   void loadPlaylistFromXML(const juce::File &xmlFile);
 
+  void setDeckGUI1(DeckGUI *deck);
+  void setDeckGUI2(DeckGUI *deck);
+
 private:
   TableListBox tableComponent;
 
   std::vector<std::string> trackTitles;
   std::vector<std::string> trackPaths;
+
+  DeckGUI *deckGUI1 = nullptr;
+  DeckGUI *deckGUI2 = nullptr;
 
   JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(PlaylistComponent)
 };

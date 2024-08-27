@@ -33,6 +33,9 @@ MainComponent::MainComponent()
 
     addAndMakeVisible(playlistComponent);
 
+    playlistComponent.setDeckGUI1(&deckGUI1);
+    playlistComponent.setDeckGUI2(&deckGUI2);
+
     formatManager.registerBasicFormats();
 }
 
