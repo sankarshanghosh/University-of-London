@@ -28,6 +28,16 @@ DeckGUI::DeckGUI(DJAudioPlayer *_player,
 
     addAndMakeVisible(waveformDisplay);
 
+    // Styling Buttons
+    playButton.setColour(TextButton::buttonColourId, Colours::green);
+    stopButton.setColour(TextButton::buttonColourId, Colours::red);
+    loadButton.setColour(TextButton::buttonColourId, Colours::blue);
+
+    // Styling Sliders
+    volSlider.setColour(Slider::thumbColourId, Colours::purple);
+    speedSlider.setColour(Slider::thumbColourId, Colours::orange);
+    posSlider.setColour(Slider::thumbColourId, Colours::yellow);
+
     playButton.addListener(this);
     stopButton.addListener(this);
     loadButton.addListener(this);
@@ -50,34 +60,26 @@ DeckGUI::~DeckGUI()
 
 void DeckGUI::paint(Graphics &g)
 {
-    /* This demo code just fills the component's background and
-       draws some placeholder text to get you started.
+    // Stylish background with a gradient
+    ColourGradient gradient(Colour::fromRGB(50, 50, 60), 0, 0, Colour::fromRGB(25, 25, 30), getWidth(), getHeight(), false);
+    g.setGradientFill(gradient);
+    g.fillAll();
 
-       You should replace everything in this method with your own
-       drawing code..
-    */
-
-    g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId)); // clear the background
-
-    g.setColour(Colours::grey);
-    g.drawRect(getLocalBounds(), 1); // draw an outline around the component
-
-    g.setColour(Colours::white);
+    g.setColour(Colours::whitesmoke);
     g.setFont(14.0f);
-    g.drawText("DeckGUI", getLocalBounds(),
-               Justification::centred, true); // draw some placeholder text
+    g.drawText("DeckGUI", getLocalBounds(), Justification::centred, true);
 }
-
 void DeckGUI::resized()
 {
-    double rowH = getHeight() / 8;
-    playButton.setBounds(0, 0, getWidth(), rowH);
-    stopButton.setBounds(0, rowH, getWidth(), rowH);
-    volSlider.setBounds(0, rowH * 2, getWidth(), rowH);
-    speedSlider.setBounds(0, rowH * 3, getWidth(), rowH);
-    posSlider.setBounds(0, rowH * 4, getWidth(), rowH);
-    waveformDisplay.setBounds(0, rowH * 5, getWidth(), rowH * 2);
-    loadButton.setBounds(0, rowH * 7, getWidth(), rowH);
+    auto area = getLocalBounds();
+    auto rowH = area.getHeight() / 8;
+    playButton.setBounds(area.removeFromTop(rowH));
+    stopButton.setBounds(area.removeFromTop(rowH));
+    volSlider.setBounds(area.removeFromTop(rowH));
+    speedSlider.setBounds(area.removeFromTop(rowH));
+    posSlider.setBounds(area.removeFromTop(rowH));
+    waveformDisplay.setBounds(area.removeFromTop(rowH * 2));
+    loadButton.setBounds(area.removeFromTop(rowH));
 }
 
 void DeckGUI::buttonClicked(Button *button)
@@ -146,7 +148,8 @@ void DeckGUI::timerCallback()
         player->getPositionRelative());
 }
 
-void DeckGUI::loadTrack(const juce::String& trackPath) {
+void DeckGUI::loadTrack(const juce::String &trackPath)
+{
     player->loadURL(URL{File{trackPath}});
     waveformDisplay.loadURL(URL{File{trackPath}});
 }
