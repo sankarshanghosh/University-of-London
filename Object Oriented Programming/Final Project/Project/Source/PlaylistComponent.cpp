@@ -16,17 +16,14 @@ PlaylistComponent::PlaylistComponent()
   // In your constructor, you should add any child components, and
   // initialise any special settings that your component needs.
 
-  trackTitles.push_back("Track 1");
-  trackTitles.push_back("Track 2");
-  trackTitles.push_back("Track 3");
-  trackTitles.push_back("Track 4");
-  trackTitles.push_back("Track 5");
-
   tableComponent.getHeader().addColumn("Track Title", 1, 400);
   tableComponent.getHeader().addColumn("", 2, 200);
   tableComponent.setModel(this);
 
   addAndMakeVisible(tableComponent);
+
+  juce::File playlistFile("/Users/sankarshanghosh/Documents/GitHub/University-of-London/Object Oriented Programming/Final Project/Project/playlist.xml");
+  loadPlaylistFromXML(playlistFile);
 }
 
 PlaylistComponent::~PlaylistComponent()
@@ -66,7 +63,7 @@ int PlaylistComponent::getNumRows()
 }
 void PlaylistComponent::paintRowBackground(juce::Graphics &g, int rowNumber, int width, int height, bool rowIsSelected)
 {
-  if(rowIsSelected)
+  if (rowIsSelected)
   {
     g.fillAll(juce::Colours::lightblue);
   }
@@ -77,16 +74,19 @@ void PlaylistComponent::paintRowBackground(juce::Graphics &g, int rowNumber, int
 }
 void PlaylistComponent::paintCell(juce::Graphics &g, int rowNumber, int columnId, int width, int height, bool rowIsSelected)
 {
-  g.drawText(trackTitles[rowNumber], 2, 0, width - 4, height, juce::Justification::centredLeft, true);
+  if (columnId == 1)
+  {
+    g.drawText(trackTitles[rowNumber], 2, 0, width - 4, height, juce::Justification::centredLeft, true);
+  }
 }
 
-Component* PlaylistComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component *existingComponentToUpdate)
+Component *PlaylistComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component *existingComponentToUpdate)
 {
   if (columnId == 2)
   {
     if (existingComponentToUpdate == nullptr)
     {
-      TextButton *btn = new TextButton("Play");
+      TextButton *btn = new TextButton("Add");
       String id{std::to_string(rowNumber)};
       btn->setComponentID(id);
 
@@ -97,8 +97,34 @@ Component* PlaylistComponent::refreshComponentForCell(int rowNumber, int columnI
   return existingComponentToUpdate;
 }
 
+void PlaylistComponent::loadPlaylistFromXML(const juce::File &xmlFile)
+{
+  juce::XmlDocument xmlDoc(xmlFile);
+  std::unique_ptr<juce::XmlElement> mainElement = xmlDoc.getDocumentElement();
+
+  if (mainElement == nullptr || !mainElement->hasTagName("PLAYLIST"))
+  {
+    DBG("Error loading XML");
+    return;
+  }
+
+  forEachXmlChildElement(*mainElement, trackElement)
+  {
+    if (trackElement->hasTagName("TRACK"))
+    {
+      juce::String path = trackElement->getStringAttribute("path");
+      juce::File file(path);
+      trackTitles.push_back(file.getFileNameWithoutExtension().toStdString());
+      trackPaths.push_back(path.toStdString());
+    }
+  }
+
+  tableComponent.updateContent();
+}
+
 void PlaylistComponent::buttonClicked(juce::Button *button)
 {
   int id = std::stoi(button->getComponentID().toStdString());
-  std::cout << trackTitles[id] << std::endl;
+  std::cout << "Selected: " << trackTitles[id] << " (" << trackPaths[id] << ")" << std::endl;
+  // Logic to load the selected track into one of the decks goes here
 }
