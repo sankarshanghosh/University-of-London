@@ -17,7 +17,8 @@ PlaylistComponent::PlaylistComponent()
   // initialise any special settings that your component needs.
 
   tableComponent.getHeader().addColumn("Track Title", 1, 400);
-  tableComponent.getHeader().addColumn("", 2, 200);
+  tableComponent.getHeader().addColumn("Add to Player 1", 2, 200);
+  tableComponent.getHeader().addColumn("Add to Player 2", 3, 200);
   tableComponent.setModel(this);
 
   addAndMakeVisible(tableComponent);
@@ -82,17 +83,16 @@ void PlaylistComponent::paintCell(juce::Graphics &g, int rowNumber, int columnId
 
 Component *PlaylistComponent::refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component *existingComponentToUpdate)
 {
-  if (columnId == 2)
-  {
-    if (existingComponentToUpdate == nullptr)
+  if (columnId == 2 || columnId == 3)
+  { // Assuming 2 and 3 are your button columns
+    TextButton *btn = static_cast<TextButton *>(existingComponentToUpdate);
+    if (btn == nullptr)
     {
-      TextButton *btn = new TextButton("Add");
-      String id{std::to_string(rowNumber)};
-      btn->setComponentID(id);
-
+      btn = new TextButton(columnId == 2 ? "Add to Player 1" : "Add to Player 2");
       btn->addListener(this);
       existingComponentToUpdate = btn;
     }
+    btn->setComponentID(std::to_string(rowNumber) + (columnId == 2 ? "P1" : "P2")); // P1 or P2 to distinguish the buttons
   }
   return existingComponentToUpdate;
 }
