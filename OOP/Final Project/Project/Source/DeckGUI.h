@@ -32,8 +32,10 @@ public:
   void paint(Graphics &) override;
   void resized() override;
 
+  /** implement Button::Listener */
   void buttonClicked(Button *) override;
 
+  /** implement Slider::Listener */
   void sliderValueChanged(Slider *slider) override;
 
   bool isInterestedInFileDrag(const StringArray &files) override;
