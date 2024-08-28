@@ -36,8 +36,6 @@ PlaylistComponent::PlaylistComponent()
                 .getParentDirectory();
   #endif
 
-  DBG("Executable directory: " + exeDir.getFullPathName());
-
   File playlistFile = exeDir.getChildFile("playlist.xml");
 
   if (playlistFile.exists())
