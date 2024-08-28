@@ -1,3 +1,0 @@
-# Hashes of file build rules.
-cd7b5af274dd5d067ad666d202847e31 OtoDecks_artefacts/JuceLibraryCode/JuceHeader.h
-ac235cffb539f1bcde8e9d55a174d512 OtoDecks_artefacts/JuceLibraryCode/OtoDecks/PkgInfo
