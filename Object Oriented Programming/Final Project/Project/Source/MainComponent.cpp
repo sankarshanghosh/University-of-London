@@ -83,8 +83,15 @@ void MainComponent::paint(Graphics &g)
 
 void MainComponent::resized()
 {
-    deckGUI1.setBounds(0, 0, getWidth() / 2, getHeight() / 2);
-    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, getHeight() / 2);
+    // Calculate the height for the playlist component which is 1/3 of the total height
+    int playlistHeight = getHeight() / 3;
 
-    playlistComponent.setBounds(0, getHeight() / 2, getWidth(), getHeight() / 2);
+    // The DeckGUI components will take the remaining 2/3 of the height
+    int deckHeight = getHeight() - playlistHeight;
+
+    deckGUI1.setBounds(0, 0, getWidth() / 2, deckHeight);
+    deckGUI2.setBounds(getWidth() / 2, 0, getWidth() / 2, deckHeight);
+
+    playlistComponent.setBounds(0, deckHeight, getWidth(), playlistHeight);
 }
+

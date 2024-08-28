@@ -33,6 +33,10 @@ public:
 
   /** get the relative position of the playhead */
   double getPositionRelative();
+  double cuePointRelative = 0.0;
+
+  void setCuePoint();    // Set the cue point to the current position
+  void jumpToCuePoint(); // Jump to the saved cue point
 
 private:
   AudioFormatManager &formatManager;

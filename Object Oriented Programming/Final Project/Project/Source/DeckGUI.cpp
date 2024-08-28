@@ -21,6 +21,8 @@ DeckGUI::DeckGUI(DJAudioPlayer *_player,
     addAndMakeVisible(playButton);
     addAndMakeVisible(stopButton);
     addAndMakeVisible(loadButton);
+    addAndMakeVisible(setCueButton);
+    addAndMakeVisible(jumpToCueButton);
 
     addAndMakeVisible(volSlider);
     addAndMakeVisible(speedSlider);
@@ -32,6 +34,8 @@ DeckGUI::DeckGUI(DJAudioPlayer *_player,
     playButton.setColour(TextButton::buttonColourId, Colours::green);
     stopButton.setColour(TextButton::buttonColourId, Colours::red);
     loadButton.setColour(TextButton::buttonColourId, Colours::blue);
+    setCueButton.setColour(TextButton::buttonColourId, Colours::purple);
+    jumpToCueButton.setColour(TextButton::buttonColourId, Colours::purple);
 
     // Styling Sliders
     volSlider.setColour(Slider::thumbColourId, Colours::purple);
@@ -41,6 +45,8 @@ DeckGUI::DeckGUI(DJAudioPlayer *_player,
     playButton.addListener(this);
     stopButton.addListener(this);
     loadButton.addListener(this);
+    setCueButton.addListener(this);
+    jumpToCueButton.addListener(this);
 
     volSlider.addListener(this);
     speedSlider.addListener(this);
@@ -67,20 +73,26 @@ void DeckGUI::paint(Graphics &g)
 
     g.setColour(Colours::whitesmoke);
     g.setFont(14.0f);
-    g.drawText("DeckGUI", getLocalBounds(), Justification::centred, true);
 }
 void DeckGUI::resized()
 {
     auto area = getLocalBounds();
-    auto rowH = area.getHeight() / 8;
+    auto rowH = area.getHeight() / 9;
+
     playButton.setBounds(area.removeFromTop(rowH));
     stopButton.setBounds(area.removeFromTop(rowH));
+
+    auto cueArea = area.removeFromTop(rowH).reduced(5); // Reduce for some padding
+    setCueButton.setBounds(cueArea.removeFromLeft(cueArea.getWidth() / 2)); // Half the area for Set Cue
+    jumpToCueButton.setBounds(cueArea); // Remaining half for Jump to Cue
+
     volSlider.setBounds(area.removeFromTop(rowH));
     speedSlider.setBounds(area.removeFromTop(rowH));
     posSlider.setBounds(area.removeFromTop(rowH));
     waveformDisplay.setBounds(area.removeFromTop(rowH * 2));
     loadButton.setBounds(area.removeFromTop(rowH));
 }
+
 
 void DeckGUI::buttonClicked(Button *button)
 {
@@ -93,6 +105,12 @@ void DeckGUI::buttonClicked(Button *button)
     {
         std::cout << "Stop button was clicked " << std::endl;
         player->stop();
+    }
+    if (button == &setCueButton) {
+        player->setCuePoint();  // Set cue point on the player
+    }
+    if (button == &jumpToCueButton) {
+        player->jumpToCuePoint();  // Jump to the cue point in the player
     }
     if (button == &loadButton)
     {

@@ -38,12 +38,12 @@ void DJAudioPlayer::loadURL(URL audioURL)
     auto *reader = formatManager.createReaderFor(audioURL.createInputStream(false));
     if (reader != nullptr) // good file!
     {
-        std::unique_ptr<AudioFormatReaderSource> newSource(new AudioFormatReaderSource(reader,
-                                                                                       true));
+        std::unique_ptr<AudioFormatReaderSource> newSource(new AudioFormatReaderSource(reader, true));
         transportSource.setSource(newSource.get(), 0, nullptr, reader->sampleRate);
         readerSource.reset(newSource.release());
     }
 }
+
 void DJAudioPlayer::setGain(double gain)
 {
     if (gain < 0 || gain > 1.0)
@@ -96,4 +96,14 @@ void DJAudioPlayer::stop()
 double DJAudioPlayer::getPositionRelative()
 {
     return transportSource.getCurrentPosition() / transportSource.getLengthInSeconds();
+}
+
+void DJAudioPlayer::setCuePoint()
+{
+    cuePointRelative = getPositionRelative(); // Save the current position as cue point
+}
+
+void DJAudioPlayer::jumpToCuePoint()
+{
+    setPositionRelative(cuePointRelative); // Jump to the saved cue point
 }

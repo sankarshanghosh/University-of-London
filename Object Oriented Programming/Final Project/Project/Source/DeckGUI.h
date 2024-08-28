@@ -43,7 +43,7 @@ public:
 
   void timerCallback() override;
 
-  void loadTrack(const juce::String& trackPath);
+  void loadTrack(const juce::String &trackPath);
 
 private:
   juce::FileChooser fChooser{"Select a file..."};
@@ -51,6 +51,8 @@ private:
   TextButton playButton{"PLAY"};
   TextButton stopButton{"STOP"};
   TextButton loadButton{"LOAD"};
+  TextButton setCueButton{"Set Cue"};
+  TextButton jumpToCueButton{"Jump to Cue"};
 
   Slider volSlider;
   Slider speedSlider;
