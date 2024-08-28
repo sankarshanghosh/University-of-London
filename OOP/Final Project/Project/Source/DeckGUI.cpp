@@ -66,7 +66,6 @@ DeckGUI::~DeckGUI()
 
 void DeckGUI::paint(Graphics &g)
 {
-    // Stylish background with a gradient
     ColourGradient gradient(Colour::fromRGB(50, 50, 60), 0, 0, Colour::fromRGB(25, 25, 30), getWidth(), getHeight(), false);
     g.setGradientFill(gradient);
     g.fillAll();
