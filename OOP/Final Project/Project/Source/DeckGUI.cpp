@@ -66,7 +66,6 @@ DeckGUI::~DeckGUI()
 
 void DeckGUI::paint(Graphics &g)
 {
-    // Stylish background with a gradient
     ColourGradient gradient(Colour::fromRGB(50, 50, 60), 0, 0, Colour::fromRGB(25, 25, 30), getWidth(), getHeight(), false);
     g.setGradientFill(gradient);
     g.fillAll();
@@ -155,9 +154,12 @@ void DeckGUI::filesDropped(const StringArray &files, int x, int y)
     std::cout << "DeckGUI::filesDropped" << std::endl;
     if (files.size() == 1)
     {
-        player->loadURL(URL{File{files[0]}});
+        URL fileURL = URL{File{files[0]}};
+        player->loadURL(fileURL);
+        waveformDisplay.loadURL(fileURL);
     }
 }
+
 
 void DeckGUI::timerCallback()
 {

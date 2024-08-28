@@ -19,24 +19,24 @@ PlaylistComponent::PlaylistComponent()
   tableComponent.setModel(this);
   addAndMakeVisible(tableComponent);
 
-  // Determine the OS and set the correct path
-  File exeDir;
+  // Determine the OS and set the correct path to the Project Directory
+  File projectDir;
 
   #if JUCE_WINDOWS
-    exeDir = File::getSpecialLocation(File::currentExecutableFile)
+    projectDir = File::getSpecialLocation(File::currentExecutableFile)
                 .getParentDirectory()
                 .getParentDirectory()
                 .getParentDirectory()
                 .getParentDirectory();
   #elif JUCE_MAC
-    exeDir = File::getSpecialLocation(File::currentApplicationFile)
+    projectDir = File::getSpecialLocation(File::currentApplicationFile)
                 .getParentDirectory()
                 .getParentDirectory()
                 .getParentDirectory()
                 .getParentDirectory();
   #endif
 
-  File playlistFile = exeDir.getChildFile("playlist.xml");
+  File playlistFile = projectDir.getChildFile("playlist.xml");
 
   if (playlistFile.exists())
   {
