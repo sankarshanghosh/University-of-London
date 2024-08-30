@@ -15,8 +15,7 @@
 #include "WaveformDisplay.h"
 
 //==============================================================================
-/*
- */
+
 class DeckGUI : public Component,
                 public Button::Listener,
                 public Slider::Listener,
@@ -38,11 +37,14 @@ public:
   /** implement Slider::Listener */
   void sliderValueChanged(Slider *slider) override;
 
+  // implement File drag and drop
   bool isInterestedInFileDrag(const StringArray &files) override;
   void filesDropped(const StringArray &files, int x, int y) override;
 
+  // implement Timer
   void timerCallback() override;
 
+  // Load a track from a file path
   void loadTrack(const juce::String &trackPath);
 
 private:

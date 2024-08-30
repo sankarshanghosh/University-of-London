@@ -81,9 +81,9 @@ void DeckGUI::resized()
     playButton.setBounds(area.removeFromTop(rowH));
     stopButton.setBounds(area.removeFromTop(rowH));
 
-    auto cueArea = area.removeFromTop(rowH).reduced(5); // Reduce for some padding
+    auto cueArea = area.removeFromTop(rowH).reduced(5);                     // Reduce for some padding
     setCueButton.setBounds(cueArea.removeFromLeft(cueArea.getWidth() / 2)); // Half the area for Set Cue
-    jumpToCueButton.setBounds(cueArea); // Remaining half for Jump to Cue
+    jumpToCueButton.setBounds(cueArea);                                     // Remaining half for Jump to Cue
 
     volSlider.setBounds(area.removeFromTop(rowH));
     speedSlider.setBounds(area.removeFromTop(rowH));
@@ -91,7 +91,6 @@ void DeckGUI::resized()
     waveformDisplay.setBounds(area.removeFromTop(rowH * 2));
     loadButton.setBounds(area.removeFromTop(rowH));
 }
-
 
 void DeckGUI::buttonClicked(Button *button)
 {
@@ -105,11 +104,13 @@ void DeckGUI::buttonClicked(Button *button)
         std::cout << "Stop button was clicked " << std::endl;
         player->stop();
     }
-    if (button == &setCueButton) {
-        player->setCuePoint();  // Set cue point on the player
+    if (button == &setCueButton)
+    {
+        player->setCuePoint(); // Set cue point on the player
     }
-    if (button == &jumpToCueButton) {
-        player->jumpToCuePoint();  // Jump to the cue point in the player
+    if (button == &jumpToCueButton)
+    {
+        player->jumpToCuePoint(); // Jump to the cue point in the player
     }
     if (button == &loadButton)
     {
@@ -159,7 +160,6 @@ void DeckGUI::filesDropped(const StringArray &files, int x, int y)
         waveformDisplay.loadURL(fileURL);
     }
 }
-
 
 void DeckGUI::timerCallback()
 {

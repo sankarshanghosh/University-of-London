@@ -11,8 +11,6 @@
 //==============================================================================
 MainComponent::MainComponent()
 {
-    // Make sure you set the size of the component after
-    // you add any child components.
     setSize(800, 600);
 
     // Some platforms require permissions to open input channels so request that here
@@ -63,10 +61,6 @@ void MainComponent::getNextAudioBlock(const AudioSourceChannelInfo &bufferToFill
 
 void MainComponent::releaseResources()
 {
-    // This will be called when the audio device stops, or when it is being
-    // restarted due to a setting change.
-
-    // For more details, see the help for AudioProcessor::releaseResources()
     player1.releaseResources();
     player2.releaseResources();
     mixerSource.releaseResources();
@@ -77,8 +71,6 @@ void MainComponent::paint(Graphics &g)
 {
     // (Our component is opaque, so we must completely fill the background with a solid colour)
     g.fillAll(getLookAndFeel().findColour(ResizableWindow::backgroundColourId));
-
-    // You can add your drawing code here!
 }
 
 void MainComponent::resized()

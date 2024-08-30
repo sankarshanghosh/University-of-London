@@ -16,8 +16,7 @@
 #include "DeckGUI.h"
 
 //==============================================================================
-/*
- */
+
 class PlaylistComponent : public juce::Component,
                           public juce::TableListBoxModel,
                           public juce::Button::Listener
@@ -29,15 +28,18 @@ public:
   void paint(juce::Graphics &) override;
   void resized() override;
 
-  int getNumRows() override;
+  // TableListBoxModel methods
+  int getNumRows() override; // Number of rows in the table
   void paintRowBackground(juce::Graphics &g, int rowNumber, int width, int height, bool rowIsSelected) override;
   void paintCell(juce::Graphics &g, int rowNumber, int columnId, int width, int height, bool rowIsSelected) override;
   Component *refreshComponentForCell(int rowNumber, int columnId, bool isRowSelected, Component *existingComponentToUpdate) override;
 
   void buttonClicked(juce::Button *button) override;
 
+  // Load a playlist from an XML file
   void loadPlaylistFromXML(const juce::File &xmlFile);
 
+  // Set the DeckGUI components
   void setDeckGUI1(DeckGUI *deck);
   void setDeckGUI2(DeckGUI *deck);
 

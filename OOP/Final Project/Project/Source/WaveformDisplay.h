@@ -26,8 +26,10 @@ public:
   void paint(Graphics &) override;
   void resized() override;
 
+  // implement ChangeListener
   void changeListenerCallback(ChangeBroadcaster *source) override;
 
+  // Load a URL
   void loadURL(URL audioURL);
 
   /** set the relative position of the playhead*/
