@@ -1,0 +1,129 @@
+So let's start working now with a simple matter.js example. So I have created a little
+simple sketch here, and inside my libraries
+as you might notice, I have a little
+matter.js file there. This is the library that will
+do all the calculations. So how do I do that? How do I build that
+simple example? I'm going to the
+matter.js website, and it's very important to
+know how you are going to navigate the documentation of an unknown of a new library. So I came here, I'm going to the
+wiki, which is here. Then I'm going to
+getting started just to see how this thing is working, and very kindly the developer has made a very simple example. I'm going take some
+bits from that. I'm not going to take
+all of it in order to use it in my P5 world, because this is an example
+that actually will run like that outside of P5 world. So what do I need? First of all, I need to
+copy this module aliases. So these are, imagine them, they are like little nicknames
+for parts of the engine. So Matter.Engine will be
+called from now on engine. That's quite useful
+because it means that when I create the engine or whenever I call
+parts of the engine, I don't have to say
+Matter.Engine.create. I can just say Engine.create. So that it saves us a
+little bit of typing. So we have created the canvas, and then here we do exactly that. We said engine equals
+Engine.create. Let's actually make
+that variable as well. Just declare it, engine. So that has already created our matter.js engine.
+What else do we need? I'm not going to use a render. So a matter.js comes
+with its own render, but I want to use the
+render that is used in P5, So I'm going to ignore
+that for the moment. So this is where I'm creating
+some objects, some bodies, I'm adding them to the world, and then I'm telling
+the engine to run. Let's create some bodies then. So I'm going to create
+a body called box1, and I'm going to
+place it right here, box1 equals bodies.rectangle, which because it is
+of type rectangle. This is the location where I want it to be when we first start, and this is the size 80, 80 and that's it. I've created now my first body. Let's see it in the world. Let's add it in the world. So you see here that
+with the world, we just add the objects
+one after another. So at the moment I don't have
+other boxes or a ground. I just have one box here. Now, the documentation here says Engine.run for it to run, but I'm not going to
+use that command. Instead, what I'm going to use, is I'm going to use the
+Engine.update engine. So that's in every loop
+of the draw function, I'm going to be
+updating the engine. I've already done something
+that I've told you in previous lectures not to do, which is I've added a lot
+of lines of code without pressing any button to
+see if it actually works. I'm going to save
+this and immediately run it and hopefully, all right, something
+is happening. It doesn't give me any
+errors, I would hope. Let us open the
+developer tools as well, here and watch to
+see if in console. That's fine, no errors here. So let's continue coding. So we have the box now in the
+world, but it's not drawn. We need to make sure that
+it appears, it is drawn. So let's ask the engine for where these boxes
+in order to draw it. So I'm going to probably
+use transformations. So it's good to have a push
+and pop, so that I'm safe. I'm going to make
+the box be white, and let's get the
+position of the box. So var pos equals box1.position. So that's my body in the physics world and
+I'm getting its position, then I'm translating
+to that position. Translate, pos x, pos y, so I'm there now and I also have to get the rotation
+of the box in that world. So rotate box1.angle. That's how I get the angle of the box from the physics engine, and finally, after I've
+translated and rotated, I'm ready to draw the rectangle, 0, 0, 80, 80. That's how big I said
+I want it to be. Let's see this in action. Press run, and there
+was the object, a box that is traveling down by gravity because we have
+some default gravity there, that's not very exciting yet. Let's add something for
+the box to bounce on. So I'm going to add
+another surface. I'm going to add a
+ground, so var ground, and I'm going to create here, ground equals bodies.rectangle. I'm going to place
+this at 400, 500. That's the location,
+810 is a width, I want a long rectangle and height 10 and I'm going
+to add it to my world. So ground, let see this. Oh, I'm not drawing it, so let's go and draw it. So I'm going to take all
+this code from here, and instead of drawing box1, I'm going to get the position
+of call it groundPos. I'm going to get the
+position of the ground, save it here in this variable, translate where we want to go. I'm going to get the
+angle of the ground, and of course I'm going to
+also draw the ground in the dimensions that I said I
+want it to be in, like that. So look at that,
+I have something. But what do I have? The ground is also falling. There's nothing that tells the physics engine that that ground is
+supposed to be static. So I need to fix that.
+How do I do that? I set up here, variable options, where I say that this object that I'm going to pass this options
+here to the ground, and I want to say that this
+body is in fact static. Is static, true. Maybe also I want it
+in a nice cute angle. Angle, and I'll do math.pi
+times 0.06, it takes radians. So I want it in that
+angle. There we go. Something funny is happening. So what you'll notice is that
+even though I told it to draw the ground at
+position 400, 500. So that means somewhere, how big is my canvas? It's 900. So it
+should be somewhere here and it's drawing there. That's because the matter.js draws rectangles from the center, defines them from the center. So we need to have that rectMode center. Let's look at it now again. Oh, it's working now. So we have a ground
+and the body is falling now on it and
+it's slowly sliding down. It works, but we could
+make it a little bit more exciting by adding
+a few more options. So how about if here I
+add a few more options. So instead of using an options variable like
+I've done in the ground, I can just have curly
+brackets there. Let's add a bit of restitution. So I'll add, a restitution
+is basically the bounciness. How much energy as it falls, how much of that
+energy from falling is it given back? Is it returned? So for example, if the rectangle hits the ground with
+a certain speed, it's going to get back
+about 80 percent of it. So restitution 0.8 to make
+it nice and bouncing, and I'm going to
+also add friction. I'm going to have
+friction at 0.5. There we go. Look how nice. It's almost like a
+little gummy rectangle that's bouncing down. Let's reduce the friction a
+bit just to see what it does, I have reduced it a bit, save it. It sliding a bit more. Let's remove it a bit more. I don't see much change in that. Let's leave it for the
+moment. But basically, you have here, I'll
+return it to 0.5. So we have here already a
+simple example working. Now there is something
+in this example that I don't really like, and that thing is that I have a lot of repetition
+here in the code. So every time I want
+to have an object, I have to translate
+where that object is, I need to have a
+rotation and so on. I want to optimize this
+example a little bit because as coders we're lazy, we want to avoid repetition because repetition might
+also have errors in it. So how do I do that? I do that by writing a function. I have a little function
+here, draw vertices, where instead of drawing the
+shapes how I'm drawing them now by getting the position,
+translating, rotating. What I can do instead, is just pass the vertices of each body to this function and it'll draw the
+vertices itself. So let's do that. So no need to do any push or
+pop or anything like that. I can just get rid
+of all of this code and just say drawVertices, box1 vertices, and
+I can make that, let's say fill 255 and the
+floor I can say fill 125. So it's a gray drawVertices, ground.vertices and there we go. Same behavior, but now
+I only have a line of code here to draw all of
+my objects on the screen. This is simple example, and you noticed here
+that, as I said, I added some options
+here for the objects. So these options, again, it's important to know how
+to search for these things. I just searched matter.js bodies because its options for the body. I went to the matter.body
+documentation page, I click on properties
+and here I have all these characteristics that I can define in a
+body that can pass. So I can pass to it density, force, friction there it is frictionAir and
+all these things. I chose to put for the
+moment restitution, which is this bounciness
+and friction. So that's a simple matter.js
+example to get you going.

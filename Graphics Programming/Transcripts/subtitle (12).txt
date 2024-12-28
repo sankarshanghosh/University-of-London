@@ -1,0 +1,58 @@
+Hi again and welcome to another
+exhilarating week of graphics programming. In previous weeks, we learned to
+build our simple physics engine. We used vectors in order to build
+more abstract things like forces. And we managed to encode things
+like friction and gravity. This week, we're going to see
+some ready-made solutions. Despite having ready-made solutions,
+it was very important to have gone through the process of
+building our own simple physics world. Now that we have learned the basic
+ingredients of the physics world, it will become much easier to navigate the
+documentation of any physics engine and understand how to build these worlds. But why would you want to use other
+people's physics engine in the first place when you've made your own? In order to get the ball moving, we
+started by incrementing a simple variable. Soon we saw that we should go one
+level of abstraction higher and use something a little bit more complex
+to help make our calculations easier. That thing was vectors. We then started using a vector
+to encode acceleration which was affecting velocity of an object,
+which in turn was affecting its location. After that we encoded basic
+forces using vectors too, which were themselves affecting
+the acceleration of objects. We programmed gravity and
+friction, and we were very content. Inspired by how things move
+in the real world, we created a simple simulation of how things should
+move on the screen in our pixel world. We then looked at collisions, but we
+only played with very simple collisions. We managed to detect
+collisions between circles and collisions between a circle and
+a rectangle. Moreover, we carefully avoided
+talking about the tricky subject, that of objects bouncing off each other. This is something that can
+get quite complicated. What if we wanted to calculate
+the collisions between these complicated shapes? Estimating their positions
+as they fall and bounce off each other involves
+very sophisticated algorithms. This is where a physics engine comes in. We're going to be looking into
+a physics engine called matter.js. Matter.js sit inside our
+program like a black box. The idea behind the physics engine is that
+you tell it at the start what you want the world to have in it. Say you want a box at the top, and a floor
+at the bottom for the box to bounce on. You simply form the physics engine of this
+in the setup function of your p5 sketch. Then, inside our draw loop, all you
+do is ask it where is the floor now? Where is the box now?
+Where is the floor now? Where is the box now? The engine responds by
+giving you some numbers. The location and the rotation
+of these objects in the world. And you then have to draw them. All the complicated calculations have
+been taken care of inside this black box. Your only job is to ask for updates and to draw the object where
+the engine tells you to. This is a very important point to make. A physics engine is simply a library
+that you feed numbers into and it responds by giving you more numbers. You have to use p5 drawing tools in order to give life to the numbers
+the physics engine returns to you. There many physics engines out there. Here's a selected list. All of them are based on the same paradigm
+of being a block box within which all these calculations take place. When picking an engine, you might
+want to consider a couple of things. The pixel world we're
+living in right now is 2D. So the library we're going to use
+would have to work for that world. Cannon.js for example is a fantastic
+JavaScript library that works very well on the web, but
+it does not work in 2D. A very popular 2D engine that was
+started many years ago in C++ is Box2D. That library was later ported for
+Java and later on for JavaScript2. It's a great little library that I
+have used professionally as well. But for our purposes,
+I think matter.js is better. First of all, it was developed from
+scratch in JavaScript with a web in mind, and it has great documentation and
+a big enough community. What we needed for it does really well, collisions as well as connector systems
+such as springs and constraints. Importantly, what it does
+do better than Box2D, in my opinion,
+is that it is a little bit simpler to use. We'll get into some cool things
+with very few lines of code.

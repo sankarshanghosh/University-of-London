@@ -1,0 +1,160 @@
+During the course of this week, you will receive a gentle
+introduction to graphics by learning how to move
+objects in a 2D world. By the end of this lecture, you'll be able to program quite complex
+systems of movement. So let's get right to it. Moving objects the usual way. Well, you already know that the p5.js sketch is made out of a canvas whose pixels can be addressed as if it were
+a piece of graph paper. For example, in order to draw this rectangle at coordinate 30, 30, we have to call the
+command rect 30, 30, 40, 40, where 30, 30 is the coordinate of the top-left corner of the
+rectangle we wish to draw, and 40, 40 is the width and
+the height of the square. If we wish to move the
+square 60 pixels along the x-axis and 60 pixels
+along the y-axis, we would have to add
+60 in each dimension, and right, rect 90, 90, 40, 40. So far so good. But there's a little
+problem with the user way, and I'll demonstrate it with his quick live coding example. So here's a little sketch I have written that draws a cat. So let's run it just to make sure that everything is smooth. Let's get back to the sketch. So here, I have a collection of primitives that I'm
+drawing on the screen, and I'm calling the
+drawCat command, which passes a location for where the cat
+needs to be drawn. Notice how many calculations
+I'm doing here in order to figure out exactly
+where everything needs to be. This gets quickly
+quite complicated. Now imagine if we wanted
+to rotate the cat, what values would we
+need to put in the ears, in the mouth in order to rotate everything
+proportionally. It's quite difficult and
+you need to do a lot of trigonometry in order to
+figure out the exact values. Thankfully, there's
+an easier way. Instead of moving the object as we did in the slide
+with the square, what we can do is move the graph paper that describes the 2D
+space of the canvas. You can see here in this image that instead of
+moving the object, we are moving the origin
+of the graph paper. Instead of coordinate 0, 0 being the first visible
+pixel of the canvas, we move it by 60
+pixels on the x-axis, and 60 pixels on the y-axis, and still draw the rectangle in the same coordinate as before. Only now it appears
+to have moved. Let's look at it again
+with a simple drawing. Notice here that the origin 0, 0 was at the top-left
+pixel of your sketch, and point 100, 100 was the
+point where that x is. When we translate by 100, 100, we still draw that
+point x at 100, 100, but it appears on
+the screen occupying the pixels that were
+before 200, 200. Notice what has
+happened to the origin. The origin, point 0, 0 is now well within our canvas. In order to draw something at the actual first visible
+pixel of the sketch, we'd have to give
+it a coordinate of minus 100, minus 100. For the next slide, I'd like you to please
+live code with me. So let's open our
+developer environment and create a simple sketch. So rect 10, 10, 100, 100. Let's compile that. Indeed, it's drawing where
+we expected it to draw. So let's translate now. So translate by, let's say, 60, 60, 60 on the x-axis
+and 60 on the y-axis. Indeed, the rectangle has moved. The 0,0 is just off it. So if I demonstrate here
+by saying ellipse 0, 0, 20, 20, and you see that
+they ellipse is drawn there. If I wanted to draw something in the actual first visible pixel of the sketch as I told you earlier, I would have to actually move back and do something like this. Minus 60, minus 60, 20, 20. Here in the corner, you see a small ellipse. So let's now use all these
+with our cat example. So I'm going to open it again. So here is the cat
+that we had earlier, and here's how we
+could simplify it. So I could take, instead of doing all
+these calculations here, I could just have a translation. So translate, translate by x, y and here I'll draw
+all the rect at 0, 0, and the relative
+positions can remain. So you already start
+seeing that the math, the code becomes a little
+bit cleaner and it will make a lot more sense once I
+add rotations to the mix. Let's see that run. So drawCat. Actually, let's make
+the cat be near the mouse, mouseX, mouseY. There you go. The cat now
+is following the mouse, and we have added
+a translation that makes it a lot easier
+and simpler to code. Rotating works along
+the same lines. Again, we're not
+rotating the object, but the graph paper that
+defines the coordinate space. Let's see it in a live example. Once again, please follow along. Here is a basic example. I run it immediately to make sure that everything works fine. Let's rotate it by 45 degrees. That's not quite
+what we expected. One reason things don't appear as perhaps you expected them to is because the rotate function takes a radians and not degrees. Radians are another way
+of measuring angles. Let's say you have a circle
+with a radius r. Let's take that radius and form an arc of the same length on the
+circumference of the circle. The angle that forms
+at the center of the circle is now
+equal to one radian. Radians are used
+instead of degrees. Whereas a full circle
+is 360 degrees, a full circle is just
+over six radians. Since we know how many
+radians a circle is, we can figure out that a
+radian is about 57 degrees. It's a bit counter-intuitive to describe angles like that, at least for our purposes, so we'll use degrees and the
+function called radians to convert from degrees
+to radians before plugging them in into
+our rotate function. Radians 45. Still not quite right. Another reason things didn't
+quite look as you might have expected is because just
+as with translations, rotations don't move the object, they move the graph paper. So when we want to
+rotate by 45 degrees, we in fact rotate the graph paper around the origin by 45 degrees. So here are some 2D
+transformations visualized, and I'd like to go
+through each of these cases encoded live. Please follow along. Let's first draw this rectangle. So we're going here
+and we're saying rect 200, 100, 100, 100. Let's fill that with
+a black here, indeed. So that's this rectangle. Let's now create the other. So fill 125, rotate, radians 45, translate 200, 100, 100, 100, and let's do
+the rect 0, 0, 100, 100. So I'm first rotating the
+canvas by 45 degrees, and then I'm translating the rectangle by a
+100 and 200 pixels. That's why we're
+getting this behavior. Let's look at a second case. In this case, and this
+will clearly demonstrate that the order of the
+transformations matter, we are translating
+and then rotating. So that should be
+a simple switch. All we have to do is to switch the orders of the commands. So I take this one from
+here, I place it here. Let's run that. That's
+how we're getting this. First, we translated the
+square into position, into, effectively,
+pixel 200, 100. Then I rotated the entire canvas. Notice however, that because the way we define rectangles
+is from the top left corner, we have actually rotated around that top left corner of the square and not
+from its center. Rotating it from its center
+where we translate, rotate, we do exactly the same order
+of transformations and we also change the erect mode. So if I just put it here, we can put it in the setup because it only needs
+to be done once. Rect mode, and we do center. That rotated the square, but it rotated it from
+it center because now we define the square
+from its center. The last case is the case
+where we have also used scale. Once again, the order of the transformation plays
+an important role. So if I wanted now to scale
+this rect by some amount, I would have to put it
+after the translation. Let's say I want to
+make it half, so 0.5, 0.5. There we go. If you want me to be faithful to the original
+design, I'll do it like that. I remove the rotation,
+and here we go. So I walked you through a series of cases and how we would code them
+to get the right effect. Let's see a special case now. Let's draw a rectangle again. So I'll say that I'll
+translate within the canvas, and then I rotate,
+again, 45 degrees. It's good practice
+to immediately run it to make sure
+that it's all okay. Sorry. Press that. Well, I'm rotating, but
+I'm not drawing anything. So let's go to actually
+draw something. Rect 0, 0, 200, 200, save it. Indeed my rectangle
+has been drawn. So let's say I wanted
+to draw two ellipses, one here and one here. Let's make it a
+little bit simpler. I'll code out their rotation. So this is the rectangle, and I want to draw an ellipse
+here and an ellipse there, how would I go about doing that? So we are at the moment, we have translated
+to this point of the canvas, point 200, 200. So if I want to draw
+an ellipse here, I have to go down 100 pixels on the y-axis and 100
+pixels on the x-axis. So let's make those
+ellipses red to 55, 00 so that we can spot them. Then I translate 100, 100 and I draw the ellipse, ellipse 0, 0 30, 30, and you see it crashed. So I opened here the editor, I go to more tools, developer tools, and I see
+what the console tells me. So in line 16, I have mistyped something. So what I have mistyped, ellipse 0, 0, translate
+100 line 16,. This is it, I forgot the comma. So if I run it again, I've managed to put now an ellipse in this
+corner of the canvas. So let's put also
+an ellipse here. So what would I need to do? I'll say fill 255, 0. I don't need to put that
+again because I have already the fill from
+the previous ellipse. So let's say I do
+translate minus 100, minus 100 to do the other corner. I do ellipse 0, 0, 30, 30 again. So if I run this now, you see that the ellipse, all I manage to do is actually go back where I started from. That's because the
+transformations trickle down. So when I translate
+it 200 by 200 pixels, I manage to get here in
+the center of the canvas. Then I translated
+another 100 by a 100, it got me here. But then if I want
+to go back here, I have to go 200 pixels back. It's going to get very
+complicated to keep track with relative changes. So what many graphics programming
+frameworks allows us to do is to build little modules. So I can save the
+transformations. I do push here where I
+save where the origin was, and then I pop here. So push allows me to say, well, this is where I started, I do whatever
+transformations I want, and then by popping, I return where I was
+before so that I can do more transformations from the place where I started. So I can do push
+here and pop here. Now it shows correctly. Notice that the red circle here is not red,
+it's actually black. That's because when I do push, I don't just push
+the transformation, I also push the style. So I save everything stylistic that
+characterizes my sketch. One of those things is the field. So I push here what
+the field was. The field here is black because
+we see hear field zero. I save it, and when I do
+fill 255 and I do pop, it throws that off the stack. So if I want to have
+another red ball there, I need to repeat the code here. But you see that this
+now allows a safe space, I can do whatever changes
+I want within these push and pop brackets,
+translate, rotate, fill, stroke, and once I pop, all these thrown out and we're back to where we
+were in this line. So let's run this now, and now we got it right. I could even rotate now, go back to having it a
+little bit more complicated. This was all possible by using the push and pop
+commands in p5.js. So this pair of
+commands, push and pop, allow us to easily move
+sets of primitives around. They allow for nested
+transformations, as I showed you in
+the simple example, and they also do style.

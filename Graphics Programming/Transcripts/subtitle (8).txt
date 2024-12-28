@@ -1,0 +1,64 @@
+Thank you for your patience as we
+navigated through the math behind vectors. You may well be wiping away
+tears by this point and wondering what the purpose
+of all these was. Well, now that we have learned about
+all this powerful little containers of information called vectors,
+it will be much easier for us to simulate objects moving
+in the physical world. Let me show you a simple example
+of how things will become much, much more intuitive from now on. All we need to do is translate the laws of
+nature into code, and we're good to go. From the bouncing ball example, we have already seen the concept of
+velocity and its relationship to location. I'll refresh your memory by saying that
+if we want to calculate the new location of an object, we obtain its previous known
+location and then add the velocity to it. In sailing, this is called dead reckoning,
+which was a widely used technique to estimate one's position from
+a previously known position. Before technological advances in
+navigation such as GPS made simple dead reckoning by humans obsolete for
+most purposes. We call this in P5 with a simple
+line location.add(velocity). Now, let's take our previous example of
+the bouncing ball and make it a bit more interesting by including another concept
+from physics called acceleration. Acceleration is the rate of change
+of the velocity of an object, just like velocity is the rate of
+change of the location of an object. So to calculate the new
+velocity in the new frame, we add the acceleration to the velocity. In P5, this is done by writing
+velocity.add(acceleration). So effectively we have acceleration affect
+velocity, which in turn affects location. From now on, this is how we will
+affect the location of an object. We will develop ways to
+affect its acceleration, and have those that affect
+trickled down to its location. So I took out, I took the example
+where I have the bouncing ball and I mean one little modification. I've changed the bouncing,
+the bounce function for the edges. So now I wrapped around the edges, so if the ball comes out from this
+side it comes in from that side. Let's look at it in action. You'll see why I'm doing this in a second. And it's going that way, and
+indeed it's entering this way. All right, so let's add now this new
+thing we've learned, acceleration. So I'll modify a little bit this,
+Variable. So I'll say that velocity
+in the beginning is 0, as I told you we don't want to
+affect velocity direct yourself. So we'll start with 0. We'll let the celebration do the job for
+us, and then the location and let's start
+it at 0 again on the x-axis, and in the middle of the canvas,
+on the y-axis, height/2. Okay, so if I run this now as I
+should as I told you many times, I should have the ball stuck there. It's in the beginning where
+it's supposed to be, and it's not moving because the velocity is 0. Let's add now to it the acceleration. So in the acceleration,
+what I want is in the Constructor, I will say this.acceleration
+= new createVector. And I'll give it a value. I want the ball to move on the x-axis. So it will have a small value for an x. And then in the move, I will say that velocity, that this.velocity.add, this dot acceleration and velocity location.add.velocity. So acceleration is added to velocity,
+and velocity are the two location. Acceleration trickles down
+all the way to location. Let's see it, and indeed it's
+a ball that start to accelerate, and it's going faster, faster because
+we're adding 0.03 in every frame. Well, pretty soon we're
+going to get seasick. So what we do, what can do is say,
+well, let's put a stop to this. Let's put a little limit, a break. So this.maxVelocity = 10;,
+that's the maximum velocity the ball will have,
+that's just the variables, all right? Class variable. What we really want to do
+with that is we want to say, by the way,
+before you add the velocity to location, make sure that it's within
+the legal speed limit, this.velocity.limit(this.maxVelocity). So it's taking a big vector and
+it says I don't care what your size is or your direction,
+no matter what your size or direction, trim it to be 10 if it exceeds it. So, let's see it in action. You see how my ball now is going crazy,
+ready? But let's start from the beginning,
+now it will start accelerating again. But you see that it goes
+within the legal speed limit. So the beauty of this solution is we
+have stopped now telling the object where to be. We don't affect its location,
+we don't affect its velocity. We are affecting its acceleration,
+just like things work in the real world. More on that in the next chapter when
+things will begin to make a lot more sense with acceleration. So for the moment, we affect acceleration,
+and that change trickles down like a waterfall to velocity,
+which trickles down to location.

@@ -1,0 +1,151 @@
+Hi again and welcome to another exciting week of
+graphics programming. During this week, we are
+going to look at vectors. We'll use them to animate
+objects in a more organized, abstract way and we'll make
+progress towards building our own simple physics
+engine. Let's jump right in. When we talk about vectors, we're referring to
+Euclidean vectors named after Greek
+Mathematician Euclid. Seen here in the
+painting by Raphael, depicting the School of Athens. Simply put, when we talk
+about vectors in mathematics, we mean something that has
+direction and magnitude. Vectors are usually
+represented by an arrow. As we'll see this week, vectors could represent
+any number of things. You can think of them as
+containers of information. It is up to us to interpret that information and use it within the context
+we have defined. For example, in this context, the vector describes how to
+get from point A to point B. To appreciate the powers of vectors in a programming
+of graphics, let's get back to basics
+and program arguably the hello world of graphics programming,
+the bouncing ball. So let's start coding our basic simple
+bouncing ball example. In order to do it, I'm going to create a class of type ball, where I'm going to put
+all the complexities, all the particulars of balls in there. So how do I do that? I start with a
+simple example here, I make sure that it runs, fine, we're ready to roll, and I have class ball, which will have all
+the information about balls inside of it. So first off, inside the class, we have a constructor. The constructor is run as soon as one object of type
+ball is created. It's imagining like
+a little factory. So let's have here, what does a ball have normally? Well, a ball have speedX, and a speedY, locX, locY. As soon as the
+constructor is called, we want those variables to be initialized, declared,
+and initialized. So this.speedX equals, let's give it a random
+speed, to its ball, we do speedY, and we do the same for location. Location becomes here, locX and width. So I'm picking a random
+coordinate on the x-axis, a random coordinate
+on the y-axis. It's very important
+that you follow me and you type everything I type so that you work
+this example with me. So I have a ball class right now, but I'm not creating
+any balls yet. So let's create a
+variable called ball. But that's just an
+undefined variable. Here inside my setup function, I will initialize that
+variable as of type ball. Look at that, I'm
+saying ball equals to new ball. I run that. It runs, there's no effect, there's no difference to what we had before and that's because we're
+not drawing anything, we're not moving anything, we're not updating anything. So all we did was call the
+constructor and that's it. So before we do anything else, it's important that we
+draw the ball to make sure that everything we have
+initialized is correct. So let's do that. We have a function called draw. In that function,
+we'll set, let's say, the color of the ball to a boring gray and then we
+have an ellipse drawn that is this.locX, this.locY, 40, 40. I can call this from here. So ball.draw. Let's run it. We see the ball appear.
+If I reload the sketch, it appears in a new location. That's because the constructor gives it a new random position. Okay, it has a speed, but I'm not really
+using that speed. So let's actually do
+something with that speed. Move, I create a move function and that takes the location this.locX plus
+equals this.speedX. This plus equals thing
+is the syntactic sugar, it's the same as saying
+equals this plus this. But for brevity, we prefer
+to write it like that. So this.locX plus
+equals this.speedX. We do the same for locationY. So between frames, the new location is equal to the old
+location plus the speed. Now we have two functions. We could just draw it like that, we could just run it like that, move, and indeed, it's moving, but I want to be a little
+bit more organized. So what I'll do is
+I'll have a function here called run that will call the draw function
+and anything else that I need to do within the
+ball and this.move, so that when I go
+into my class here, I will only need to call run, so it's nice and organized
+and simpler and indeed, it's still running, as expected. Notice how I write a few lines of code every time and I keep
+checking, I keep checking. I don't allow myself to write too many lines where things could break and then
+I have to remove things. We do incremental development. Okay, so we got that going. So what next? Let's make the ball bounce. So that is enough. Bounce equals if this.locX less than zero or this.locX
+greater than width. So in my frame, if this is zero
+and this is width, if it's outside this side
+or outside this side, then reverse the speed. Speed x equals negative one. Again, the syntactic sugar, it is the same as saying this.speedX equals
+this.speedX times negative one and we
+do the same for locY. Height. Here we update this. So if I've done everything right, speedY and locY here. So if I've done everything right, then, it's not running, so let's debug it. So I opened here more tools, development tools.
+What does it say? It doesn't like, yes, I put one extra bracket
+here. That's right. So now, it's traveling
+and hopefully, it will bounce against the walls. No, it didn't. So
+what is the mistake? If it's less than locX
+or greater than width, then multiply the
+speed by negative one. If locX is less than zero, which is what we had right now. Or locY is greater than height, then, let's save it.
+Let's run it again. It should be correct,
+but yet it's not. The problem is that we haven't included the bounce in our collection of little
+functions here inside the run. So bounce, now it should bounce. Now the ball should
+bounce. Let's see. What a relief, the
+ball is bouncing. So we have already now, we have seen how
+all the functions, we have the draw, the move, the border, and all of this is done
+in a little run function. Notice how we have a
+lot of repetition. We have locX, speedX,
+speedY, locY, and then we do calculations
+like this on the x-component, then on the
+y-component and so on. Imagine if we had to make a
+world a bit more realistic, and wish to add many more things like acceleration,
+wind, friction, all those of other forces
+acting on our objects, things will quickly become messy. Vectors themselves won't help us create beautiful animations, they will just help
+us keep our code tidy and allow us to operate on
+another level of abstraction. When you're dealing with
+more complex behaviors, more difficult problems, you often need to go up a level of abstraction
+to tackle them. We don't want to deal with
+locX and locY anymore. We want to be able to
+say location, I mean, a vector that contains all the information about
+where the object is. As I already mentioned, a way to think of a
+vector is as a set of instructions to get from
+one point to another. How many horizontal steps
+do we need to take to the right to get from
+point A to point B? Well, we need to walk 15 steps to the right and four steps up. In vector notation, that
+would make for a vector with values 15 and negative four. Negative four is
+negative because we are going up the canvas. When we program the bouncing
+ball in each frame, we use the same principle to decide where the ball should
+be frame after frame. We use the values locX,
+locY, speedX, speedY. Now we can combine
+these values into vectors and simplify
+our program somewhat. Remember, our goal is to
+build more complex systems. We, therefore, need
+to go up one level of abstraction and use more
+complex building blocks. So let's see now the same example as we were using before, but with vectors. So it's the same bouncing ball. How can we hack it now to
+simplify the structure? So here I have speedX,
+speedY, locX, locY. So that's already
+starting to annoy me. As a programmer, I'm lazy. I want to optimize things. So let's replace all
+this thing here, or the speed, and have a
+variable, call this velocity. I create a vector,
+new createVector. That's how we create vectors. I need to put some values
+here for x and y component. I'll say again, random
+negative two to two, and random negative two to two. So this statement is pretty much identical
+to this, these two. They're all encapsulated
+inside this vector. So let's do the
+same for location, this.location equals
+new createVector, random width, random height. So I fix now these two variables, but I need to make
+sure that I use them the correct way everywhere
+else in my sketch. So I have now a location there. So I'll just go here and I'll say this.locX is not called
+anymore like that. This.location. Location is a vector that
+has an x and a y component. So I'll say, this.location.x, and similarly, this.location.y. So that should fix the draw. Again, remember we talked
+about incremental development. So let's comment this out, and see what does it create. Yes, indeed, we have
+a ball that is not moving and our code works. So let's add the move now. So what is location? The new location, we said, is equal to this.location equals this.location
+plus this.velocity. Well, you'd think that they
+would do us that favor. But in fact, it's a tiny bit
+more complicated than that, we need to use an add function. So in fact, what we
+have to do is say, this.location.add this.velocity. If we want to add
+velocity to location, this is how we write it, with this add function. Let's see what that does. Let's comment this out. It's not moving
+it, this.velocity. Oh, there we go. It's moving now. I hadn't saved it. I think it is the bounce
+that is causing the problem. You see, because I have code that doesn't exist,
+it crushes it. So I need to make sure that
+bounce is commented out. So the ball is now moving and we're only
+playing with vectors. So let's fix here the bounce so that we
+get the bounce back. If this.location.x
+less than so and so. If this.location.x so and
+so, then get velocity. Velocity.x and invert it. Let's copy this all below here. There we go. There we go, oop, and here it's not
+width, it's height. There we go. We're pulling
+back bounce. So let's run it. He get anticipation, and
+no, it's not bouncing. What did we do wrong? Less [inaudible] , greater
+than y to velocity times. It's a bit bizarre. Let's run it again.
+Maybe I didn't save it. Everything looks right. Yes, it was right, sorry. So we have the same
+code as before, but now, it's a little
+bit simplified. As we progress, you'll see that the advantages of using vectors become more
+and more apparent. So in draw, I had location. Now, I'm calling the vector and I am using its
+two components. Now the addition has
+been simplified, I don't need to play
+with locationX, speedX, locationY, speedY. It's all done in one
+phase like that. They advantages are not so
+pronounced in the bounce, because I still have to decompose and get the x and the y. But soon, we'll take it in the next level and you'll see why it's great
+to use vectors.

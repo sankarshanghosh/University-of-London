@@ -1,0 +1,72 @@
+Another very useful
+operation is the ability to measure the length or
+magnitude of a vector. In the example of
+the bouncing ball, measuring the magnitude of the velocity vector would give us a value that is closer to our common sense
+perception of velocity. It would remove the
+information about direction and simply
+be a single value. The speed of the ball
+is five. What five? Five pixels per frame, much like a car moves at
+five kilometers an hour. How do we calculate magnitude? Another Greek from Raphael's School of
+Athens to the rescue. Pythagoras' time, who's
+depicted here on the left. A young boy presents him with a tablet showing a
+representation of a lyre. That's because Pythagoras
+and his mystical sect of followers did a lot of
+research into numbers, proportion, and musical harmony. We'll use a theorem Pythagoras invented to calculate
+the length of a vector, which is, in essence, the
+hypotenuse of a triangle. So how long is vector c if the x component is four and
+the y component is three? We plug in the values in Pythagoras theorem
+and we get five. If all these maths have made
+you dizzy, don't worry. The five comes with
+a function called mag that performs this
+calculation for you. It's good, however, to understand exactly what's happening
+under the hood. So let me show you mag. So I'll go here, I want to calculate the
+magnitude of this vector, the vector that is drawn here with the black
+line on the screen. So text, I want to use text because I want to print
+on the screen magnitude. Let me just write it
+properly, magnitude. I want to print on
+the screen the size of the vector and I'll say mouse.mag and I'll
+print it at 10, 10. Now if I run this, it prints it all right, but it's a very clearly
+ugly floating point number 176 point many digits. So let me make that
+into an integer so that it's a bit prettier I don't care for so much detail, and indeed now I have
+a 168, 322, 425. You see, even if I go backward, it doesn't bring
+negative numbers. Let me use that value somewhere. Let me make a rectangle at 10, 20 that this of mouse mag so that the same length is
+outlined and width, 10. Indeed, look at that. It is exactly the length of that vector. Let me
+show you on the board. So no matter which way
+my vector is pointing, with a mag function, I'm getting that, the
+length and only that. We discussed before how a vector describes magnitude
+and direction. With a mag function, we extracted the
+magnitude of a vector. There's another function for extracting the direction only, it's called normalize
+because it takes any vector and turns it
+into the unit vector, which is of size one. Normalizing, therefore, makes
+all vectors equal in size. The way in which the
+direction is calculated is by first finding the
+magnitude of the vector. Again, by measuring
+the hypotenuse in the triangle that
+the vector forms, and then dividing each component of the vector by that magnitude. In this case, three is divided by five and four is divided by five. So let's use norm now, normalization in our code. So I'll create a new
+variable called normal var normal and I'll copy the values
+inside the mouse vector. I'll explain to you
+in a second why. You'll see why I
+need to make a copy. So let's use that for now. So let's see what's inside
+this normal vector normal. I'll print out its content. Normal.normalize, let's print it on screen. Where do I print it?
+I need to say 10, 50. You see that I have
+some very small values, 0.9212 and 0.38, and basically, the minimum value that the vector needs to have to
+maintain its length of work. Let's see that in the board. This is the vector that
+I have now and what I care about is the direction. I don't care about the
+magnitude like I did before, what I care about
+is the direction; the angle that it's pointing at. The size of it is one that's why they're
+called normal vectors. They're all size one is the
+direction that I care about. Let's go back to the code. So now I can use these values. I can use the value
+from here and multiply it by any other value
+to show its direction. So for example, I
+can take now normal equals to normal times mult 25. Then I can say, you know what? I'll draw a line
+at 60, and 10, 60. So right now I'm
+drawing a vector, a line that has exactly
+the same direction as my mouse vector in the
+center of the screen, only it is of size 25. Let's make that bigger.
+I could say here, you know what? Make it 50. Same direction because
+it's contained in the normal vector but
+different size, it's size 50. Do you see now why we
+used a copy of the mouse? When we do multiply, we actually affect
+the normal vector. If I had used mouse, I would have changed
+also how this vector in the center of the screen looks like and I don't want that. That's my benchmark, let's say. So that's why I use the
+copy of the values.

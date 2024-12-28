@@ -1,0 +1,48 @@
+We've seen the rectangle
+that we're using to draw a box and we've seen the rectangle that we
+use to make a ground. Let's make it a little bit more exciting by adding
+a second ground. I want things to
+bounce off each other. I'll do ground1 and ground2, I'm adding a second ground
+basically here, ground2. Yeah, let's actually take these options now that
+you know how they work. Let's take these options
+and just replace it here and here, I don't need this anymore. I will make one ground be at 100, 200, so it's going to be a little bit higher
+and to the left, and I'll make the other
+one be below it so that things bounce into it, so 500 here width and 500 here. So if I just show you
+what I've done now, let's try it again, it doesn't draw yet. Yes, that's because I don't have a ground anymore,
+I have a ground1. So let's draw the
+vertices for ground1, and let's draw the
+vertices for ground2. There we go. So we
+have two grounds. Let's make it a little bit
+more interesting by turning this ground the other
+direction. There we go. So things would slide off one
+and we go into the other. The reason for this example
+is because I want to show you what other bodies I can make. Here I searched matter- js bodies to go to the documentation, so here it is the body's page, and I can have a circle, I can have a fromVertices, which means that I can
+have custom shapes, and I can have polygon
+and trapezoid. Rectangle we've already seen, let's play with some of the
+others. Let's do a circle. The circle takes x, y, the location again,
+and the radius. Let's do that. I have here var circle, and I'll create body circle
+equals bodies.circle, I'll want it to start right
+at the top and radius 20. Let's not put any
+options for the moment. I'm adding the
+circle here as well, circle, and of course, I want to draw the
+circle as well and see how nice with just
+one line of code now, no matter what the object is, I'm just simply drawing it. Let's see it all in action. So I press to run
+it and there we go. We have the ball
+also in that world. Let's add something else. Let's add a polygon. Polygon, what does a
+polygon take as parameters? Let us look at this polygon, location, how many
+size in the radius? That sounds fairly
+straightforward. So polygon equals bodies.polygon, I'll do it at the
+top again, 0, 5, 30, so I want it to
+have five sides and then 30 is the radius
+of the object. Again, no parameters
+for the moment, and just add it to
+my physics engine. So polygon, so let
+the physics engine know that it needs to be giving me numbers for this
+as well and polygon. So same logic as before. I'm introducing an object, I'm adding it to my world, I'm telling the physics
+engine to update in the loop, and then I'm just getting the vertices from the object in order to draw it
+in the correct place. Let's see that, there we go. We have the polygon, we have the circle, and
+we have the rectangle. The two in the back
+are a little bit shy, let's give them a little
+bit of restitution and friction in order
+for them to move. There we go. That's nice
+it bounce here. Example.

@@ -1,0 +1,150 @@
+We've seen basic objects
+being animated with the numbers that the matter.js
+physics engine gives us. Now let's move on to building slightly more complicated
+world by using constraints to tie one
+object to another. A constraint is an entity that connects two
+bodies together. This connection has no geometry, which means that things
+will pass through it it's purpose is solely to join
+the objects together. To connect two bodies together, we would have to provide the
+constraint with two bodies, body A and body B. We also need to
+provide a place on the body that the
+constraint is attached to, these are called
+point A and point B. If I set both point A
+and point B to 0, 0, it would mean that the
+constraint is attached to the center of the two bodies, just like in these two circles. The constraint can take
+other options too, which defined how it behaves and properties such as stiffness, but for the moment, let's start with the basic ingredients. So I'm using the
+other audit example and let's remove these other
+bodies I don't need them. Once again, clean
+up my code a bit. Actually, let's remove all of these and keep a very simple one, very simple example here. So I just have a ground, no polygons or
+anything like that, and here as well, this the ground not even a box, and here I remove all
+these objects from here. Immediately we run
+this to make sure that it's producing what we
+think it should produce. It's not drawing the floor yet, let's see why that is. Yes, we have forgotten to rename here the object that
+we're actually drawing. There we go. Let's move the
+ground to a better location. It's still static, but
+let's make the angle zero, so we want to make it flat again. Let's move it in the
+middle of the screen, width divided by 2
+and height minus 20. Let's say just right
+at the bottom, and let's make it a
+little bit bigger, because my Canvas, it's 800,
+let's make it like that. So we have a floor now for our objects to lie
+on if they need to. Let's add the constraint. First of all, we will need, let me show you one what
+we mean by constraints. So I searched matter.js
+demo constraints, and the first thing
+that comes back is this nice page where the developer has made lots
+of examples for us to see. I'm going to scroll all
+the way to the top, I go to constraints, and this is the thing
+that I want to be coding. So and very nicely, I can click on those curly
+brackets and it links to the GitHub Page and I
+can see what I need to copy in order to get
+that example going. I already see here that
+I have constraint, this is one thing that
+I should include in my module list in the top here. I'll do that, so
+var Constraint is equals Matter.Constraint.
+Let's get going. So we need to have a variable
+for the constraint itself, for constraint 1, I'll allow the few constraints so
+I'll give it a number. Var poly1A, this is
+my first object, and var poly1B, that's
+my second object. Let's get these two objects
+connected to each other. Here in my setup, I'll create a poly1A
+equals Bodies.polygon. Let's say I'll put it 700, 100, that's the location, it will have six sides and it will
+have this radius. Let's go back and make sure
+that things still run. Yeah, things look okay. Let's make the second object. So Poly1B, and that
+will be a little bit further down on the
+x-axis. Let's run this Yet nothing still drawn because we're not drawing
+anything on the screen yet. We're not visualizing them. So if we wanted to see these, well first of all we would
+have to add them in the world. So poly1A, poly1B then here I'll drawVertices, poly1A.vertices, and poly1B.vertices. So this should get them drawn. Let's see if that's the case. Let's close that and
+let's run it again. Yei, its working. Two objects fall on each other
+in the scene and it works. Let's make one bigger than
+the other. There we go. We created the two objects but we haven't yet
+added the constraint. We created the object, we added that to the physics engine, to the world of
+the physics engine and we are visualizing them. So let's add now the constraint. The constraint will be
+defined the following way, constraint one equals
+Constraint.create and here is now where I put all the parameters that are
+needed for my constraint. So what is needed? We
+said we need to define a bodyA and that bodyA is what? Poly1A, object that we created. The bodyB is poly1B that's bodyB. Before we get into bodyB
+actually let's define where on bodyA do we want the constraint
+to be attached to? That is defined by point1A, as we said and this
+takes two parameters as well x 0 and y 0. So we are grabbing the
+object from the center, we're grabbing bodyA
+poly1A from the center. Let's decide also where we want to get bodyB
+from so pointB, x will say minus
+10 and y minus 10. As you can see from this small
+values minus 10 and minus 10 some of you may already suspect that these
+are relative values, so zeros zeros in the center and minus 10 minus 10 will
+be probably a bit to the left of the center of the object and up so
+relative coordinate. Lets run this. It hasn't been added.
+What is happening? It's not in their
+world constraints need to be part of
+our world as well. Pap, it works. There is a constraint there. You see the effect
+of the constraint the two objects stay in a good
+distance from each other. Imagine it, it's a
+little bit like having a broomstick let's say
+separating these two objects. Let's visualize though the
+constraints so that we can actually see it and it helps
+us debug things as well. I created a little helper
+function here for you, which I'm going to
+paste in the bottom. Just like we have
+the drawVertices, we have now another
+function called drawConstraint so in my
+drawer loop here I can have something like stroke
+128 again and I'll say here drawConstraint
+constraint1 and if I go here, there we go. Let's make it a
+little bit thicker. So strokeWeight 3. There we go and now you see this constraint as it
+affects the two objects. Notice how in a circle it's a little bit off the center that's because that's how we defined it. We defined it bit off center right here in
+this parameter pointB. Let's make it a little
+bit more interesting. Let's play little bit
+with the stiffness of the constraints so I
+can say stiffness 0.1. That didn't work. So try again here it is a
+coma stiffness 0.1. There we go and you see it
+start now to bounce a bit. Let's make it even
+smaller 0.01 whoa, that's nice see that again. So I played with
+stiffness now here and that joint has become
+a little bit elastic. Let's play with a few
+more constraints. Now this constraint is
+attached to these two bodies. Let's add a constraint that
+attaches a body to the world. I can have another
+poly, so var, poly2. I'll create another
+constraint, constraint2. Let's add this to the world. Let's create these objects
+and add them to the world. I'll go here and I'll say poly2. Actually, let me save
+myself by copying this entire command
+since it's going to be pretty much the same. I'll say here poly2, and I'll create a
+polygon that will be in location 300, 200. It will have five sides and it will be 40, constraint2. Again, let me copy that as it is. I'll paste it here. What do I want to do here? Well, I don't have a
+bodyA in this case, I just have a pointA. I want this object to be attached to a specific
+point in the world. I say that pointA is a 150, 50 in my world. BodyB is poly2. Then I want that to be
+attached at minus 10, minus 20 on the object
+relative to the object. We don't care about
+stiffness at the moment, and let's add this to the world. All I want to do is just poly2,
+constraint2, that's it. Of course we need to
+visualize these things. I'll just say here, drawVertices poly2
+and drawConstraint, constraint2 so that we have nice little debugging information so we can see what's going on. There we go. Look how nice. Poly is caught from the top
+corner, let's see it again. We have that stiff
+little line that's extended there to control it. Let's add one more
+because I want to show you also an example
+where it's not stiff. Poly3, constraint3. It's going to be
+pretty much the same, just in a different location. I'm taking this as it is
+from here, copying it there. This is poly3. What
+should I put here? I can put 400, 100, slightly
+different location, slightly different body, and then also attached
+to the world, but in different a location. A little bit later on the x-axis, same place on the y-axis
+is going to be attached. It's going to be attached here and it's going to be
+attached to the poly3. That's the body that
+I want to attach to. Let's say that it will be
+attached to almost the center. Now here I want to play
+also with a few parameters. Stiffness, let's make that really small and dumping 0.05, you'll see what that
+is in a second. Let's run it again. Lines 60, not like that,
+something is wrong. Yes, I'm not drawing
+the constraint3. Constraint3 here as well,
+constraint3 and poly3, I had forgotten to add the
+correct objects in the world, and poly3 here as well. I've showed you now
+three constraints. Let's quickly look at
+them in code again. I created one where I'm
+connecting two bodies together, I created another one where I'm connecting a body to a place in the world and that is very stiff, and I created another one
+again that is connecting a body to another place in
+the world that is very soft, there's a very elastic
+connection in the constraint. But you can't really appreciate this elasticity in the
+constraint and you can't really enjoy
+this physics world without being able to
+interact with these objects. That's what we're going
+to see in the next video, where I add a mouse constraint, which allows me to drag and drop this objects and
+move them around the scene.

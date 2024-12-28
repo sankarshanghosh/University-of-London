@@ -1,0 +1,148 @@
+A lot of the examples that
+follow in this course we'll be using
+object-oriented design. You may have heard of
+constructor functions before which are quite similar. The classes that we're
+going to be making are streamlining the syntax of JavaScript with other languages, and it allows us to
+write neater code that can encapsulate
+a lot of complexity. What does object-oriented
+design even mean? Object-oriented
+programming, or OOP, is a programming paradigm
+based on the concept of objects which can contain
+data in the form of fields, also known as attributes
+of properties and code in the form of
+methods or functions. For example, here are two balls. These share quite
+a few properties. They'd have size,
+color, material, etc. They also have certain behaviors, they can bounce, they
+can move and so on. We can encapsulate
+all these behaviors and properties in a class. We can make a class Ball which contains this properties
+as variables, and all the behaviors
+as functions. We can then use the class Ball
+to create various objects. An object called basketball
+that has certain properties, another object called
+baseball that has slightly different properties but same behaviors and so on. Another way to think of a
+class is like a cookie cutter. Just like you use a cookie
+cutter to make cookies, you use the class to make object. I don't want to get
+too deep into classes. The point of this short
+crash course is to give you an insight
+into the syntax, and how they work, so
+that you understand the examples that follow in
+the next couple of lessons. So let's start with
+a basic example. So I'm going to make a little
+button that when you press it changes the color
+of the button. So how do I do that?
+So let's first of all, we need to have a
+variable called state, which is false that will record whether the button is on or off. Then we need to have a
+location for that button, locX and let's set
+it to 200, locY, let's set it to
+200, and let's have a width for that button, let's put it at 200 again, and a height, let's
+put it at 100. I think that's pretty
+much it from this bit. Let's set the background
+to black. That's fine. Then what we want to
+say is that, well, if state equals true, so if the button is on, then field can do it
+actually on the same line. Let's be a little
+bit more economical than set field to 255. Else fill black. Then underneath that,
+draw a rectangle at locX, locY, w, h. Let's run this. So this is not object-oriented
+programming right now. It is a traditional way
+of making a button. Let me actually
+make the background gray so that you can see
+the button being off. That's fine. So we
+have a button here. It's not particularly
+interactive yet, so let's make it interactive. I'll have a function
+called mousePressed(). In this function, what
+I'll do is I'll check if mouseX is the
+location of my mouse is to the right of locX. So if it's basically I want to do a test to check if I am clicking on the button mouseX
+less than locX plus w, separate line mouseY
+greater than locY and mouseY less than locY plus h. So basically this is testing the borders
+of the button. Is my mouse to the
+right of this wall? Is it to the left of that wall? That's what that
+first line means. The second line means
+is it under this line? It needs it above this line. So if that is true, if the mouse is indeed in there, then I want to stay changed
+the state of the state. So I want to say state set
+to opposite of the state. I could change it and have
+a if statement and say, if state equals true, then state equals false and if state equals false,
+the state equals true, but it's a much
+nicer way you say, the new state of state it is the opposite
+of what it used to be. So let's run that. So if I click now on it, or it works, if I
+click anywhere else, I'm clicking here,
+nothing happens. I can only flick the
+state here like this. But already you see certain
+problems with the setting. Imagine like if I want
+to have many buttons. I already have all these
+variables that belong to the button polluting
+my global namespace. Imagine if I had other code. It's not very neat. Also, imagine if
+somebody said, "Oh, I love this button,
+can I have it?". I would have to start copying code from here and there,
+to give it to them. So what's a better
+way of doing things? The better way is to have a class Button and the convention
+says make the button capital. Then here I'll put all the
+code that relevant to that. So I'll write a little
+constructor function. The constructor function basically initializes the object. So I'll take all these
+little variables from here and I'll move them
+inside the constructor. I'm not going to say var state, I'm going to say this.state. So this makes it
+belong to this class. So I'm changing this, sorry, and let me just take
+all these things from here. So I am saying when
+somebody creates a button automatically JavaScript
+called the constructor and it sets all these variables. So that's fine. I've moved them all there. So then what else do I need? Well, I need to also, what do I do with this button? I also draw it. So
+I draw it here. So let's say that I'll have
+a function called draw, and it will take the
+same code from here. So you notice I'm just
+moving code around. I'm not adding much logic, I'm just moving code around
+so that it's neater. So I'm saying when somebody
+calls the draw function, check the state and pick
+the appropriate field. What else? Well, I have here, this piece of code here
+that does the flicking. That's another piece of logic. So I can say that
+actually I'll have a function here called flick(x, y) that will take two parameters, x and y, and it will say
+it will do the same test. Now importantly, I
+missed something. Here, every time we call
+the variables of a class, we need to use this. So this.state, this.locX,
+this.locY, this.w, this.h. Here we're not using mouseY anymore because we're going to be getting the parameter X
+from our top program there. So I'll say I have a function called flick
+which takes two parameters, x and y. So x,x, y,y. It will check
+against again this., the parameters of the object, this.locX, this.w,
+this.locY, and this.h. It's going to flick the
+state over like that. Things should be working now. Let's actually start
+an object like that. So let's create an object button. So I'll have here var button and then in my setup function, I'll say button
+equals new Button. Whenever you create an object and whenever you call
+the cookie cutter, the cookie cutter is
+Button with capital B. You create and you call it new and notice how the
+object is with small b. So a new Button and giving it, I'm calling it like this. Then I'm saying
+here, button.draw. Let's run it and it works. But notice there is no
+flicking. There's drawing. So if I remove that, it stops. So there's drawing, but
+there is no flicking. I need to make sure that
+I do the flicking here. So I'd say mousePressed()
+whenever mouse is pressed, I'll call button.flick,
+mouseX, mouseY. I'll pass it basically
+the mouseX and mouseY. Now, it works again, and all the logic for the button has been moved in these
+nice, neat class. But you'll say, well, what did I gain with all these? Well, now all of a sudden, first of all, we can take this code and give it
+to somebody else. Somebody can say, I
+love this Button, here it is, here's
+a Button class, use it or we can start saying, well, as you'll see
+in this course, programmers are very lazy. We want to reuse code
+as much as we can. So how about I make this class in little bit more
+general and I say, actually in the constructor here, I want somebody to
+pass the location where they want a button and here I'll say set the buttons this.locX to the locX that you're are passing. So this locX is not
+the same as this locX. This locX, is the locX
+that we are passing while this locX belongs to
+the Button class, and here w and here h.
+So what does this mean? Well, it means that
+we can now say, well, I'll create a new Button
+that's this size specifically. So let's run this and I
+have the same behavior, but I can now say, "Well, let me actually create another button, var button2." Var button2 will actually be where let's say will
+be at location 100, 100 and it will be a
+little square button. I need to draw it, of course
+as well, button2.draw. Then we go and we have to, oh, it doesn't work.
+Why doesn't it work? Because I need to also send the parameters where every
+time a mouse-click to the second button
+and I look at that. So I have now code
+that I can give to somebody and I can use again and again and I specify the location, and the size of its button. I have two independent buttons. Then of course, I
+could create an array of these objects and I could have 100 buttons on my screen
+all with the same behavior. I could then go and say, "Well actually, you know what, this drawing doesn't
+really work for me." I want to say that every
+time the button is pressed, a random color is peaked, for example and I could do that. All I have to do is just
+change this draw function. Everything else will
+work exactly the same and I'll just change
+the draw function, which allows also for
+maintainability and other one of the advantages of
+object-oriented programming. So have a play with a code. Try to code with
+yourself because it's a very important skill to have
+for the next few lessons. It's important that you have understood fully this example.

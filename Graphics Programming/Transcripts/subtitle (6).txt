@@ -1,0 +1,12 @@
+When we use multiplication on a vector, we're talking about scaling
+it by a certain amount. In this case,
+we're taking a scalar value s and multiplying each component of
+the vector by the same value. Division is similar, we divide by scalar. Let's see both in code. So I'll show you multiplication and
+division now, scaling of vectors, by starting off with a previous
+example that we used, the subtraction. So, in this example,
+I've shown you that we see basically the difference between the center
+of the screen and the mouse. Well, what would happen if I scaled? Let's see, so mouse.mult(0.5). So that effectively halves the vector,
+right? Well, what happened is exactly that. It doesn't reach the mouse now,
+it goes halfway to it. That's pretty much identical to going to this, mouse.div(2). Again, I divide by 2,
+therefore, I halve the vector. So you've seen now multiplication and
+division of vectors.

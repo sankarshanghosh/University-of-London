@@ -1,0 +1,107 @@
+In order to simulate the behavior of solid objects
+more realistically, we have to check if
+they collide with each other every time they
+move and if they do, we have to do something about it. Usually that's
+applying forces that change their velocities
+or eliminate the object, just as when a bullet hit a spaceship in their
+classic arcade games. We've already seen some form
+of collision detection, when we were making the
+ball bounce against the walls in our
+bouncing ball example. We'll now look into
+it in more detail. More formally,
+collision detection is the computational problem of detecting the intersection
+of two or more objects. It's often associated
+with video games, but it also has
+applications in robotics. If we have many bodies
+in a simulation, the problem quickly becomes quite complex and
+computationally expensive. First off, we have to compare every shape against the other. So if we have 10 shapes, we have to do a 100 comparisons. In addition, shapes can be
+quite complex and determining the overlap between
+even just two of them can be quite expensive. What we often do, is divide the collision
+detection process into two phases: A broad phase
+and the narrow phase. During the broad phase, we find pairs of rigid bodies that might be colliding
+with each other, and we exclude pairs that
+are certainly not colliding. To optimize this task, physics engines often use space partitioning as well
+as bounding boxes. Bounding boxes is an attempt to simplify the comparison
+between shapes. Rather than going
+through all the vertices of shapes to see if
+there's overlap, we first establish
+whether there is a chance for overlap
+using bounding boxes. To minimize the number of overlap tests between
+the bounding boxes, we can use some kind
+of space partitioning. There are lots of
+space partitioning algorithms and data structures
+that can be used for this, such as uniform grids, octrees in 3D, spatial hashing, and sort and sweep. I'll give a brief overview of quadtrees which are
+used in 2D space. A quadtree is a data
+structure used to divide a 2D region into
+more manageable parts. A quadtree starts
+as a single node. Initially, objects
+added to the space are added to the single
+node of the quadtree. When more objects are
+added in the space, the quadtree will eventually
+split into four subnodes. Each object will then
+be put into one of those subnodes according to
+where it lies in 2D space. Any object that cannot fully fit inside the nodes boundary, will be placed in
+the parent node. Each subnode can continue subdividing as more
+objects are added. In this slide, you can see how each node only contains
+a few objects. We know then that the objects in the top-left node cannot be colliding with the objects
+at the bottom right node. So we don't need to run an expensive collision
+detection algorithm between such pairs. Here is a simple example of circles colliding
+with each other. When the silicons
+collide, they turn red. With 500 shapes that you see here on the screen,
+with 500 balls, we would have to do
+250,000 comparisons. However, when we use quadtrees, this number drops dramatically and we're able to achieve
+smooth rendering. I'm going to turn
+now the quadtrees in the screen so you can actually see how the
+space was partitioned. The efficiencies are folded
+with space segmenting, space partitioning
+should now be clear. After performing space
+segmentation and simplifying the shapes
+by using bounding boxes, we have reduced the number
+of comparisons we need to make and can move on
+to the narrow phase. Game physics engines
+have a number of different classes of
+shapes such as circles, edges, and convex polygons. For each pair of shape type, then have a specific collision
+detection algorithm. Here you see how we
+can calculate if a triangle has collided
+with a rectangle. One way to do this is to iterate through all of the
+points of the triangle, all of the vertices, and see if any of them are inside the boundaries
+of the rectangle. We'll be looking
+into possibly the simplest collision
+detection algorithm, the one involving circles. First, let's come up
+with a rule that tells us whether a point is
+inside the circle. Think about the relationship between the radius of the circle and the distance between the center of the
+circle and the point. If the distance between the
+center of the circle and the point is less than
+the radius of the circle, then that point is
+inside the circle. So we know that the point
+on the right is outside the circle because its
+distance is 125 pixels, while the radius of the
+circle is a 100 pixels. Now look at this case. We know that the second point is inside the circle because
+the distance between the center of the circle and the point is less than
+the radius of the circle. Putting this into code, we can use the dist function to find the distance
+between two points. Say we have a point described
+by point X and point Y and we want to check if this point is
+inside the circle, we can use the dist function and compare it to the radius of the circle to detect whether the point collides
+with a circle or not. Now that we know how
+to detect whether a point is colliding
+with the circle, we can expand that to detect whether a circle collides
+with another circle. The idea is the same. We still check the distance between the centers
+of the circles. But instead of checking against the radius of only one circle, we check against the sum of
+the radii of both circles. If the distance
+between the centers of the circles is less than
+the sum of the radii, then the circles are colliding. Here are two
+non-colliding circles. The reason they are
+not colliding is because their distance
+is 200 pixels, while the sum of
+the radii is a 175. In this example
+though, the circles have moved closer to one another and they are now a 150 pixels away from each other. This means that they
+are indeed colliding as their distance is less
+than the sum of the radii. If we were to write it in code, we'll use the same
+logic as before, taking the distance between
+the circle centers and comparing it with the
+sum of the radii. If we were to write it in code, we'll use the same
+logic as before, checking the distance between the circle centers and comparing it with the
+sum of the radii. Now that you understand the
+logic of collision detection, you can work on your own on perhaps slightly more
+complicated cases like this one. The rectangle
+two-point collision.

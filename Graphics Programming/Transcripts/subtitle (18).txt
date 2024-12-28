@@ -1,0 +1,81 @@
+So how about now adding a
+static object in the scene that is a little bit like
+a motor that moves on it's own and pushes things
+around. How would you do that? So I'm going to go back and use the multiple objects example, where I'm adding all these
+squares on the scene. Let me slow down
+this box generation. So I'm going to say here, if random 1 less than 0.2. So I'm going to slow
+down a bit this thing. It's not now generating
+boxes every frame, but every fifth frame. Let me also remove the floor from here to simplify
+the example a bit, so I only have one
+floor and I only draw, of course, one floor as well. Here ground1, it's not ground1
+anymore, it's just ground. So let's see it.
+Yeah, that's fine. So we have one ground over there and some boxes
+falling from the top. So let's create that
+object that appears to have a motor
+behind it to move it. So I'm going to create something that looks like a propeller, so I'll call it propeller. I need to create an initial angle for the propeller as
+well for that object, so I'll say initially
+start at zero. That propeller will look
+like a rectangle itself, so propeller equals
+Bodies.rectangle, and I'll put it in the middle of the screen, width divide by 2, height divide by 2, and it's going to be 300
+wide and 15 pixels long. Now, if I just
+created it like that, of course, it would be
+sucked down by gravity. We don't want that, so
+we want to say isStatic, this object is static indeed. The angle of the object is the angle variable that we
+have given in the top there. So box ground and I'm adding it also in the
+world, propeller. So now it's part of
+the physics engine. Let's also draw it like I do
+with all the other objects. So where do I do
+that? I do it here. So draw vertices of the
+propeller, pro-peller. There we go. Things are now
+falling on the propeller, I'm not moving the propeller yet. I have the physical object there, so right now it behaves exactly the same way as
+the ground is behaving. So let's update the
+angle of the propeller. So right underneath
+here perhaps I can say angle plus or equals, let's say 0.1, perhaps let's start with a small
+change in the angle. Then say something like
+Body.setAngle(propeller, angle). So this is how I set the
+angle of the propeller. Oh, something has gone wrong. Let's figure out
+what is exciting. Developer, Console,
+what have I done wrong? Line 44, Body is not defined. So line 44, Body.setAngle
+is not defined. Of course, that's because
+I need to actually have the shortcut for
+the Body components. So Body, like that. Now it knows. So now the propeller rotates and it's
+pushing things down. It looks okay, but if
+you've noticed something, imagine the ball
+hitting the propeller and you visualize
+it in one frame. You know that the ball has
+been hit by the propeller, but you don't know, in the frame, with what speed it has been hit. A frame is a moment in time. You need to tell
+the physics engine the speed in which the
+propeller hit the object, because right now what we're
+seeing in the screen is, despite the propeller,
+let's move it, let say, even faster. Let's say I move the
+propeller at 0.5. Well, now we're seeing
+a different problem, but that's an interesting
+problem as well. The propeller is moving so fast that the rectangle is here, the propeller is here, and in the next frame, it's here. So the objects are
+passing through it. This is a big conversation
+for another time. For the moment I'm just going
+to slow down the propeller, and you see that even though the propeller is
+going pretty fast, it still doesn't hit the
+objects too far away. That's, again, because it
+contains all the right physics, but the physics engine
+doesn't know with which strength the propeller
+has hit the object. So that, we fix it by setting the angular
+velocity of the propeller. So I'll do angleSpeed, I'll set that to 0.1. Then here for the
+propeller itself, I'll say there's another call
+that I can do on the Body, and I'll say Body.setAngularVelocity(propeller,
+angleSpeed). Then I'll say here, instead of updating
+the angle like that, I'll just say, well, angle plus or equals angleSpeed. So this statement is
+syntactic sugar, plus equals, so in reality is this, angle equals angle
+plus angleSpeed. So I've updated the
+angle in every frame, and I'm also telling
+the physics engine with which speed the propeller
+is hitting the object. So if I run this now, you'll see that now
+they're flying off. You see what the
+difference that made? They're flying off because you're telling the
+physics engine, when they meet, when the
+propeller meets the rectangle, it's coming with x speed, which means that it
+needs to fly it away rather than just push it
+down as it was doing before. With these few lines of code when we created an object
+here which was static, and here with these
+few lines where we are updating its angle, we managed to create
+the Body that appears to have a motor
+behind it driving it.

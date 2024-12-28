@@ -1,0 +1,59 @@
+We have seen constraints
+between two bodies. Now let's look at the
+special type of constraint, one between bodies and the mouse. This is called a
+MouseConstraint in Matter.js. How do I do that? Well, first off, let's
+do the typical thing, which is to do this module aliases so that we make
+our life a bit easier. Matter.MouseConstraint,
+because that's what we need to use in order to
+get the job done. Here MouseConstraint, and we also need to use Matter.Mouse, and that will be mouse. So these are the two aliases that I'm creating in order
+to use for my program. In order to get the
+MouseConstraint to work properly, I need to actually get where
+the mouse is on the canvas. In order to do that, I
+actually need to pass the entire canvas to Matter.js. The way I do that is by saying here in the
+createCanvas function, I actually save the canvas. The createCanvas function
+returns a canvas, so I can take the value that it returns and
+store it in a variable called canvas that I
+can use in order to pass to Matter.js for it to retrieve the
+position of the mouse. Above here, this is where I'm going to put my mouse stuff. What do I need to do? I'm
+saying here, actually, let's put it at the bottom, all the way in the bottom
+after the ground. After all the objects have
+been added to the world, that's what I'm going to
+add the things that is not really drawn,
+which is the mouse. Here, I'll say var mouse, so I'll create a
+mouse in Matter.js, and here is where I need
+to give it the canvas. It's not quite like that. I don't just give it
+the canvas object, because the canvas
+object here is a p5.js type of object,
+the data structure. I need to say canvas.elt. This will actually get
+me the HTML canvas. The canvas object itself is a wrapper around the HTML canvas. Let's create also
+some parameters for the mouse which are
+needed, params. I need to say that the mouse parameters need
+to have the mouse itself, the object we just created. This is mandatory. We can add more parameters. But for the moment, let's
+keep things simple. The mouseConstraint
+which I created, mouseConstraint here, a variable, is equal to
+MouseConstraint.create and it takes the engine and the mouse parameters, params and world.add. We need to add this
+mouseConstraint, to the world, engine.world
+mouseConstraint. With this code, I created
+the mouse and I pass to it the HTML canvas so that it can constantly
+ask my canvas, where is the mouse, and
+get that information. I create this as
+mouse parameters and then I pass this parameters, which contain the mouse itself to the MouseConstraint
+object which are created, which I then, just like
+all other constraints, I added to my Matter.js world. Let's see if that runs. It does seem to run. Does it work? Yes, it does work. Look at this now because the
+constraint here is stiff, you see how it responds to
+the touches of my mouse? While this one, what
+did we add here? We add stiffness 0.01, so it's very elastic. But we also added damping. The damping means that the return movement
+is softened a bit. If I remove this, you'll
+see what this does, now it's much more springy. You see there is no slow down, but let's add the damping. I like that one. We're
+back in our world. You may run this program in your machines and it might not work exactly as you
+see in my computer. That's because your screen is a retina screen or a
+high definition screen. That means that we need to have one more line here to get
+it to work on your screens. So in the mouseConstraint, we need to say that the mouseConstraint.mouse.pixelRatio
+is equal to the pixelDensity of your screen. So if your canvas
+is high density, if you basically have two
+by two paraxial pixel. In my machine, this
+worked without that line. But in your machine, which is likely to have
+a high density canvas, it wouldn't have worked. By getting the value from p5 and passing it to the
+mouseConstraint object, we are able to do these
+animation correctly, and now things work as expected. We saw now how we can add a MouseConstraint simply in our world with just
+a few lines of code, just like all other constraints.

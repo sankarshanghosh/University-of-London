@@ -1,0 +1,49 @@
+So when we added velocity to location, what exactly happened? The addition of two vectors is the addition of their
+components, x and y. Say we have vector a
+with values five and two and vector b with
+values three and four. We are adding the
+individual components together to make vector c, where x is 5 plus 3
+and y is 2 plus 4, so c equals 8 and 6. Going back to the
+example with a ball. Imagine that a is the
+ball's current location, b is the ball's speed. Adding them together gives us c which is the ball's
+location in the next frame. So when we added
+velocity and location together using the add function, this is what happened
+behind the scenes. Subtraction is very
+similar to addition, only instead of adding
+two components together, you are taking one
+out of the other. We'll use that later
+on when we deal with forces such as friction,
+so stay tuned. Here, I'll show you a simple example of
+vector subtraction by taking the difference between the center of the
+canvas and the mouse. Let's start coding that first. So I have a gray here and
+then I have a variable called mouse and
+in there I create a vector which has stores
+exactly the mouse values, mouseX and mouseY and then I create another
+variable center, which is create vector and
+as you may suspect it, width divided by 2, height divided by 2. So these vectors stores
+the center of our canvas, a point somewhere here, and now I want to subtract
+one from the other. So I say mouse.sub(center). I'm taking center and I'm
+subtracting it from the mouse. Something mouse.sub(center). I'm translating now in
+the middle of the canvas, translate width divided by 2, height divided by 2, and let's take a stroke width, something so that you can easily see the line that
+I'm about to do, and now the line is
+basically from zero, zero. Why zero, zero?
+Because I've already translated to the
+center of the canvas. Whatever I draw will be here. So for that to be there, I need to have zero, zero here. Then right here I'll
+say mouse x, mouse y. If I run that, it doesn't
+produce what I expected, but I don't panic. I opened here the developer
+tools again. There we go. Line 14, stroke weight. That's right again and
+there we go now it's running properly and it's basically a line
+that's drawn from the center of the
+screen to my mouse. You may find this a little
+bit confusing at first. Well, what does happened here? Why is the line drawn here. But the subtraction is basically, as you know, the
+opposite of addition. Think of what we
+were saying before when we were programming new location equals
+location plus velocity. We add velocity to the previous location to
+get the new location, to jump to the new location
+frame after frame. So if we subtracted location from the new
+location, what would we get? We will get velocity. How many steps do we need in order to go
+from here to there? That's what's subtraction does. We will get the distance, the steps that separate the new location from
+the old location. Thus, this is what
+this example shows. So how many steps
+do we need to get from the center of the screen
+to where the mouse is? That's what is drawn here.

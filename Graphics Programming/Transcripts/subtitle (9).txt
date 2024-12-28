@@ -1,0 +1,89 @@
+So now let's use what we have learned to make our skates
+a bit more interactive. We'll have the ball be
+attracted to the mouse, much like a planet is
+attracted to the sun. To achieve that more effectively, we'll use static functions
+to do vector arithmetic. I promise this is the last thing you'll have to
+remember this week. Static functions are functions that we call from the
+class name itself. We don't invoke them from
+the object instance. See how the add function
+we have seen up to now acts on the vector v1. We add vector v2 to v1 and we're effectively
+modifying v1 as a result. When we call the static
+version of the add function, we call it by saying
+p5.Vector.add, and we pass to it both vectors
+that we need the sum of. The important difference between the two ways is that calling the static function returns
+the result as a new vector. v1 and v2 remained unchanged and a new vector was returned
+which was saved in v3. This is very useful
+in certain cases, we will need to leave the
+original vectors unaffected. We'll see these all
+in action right now. So, let's program now
+that example where the ball is trying to
+go towards the mouse. So, let's start off first of all by moving the ball
+to the center again. So width divided by two,
+height divided by two. In the constructor, that's the initial value that the
+location vector will have. The velocities
+again are the same. Let set also the acceleration to zero for the
+moment when we start, the ball doesn't move, doesn't have any acceleration. Now all the trick or the magic is going to happen
+inside this move function. So what we need to do is to calculate which way
+the ball is moving. It's not like a previous
+examples where the acceleration we're saying go 0.03
+pixels that way. Now we need to have a dynamic because it's following the mouse. So how do we do that? Let's get the mass coordinates first. Create vector mouseX, mouseY. Great. Now let's store
+which is the direction. Let's get the direction
+from the ball to the mouse. So I'm saying p5.Vector.sub
+mouse, this.location. This.location is the
+location of the ball and mouse is the mouse vector
+that I just created up there. So, I get that difference
+vector and I'll normalize it. This one now, it has
+size one and it's pointing from the
+ball to the mouse. That's fine, but
+that's not big enough. So perhaps and so I'll
+say dir.mult 0.3. I'm multiplying that
+vector now with 0.3 and this is basically
+now my acceleration. This.acceleration, acceleration becomes
+this little vector that's pointing from the ball
+all the way to the mouse. So let's see that in action. I reload. Look at that. It's now trying to get to the mouse and you see
+how it overshoots. What's happening there?
+Why doesn't it get it? Let's show you in the board. So, imagine if this is
+the mouse or this is the target and you have
+a very fast Ferrari, very fast cars driving
+and it's racing towards the target and then it
+starts getting there almost like I just
+passed the target. Let me start breaking any
+breaks before it goes back. But again, it's very fast car and we breaks again and so on. That's why it's going
+constantly like this. If instead it was a
+pedestrian or a cyclist, let's say going slowly, the target would be here. Yes, it would go slow. It will take a little bit longer to reach the destination, but just in time, it would turn, and get there. If it was going slow
+enough in fact, it would just zero
+in on the target. That's why it's happening there. So I could reduce that overshooting by changing
+the maximum velocity. If I change it to five, I'm limiting this fast-moving car and now if I start it
+again, look at that. It comes towards the mouse, but it doesn't allow itself
+to overshoot that much. So, let's do something
+fun now with this. I'll take this accelerating
+object and I'll remove this ball and do something
+that actually shows the trace that the board
+leaves underneath. So how can I do that? Well, for starters, if
+I want to draw a trace, I have to use a line. So I'll create another point look prevLocation because
+new createVector, which we'll start off in the constructor in
+the same place, and then I will draw a line
+between these two points. So I'll say that line
+this.location.x, this.location.y, and
+it will be drawing a line between that
+and prevLocation.x, this.prevLocation.y. So that's not going to do anything because
+previous location is at the center and previous
+location is not updated. So let's make sure that
+after i draw the line, before I leave the draw loop, I update previous location. So, this.prevLocation
+equals this.location.copy. I get the copy of that
+location or locations. So let's get that going. It's black, that's because
+I haven't set the stroke. Let the stroke be 255. Hope you see a tiny little line there traveling.
+What have I done? I have forgotten to turn
+off the background. So the background should not update in order for
+the lines to be drawn. So I remove the draw
+function and set the background black ones in
+the setup and I remove it to the setup from the draw function and look at this now.
+It's following me. Let's make the line a
+little bit thicker, stroke weight 3 and look at that. Beautiful line as the ball
+or where hypothetical ball, hypothetical object is circling, is zeroing in on my mouse, and look what happens
+if I leave it. Look at the shape
+that it creates. By this point, you
+should all be thrilled about vectors and what
+they can do for you. We'll get to practice
+in a bit more in a fun little exercise coming up to make sure everyone
+is a vectors guru.

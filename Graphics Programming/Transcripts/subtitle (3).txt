@@ -1,0 +1,122 @@
+Let's bring it all together
+now by programming a clock, that actually reads the time from your machine and throws it
+correctly on the screen. So I'm starting now with
+a fresh clean example, please follow me
+along step-by-step. So let's run this to make sure that everything
+is working properly. So indeed I have a white Canvas, let's make it maybe zero
+to make sure that yes, that's my code
+everything is fine. So let's first of all move
+to the center of the screen. So I translate to the
+center of the screen by saying translate
+width divided by two, height divided by two and immediately I draw
+an ellipse.Ellipse 0, 0 , 350, 350. Bum and indeed it has drawn an ellipse in the
+center of the screen. So this is going to be the basis of the clock where everything else is
+going to be drawn on. So let's start now by
+drawing the second hand. So let's say it actually variables for all of the
+lengths of all the hands, so I'll start here with
+some global variables. So secLength equals, I want
+that to be the longest, I'll put it under 160 pixels, secWidth it's equals one var minLength equals 140. So the minutes hand
+is going to be a bit shorter and maybe a bit fatter equals three and
+var hourLength equals 90, var hourWidth equals five, so that we can
+distinguish them clearly. So let's go back to
+drawing the seconds. So I'll push here the transformations because I
+want to protect the rest of the stuff and immediately
+I'll write pop so that I don't forget and I write everything else
+in between here. So let's set the strokeWeight,
+strokeWeight to secWidth. So that's how fat
+I want them to be. I'll set the stroke to 200, 0, 0. I'll make a little nice
+red second-hand and now I need to calculate the angle that the
+seconds hand will be in. So let's create a local
+variable var secAngle equal. I'll use map in order to
+convert from the time to an angle and I'm going to
+ask the computer to give me what how many seconds
+of the time we're in. So I'm giving second,
+I'm calling second, then I give it the range, I give map, the map
+function the range. The range is from
+0-60 and then I'm asking it to convert it
+to a value from 0-360. So effectively I'm
+converting seconds to degrees and then
+rotating by that amount. So rotate, remember again,
+we're using radians, we have to use the radians
+function and I put here secAngle and then
+time to put the line. Line at 0,0. So at the center of
+the canvas, right? So I'm going to start a
+line from here, center, and it's going to go from the same location on the x-axis, it's going to go up like that. So when we have zero degrees
+is going to be aligned from here to here and how
+long is it going to be? secLength. The variable that we set up
+in the top and there we go. We already have a moving hand for this to indicate the seconds we've converted successfully
+from time to degrees. Let's continue now
+with the minute hand. So once again, I could just take this code
+because a lot of it would be similar paste it here, push and pop, but now it's
+not secWidth it's minWidth. The stroke is black, or we don't even need
+to have it because we have changed the stroke here, but because we have
+a push and pop, the stroke chains
+was popped here. So therefore it's not
+necessary to set up something here and here we have minAngle, minAngle instead of getting second I am getting the minute from the
+machine and of course, these values are the same, 60 minutes in the hour and
+360 degrees in the circle. So again, I'm getting the same conversion
+and minAngle to do the conversion and here it's not anymore secLength is minLength. Let's run it. Have a look
+at it a little bit again. So exactly the same
+code as we have for seconds only changing
+with minutes here. We reload it and there we go. We have the minutes of the hour and the
+second still going. So let's do one
+final push now for the hours, the hour hand. So let's add that in
+the bottom again, push and pop to
+protect the rest of the code from any transformations of style changes we make. So hourWidth and here
+we're doing hour and hourAngle, hourLength. Notice here now one
+important difference, the map function when we submit, we will give to the
+map function the hour. But the transformation here where the conversion
+that we're going to do is from zero not to 60
+because the half an hour, half a day doesn't have 60 hours, but 12 we say from 0-12 and we want that value converted to
+a degree from 0-360. So and one final bit here
+is that it's not minAngle, but hourAngle. So hourAngle length. So let's run that
+and there we go. We have and if you
+notice it's correct. It's 12:45 here, 48 and that's the time
+that our clock shows. Let's take it one notch up by including nested
+transformations, which I talked about before, and by including here
+something in the hour hand. So if I leave a little
+bit of space here, we're still inside
+the hour push and pop system and I'll do another little,
+I'm indenting a bit. Sometimes I get into
+this habit because it's easier for me to understand the transformations
+that have taken place. So I'm going to push a bit
+and what I'm going to do, is I'm going to translate to
+the end of the hourLength. So I'm going to go all
+the way to the end of this hand and let
+me just show you, I'm can do that for
+example, an ellipse. If I wanted to 0, 0,100, let's do a small one 30, 30 so there I can have a little ellipse
+maybe it's a bit too much. Let's do it like that and maybe
+come in a bit. Oh, sorry. There, so we have a
+little bit of a second. So notice here what I have done. I have the transformation to get the hours correctly
+and then within that, all the transformations
+that I have done to get the
+hour hand correctly are inherited by
+the little circle that I'm putting on top of it, on top of the hour
+handle and I also have a special little
+transformation just for that little hour handle, for that little circle. In order for it to
+travel up there and make it a little
+bit more realistic. Let's add just the final touch here to make my clock
+a little bit prettier. I'll add in the final touch, which is to add the hour marks. So I have hours equals 12. So that's how many
+hours half a day has, that's how many hours
+the clock has on it. Var hourStep. So 360 are the degrees of
+the circle divided by hours, which is the previous variable. So I know how many now degrees I need to
+rotate in order to put the little marks for the
+hours and let's do that. So for var i equals zero, i less than hours, i++. So I'm going to need 12 of them. So look at this now. I have to do push and pop for every hour mark that I'm
+going to put on the clock. So rotate radians hourStep. So this is now how many degrees I want to
+have and how much is that? You will ask 360 divided
+by 12 is 30 degrees. So it's 30 degrees. 30 degrees is each of
+the steps that I'm going to be making and I'm going to multiply
+by the index. So the first time I'm going to put something in the beginning, the i equals zero. So I'm going to put a mark
+at 30 times zero, zero. The next time in
+the next iteration, this is going to be one. So I'm going to be 30 times 130. So I'm going to put the
+next mark at 30 degrees, the next mark at
+60, 90, and so on. So and finally, so I
+have done the rotation, then I'll do the translate to where I want them marks to be. Wanted to be somewhere inside the perimeter of the circle and finally the magical moment is approaching where we're
+actually drawing the lines. So let's do that.
+Fantastic it crushed. So let's get this back, yes, now it works correctly. So we were here in the center and we're
+jumping, we're rotating, and we're translating in order to put all these little marks around the circle and I
+have my final result, my simple clock, my version
+of the simple clock. But we want to see also
+what you have made with it. Take the code that
+you have written, remix it as much as you want. Make it fun and exciting and post examples of your clock on the forum, we want
+to see your work.

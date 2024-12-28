@@ -1,0 +1,110 @@
+So let's now start adding
+a lot of objects together, a lot of bodies together in this world. So I'm going to remove some of
+the code that we did before, so I'm going to remove the circle and
+the polygon. Remove these things, And
+I keep everything else there. Let's run it, see that it works,
+perfect, it's working fine. So how do we add bodies? Well, what I can do is
+let's start by perhaps writing a function that generates objects. So I'll call it function generateObject. And it will take let's say two parameters
+x and y, which as you correctly may suspect are the coordinates,
+where we want these bodies created. And let's create a local variable,
+throw away think, Bodies.rectangle. And it will be created at x, y. And let's say I want it to be random size. So random(10, 30), that's the width, and the random(10, 30), that's the height. And let's make them nice and bouncy. So restitution 0.8 and friction, 0.5. So this has created a body of
+type rectangle, I call it b. And now, well,
+what do we do with this body? Well, I want to create an array
+where all these bodies are added. So let's create this array
+at the tops of var boxes. So here is my empty array,
+a list of boxes to keep things. So I'm going to push that on the array. So boxes.push(b). And let's see if anything
+happens at the moment. And while I haven't called the function,
+so let's do World.add. So it's not enough of course to
+add the box on the boxes array, to add the rectangle on the box array, we also have to add it to
+our inner physics engine. So add to our world (engine.world[b]). So now I'm telling the world,
+the physics engine here is another object keep calculating these
+until I tell you not to. So is everything okay here? Well, I need something else. What do I need? I need to actually draw these boxes. So let's go here and create a for loop where I loop over to these objects,
+all these boxes. So for var i =0, i less than boxes length i++. And here I say the row vertices, boxes, I.vertices. Okay, so I have created a function
+generate object that creates new boxes and new rectangles and puts them in the scene. I've created a for loop here my
+draw that loops over the boxes as there our updated and
+I'm getting the vertices be drawn. Now what they need is somebody to
+actually call the generateObject. Let's say for the moment that I'm
+going to generate objects randomly. So, actually not randomly with every loop. So I could say, generateObject(), and let's do it somewhere in the middle,
+width/2, and I'll put it at 0. So in every loop, I'm generating object,
+wow, look at that. Look what's happening at the top, they're
+coming out with a bit of force in the top that because I'm creating them
+at the same place, and x and y. And that means that when two objects are
+added in the world all of a sudden now on top of each other,
+they can't be an object in the real world can't occupy the same
+space as another object. So, but they push each other away. So that's why you have that
+little bar in the beginning. What's happening now here? You see things in your screen
+are starting to slow down. What's going on? So the thing is, we're adding
+a lot of objects in the screen and the physics engine and
+when is starting to slow down. Let's look at the why slowing down,
+let's drill into the show. If I do here boxes.length,
+I have created 2,836 boxes. 2,922 this is a lot of stuff for the
+physics engine and my P5GS kits to track. So I need something that says
+as soon as these objects, exit the scene, exit my world,
+get rid of them. So let's do that.
+Let's actually close these before it slows my computer down too much. So, let's do that. So let's create a function, That this called isOffScreen
+that will take a body and tell us whether that body is off screen or
+not. So how do I do that? I said, I get the position of the body,
+body.position. And then I just say, if, actually let's do it a bit more with a bit melancholic, return if (pos.y > height). So basically this means if
+pos.y is greater height so if it has fallen under, return true,
+otherwise it will return false. So, I could have other
+conditions here as well, if it's below the screen,
+or if it has gone for exampl, beyond the left side pause.x or below the right side. So, these are other conditions, but for
+the moment, we're not in low likelihood, the objects are falling below. But, let's keep it like that. So, let's run this now. So on, well, we're not using it yet. So, is off screen. So, what do we want to
+do with that function? Well, here, after we draw the box
+perhaps we want to say that if the object is of screen,
+remove it from the world. So if is off screen boxes, I then now it's time to remove it. So we say boxes.splice( I, 1). So the splice function in
+JavaScript what it does is it removes a specific item in the index. Let's run this Yay, it's working. There are two things here that
+we still need to improve. First of all, our screen is flickering, our objects are flickering
+once in a while. What's going on there? Why are these rectangles flickering? Well, that's because of
+the way splice works. And what we have done here, we have
+a little mistake, a little omission there. We have a little omission here
+which we need to address. Let's look at it on the board. Here is the array where we're
+keeping the array boxes, where we're keeping track
+of all these boxes. And we have here, Position 0,1,2,3,4 and 5. And inside of them let's say we
+have box a box b box c, d, e and f. So we're looping over this and
+we're saying is box a in the world? Yes. Is box b in the world? Yes. Is box c in the world? Yes. Is box d in the world? No. So we saying splice this, so get rid of d. So how are we're doing that? We'll get rid of d. When you splice it, when you get rid of d, the other elements there get
+shifted one position down. So, these would have e in it,
+this one will have f, and this one doesn't exist anymore. The array just got shorter. Okay where were we scanning before? We're scanning here we were
+asking whether the box that is in position three is in the world. And the answer was no,
+it's not in the world and we removed it. So the way the loop works then
+it moves to the next box and it goes here and asks whether box
+in position four is in the world. Well, asked what were the box in
+position three is in the world, but then when we replaced it,
+when we remove the previous one, when we remove the d and
+we replace it with e, we whenever asked whether
+e is now in the world. So, what we need to do is we need
+to stay here one more time and ask, is the box e in the word? So the correct algorithm would
+be to check here, check here, check here, check here and
+if we splice it, stay here and do one more check before we continue
+checking the rest of the boxes. How do we do that in code? Let's see it. So what we need to do is we
+have here already something, this is our index that telling us
+what box we need to be checking. So all we need to do is just say i--. So we're making it stay a little bit
+longer in that box for one more iteration. Let's see that. So now the stopped flickering,
+all the boxes are drawn correctly. It's very subtle differences. There's one more thing missing. I have the removing this specific
+box from the boxes array, but I haven't removed it from
+my physics engine world. The physics engine is still doing
+calculations even if I'm not drawing the boxes,
+they still exist in the physics world. We need to remove them. How do I know that? So look at these
+boxes.length tells me that I have right now 255 boxes in the scene. But eventually this is going to
+start getting very slow as well. If you compare this number,
+let's run it again 259, let's say a compare it with
+the engine.world.bodies number. Oops engine.world.bodies. I have 3413 bodies in the scene. That's very different from
+the number of objects that exist inside
+the boxes.length which is 248. That's because I'm not
+removing them from the world. So let's fix that as well. Let's address this. How do you remove things
+from the physics world?. Well, you may have guessed world.remove from this specific engine world boxes(I). Removed that specific object just there's
+a way to add them, now I remove them. So if I now restart this,
+you see it's very fast, it doesn't flicker, and
+I should have the same. So I have 245 objects. And let's look at the other number,
+engine.world.bodies. So that's to 271, 262. And my other one is boxes.length. That's also around the same number 259 and they you will see that
+they are the same number. Well there are two more bodies there. There is the rectangle
+that describes the floor. So you should expect to
+always see two more bodies in the engine world,
+then they exist in the boxes array. But now at least our two
+lists are consistent. So we saw with this example how we
+created an array to store our boxes. We created the function
+that generates boxes and we call it in every loop
+within the draw function. And then we loop over these
+boxes in order to draw them. We check if they still exist in
+the scene so that we can remove them if they don't exist, so that our graphics
+are fast and crispy in the world

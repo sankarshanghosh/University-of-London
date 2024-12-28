@@ -1,0 +1,51 @@
+Hi again and welcome to another
+week of graphics programming. During this week,
+we're going to be looking into forces. We'll see how they relate to acceleration. And use them to build our
+very own physics engine, where objects respond to
+forces from their environment. Let's get to it. First off, let's define what a force is. A force is a vector that causes
+an object with mass to accelerate. We'll make objects respond
+to a variety of forces. For example, this weight is
+being pulled up by the rope. And at the same time,
+there's gravity pulling it down. Objects can have many
+forces acting on them. And when we put them all together, we often get more realistic
+simulations of the world. But before we get into simulations,
+let's look into classical physics and recall what you might not
+have seen since high school. Over the next few slides, I will translate
+some basic physical laws into code. For starters,
+let's look into Isaac Newton's first law. The law states that an object
+at rest stays at rest, and an object in motion stays in motion. What this effectively means is that unless
+there's a force acting on an object, it will not change its velocity. Whether that's to accelerate or decelerate, that's something that
+we can now easily code in p5. In p5, this means that our velocity vector will remain unchanged unless
+a force is acting on the object. Newton's second law states that force
+equals mass times acceleration. Which at first might be a bit
+confusing and counterintuitive, until you turn it into acceleration
+equals force over mass. You see now that acceleration
+is proportional to mass. In everyday terms,
+this means that the greater the force, the harder you get pushed. And therefore,
+the greater the acceleration will be. Acceleration is also inversely
+proportional to mass. The bigger you are, the slower
+you'll move in reaction to a force. Let's ignore mass for the moment and set all objects in our picture
+world to have mass of 1. This would mean that
+acceleration equals force. A natural way to code this would be
+to have a function called applyForce, where we pass the force as a parameter and make the acceleration equal
+to that input parameter. There's one small issue though, I talked at the beginning about being
+able to add many forces together. With this code, every time I
+apply a new force to my object, it overrides the previous acceleration. Say I have gravity,
+acceleration becomes equal to gravity. Say I have somebody pushing the object, then acceleration becomes equal
+to that force, to that push. We want to be able to have
+more than one force acting at the same time on the object. It's then that we'll make more
+complex simulations of the world. In this image, we have the car being
+pushed forward by a driving force. We have friction from the tires holding
+it back, air resistance acting on it. We have gravity and many more forces. So how do we do that in code? How do we make them all
+act at the same time? We simply add them to the acceleration. Remember how we added acceleration
+to velocity in early lessons? We'll now do the same for
+force and acceleration. We'll accumulate all the forces inside
+the variable called acceleration. In this slide, you can see that we
+change the function, apply force. And we are in fact,
+adding the force to the acceleration. This way, we can add many
+forces to the acceleration and affect the object in more complex ways. Going back to our car example, we can
+apply gravity, friction, wind resistance, and engine drive using the same
+exact mechanism and logic, the applyForce function. So we now have forces
+affecting acceleration, which in turn affects velocity,
+which in turn affects location. We have a nice little waterfall
+of calculations which allows for complexity to emerge.
