@@ -1,0 +1,85 @@
+So now let's play with
+oscillation and let's make a little skit that gets a ball
+moving from left to right. So I'll just have here
+a variable called locX, and I'll used sin
+as my little engine to move things along. I'll put here frameCount
+because that's the thing that changes
+with every frame, starts from 0, 1, 2, 3, 4, 5, 6, 7, and so on. So frameCount is that. That's pretty useless
+as it is now because sin gets me values from
+negative one to one. It would barely be
+visible, this movement. So I need to multiply
+by a scalar. I need to multiply by the
+amplitude of this oscillation. So I'll have a variable
+here called amp and I'll do var amp equals half
+the width of the Canvas. Now let me fill in to
+something, fill 255. Yeah, of course, I'm not
+drawing the ellipse. So ellipse locX, and let me translate also the
+in middle of the Canvas so that we see things nicely. Width divide by 2,
+height divide by 2, so locX, and then 0, 30, 30, then you run that. What's going on here? What I'm missing again
+is angleMode degrees, sine and cosine take radians,
+that's more like it. So now I have the
+right movements. What am I seeing here? So we know that the full
+cycle is 360 degrees, frameCount updates
+60 frames a second, so it goes from zero to
+eight with every frame, frameCount is updated and it fits 60 frames in one second. So that means that in one second, we have done a
+sixth of the cycle. So it would take six seconds starting from here to return. So let's say we're starting here at the edge of the screen. One, 2, 3, 4, 5, 6, that feels about right. So let's talk about that
+oscillation in terms of periods. So I'll have the
+variable here called period and I'll set
+an initial value 360, I'll explain why 360 in a second. So I divide period where frameCount might build and
+then I'll do a 360 here. There's a lot to unpack in this, so let me explain what
+is going on here. Why am I doing this division
+and multiplication? So we know that the
+full cycle is 360. So when this is equal to one, we have done one full cycle, two full cycles and
+so, if this is 0.5, we're halfway through the cycle. So this fraction tells us
+where we are in the cycle. So now that period is 360. If frameCount is 60, that means we are a sixth
+from completing a full cycle, 180, it means we're halfway
+through the cycle and so on. So this in fact will produce exactly the same
+results we were seeing before, only it's rephrased
+in terms of period. So if I run this again, we have the object also
+oscillating at the same speed, it takes about six seconds
+to complete a full cycle. So if I now change
+the period to 60, it takes one second to
+complete that cycle because it takes one second for
+frameCount to go from zero to 60. So therefore, one second for this fraction to be equal to one, therefore to have completed
+the cycle. Is that so? One Mississippi, two Mississippi, three Mississippi, four
+Mississippi, it's exactly right. So if I wanted that
+to take two seconds, that's a bit slower now, two Mississippi and so on. So we missing phase. Let's put phase in there as well. So phase is an
+offsetting the wave. So let's start it
+with zero offset. So I'll put it here, last phase. So we said phase is where
+you are in your cycle, are you at zero degrees, are you at 90 degrees, a 180 degrees, where
+are you in your cycle? So if I put phase zero in the
+beginning, when it starts, all these frameCount is
+zero divided by this, it means that we start at
+zero. So let's see that. You see that. I'll rephrase. Actually, let me slow
+down the skates. I'll say that the phase period is 360, I'll refresh, refresh, refresh, and every
+time I refresh, you notice that the ball is starting from the
+center of the screen. That's the zero here because I've translated to the
+center of the screen, so that's point zero here, that's where we start the cycle. If I put share now
+90 and I refresh, you see that the cycle now
+starts here in the edge. I can put of course
+any value and I can start the movement from any point in the
+zero to 360 cycle. So I'll put that back to zero. So we have described now
+the oscillation in terms of period, amplitude, phase. Let's see how frequency
+gets involved in this. So var freq equals, let's start it with one. I'll take this line here because we won't have to
+make many modifications, I'll just remove the
+unnecessary stuff. So we're back to where we were, this has a period of six. So now what we want to do is, we said that the full
+cycle is 360 degrees, so frameCount goes from
+zero to 60 in one second. So this means that
+it takes six seconds to complete the full cycle. So if I want that to complete a full
+cycle once every second, I need to multiply by six because 360 divided by 60 is six. So now I have a bullet
+dot, one Mississippi, two Mississippi,
+three Mississippi, that moves at one hertz. So I could then multiply
+it by frequency, by freq, which is another scalar, now it's equal to one. That of course produce
+exactly the same result, but now I can fit
+many more waves. So that's probably too
+fast for you to see. Let's do that half. So that's has half the
+frequency or I can say, just make it a little
+bit faster, 1.5, so that's 1.5 hertz or two hertz. So I minus now in this
+sketch to describe for you the oscillation both in terms of period but as well as frequency. Let me add here phase
+for completeness, because I can have
+phase here as well to ask for the wave to
+start at a specific point. The oscillation start
+at a specific point. So I managed to describe
+here with these two lines, a wave, an oscillation, both in terms of
+period and amplitude, as well as frequency
+and amplitude.

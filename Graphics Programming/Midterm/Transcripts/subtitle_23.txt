@@ -1,0 +1,103 @@
+We have discussed
+1D noise so far, meaning we're passing one
+value to the noise function, evaluates which we have
+conveniently referred to as time. The noise function returns
+a value back to us. I've already explained that each of the values that
+noise returns to us are linked with the values that come before and after them. That is what creates this organic look of a mountain range, when we graphed 1D noise. Just like 1D noise, 2D noise values are
+similar to the neighbors, but they're similar not
+only to the neighbor, to the left and the right, like in the 1D noise example. They're similar to each of the surrounding neighbor cells. This is why it
+looks like a cloud, when we code a basic example. Unsurprisingly, 2D noise
+is used to create clouds, smoke, fog, and fire. All these contain
+variations in 2D space. Again, using the
+crumpled paper example. Imagine that the needle that
+is reading the height of the paper is not just
+moving on the X-axis, but can travel on the X and
+Y-axis and read values. This is why in 2D,
+noise we'll need to pass two parameters to
+the noise function. Let live-code this to
+make things clear. Okay, so let's see an
+example now of 2D noise. I'm going to first start by doing a random grid
+function where, I'm going to pick a random values to
+display on the screen. It always helps to compare random with the noise function. Let's call it
+function random grid. This function, will just
+plot a little grids. So for, var, so I'm creating a nested loop. You should by now, feel very confident with these. I created a nested loop. Within that nested loop, let say I'm getting a
+random value from 0-255. I'm storing it in C, C for color and I'm using it for stroke. I'm making a point
+at the location X, Y, that's going to
+be quite costly. Actually. Let's make
+it a 100 by 100, let see if that's too small. I'm using width and height, and I'm plotting a little square, each pixel having a random color. I'll do shear also, I'll need to call the
+function random grid. I called the function,
+let's save it. Let me just do a no loop
+so that it stops looping. There we go. I'm zooming in a little bit so that
+you can see it better. Can I afford to make it
+a little bit bigger? Possibly I can. Let's do 200 by 200. There we go. What I get is a grid of random
+values between 0 and 255, and it looks a little
+bit like the noise that you have on old TV screens, but not the kind of noise
+we're seeing today, but noise in the signal. That's the random grid, one value completely
+independent from the other. Let's see now and compare
+it with a noise grid. NoiseGrid. I'm going
+to comment this out. I'm going to copy this function, copy it right here in the top, change its name, noiseGrid, and it's the same loop, only here the color
+is not going to be decided by the random function, but it's going to be decided by the two-dimensional noise. I'm giving it the
+location of the pixel, say I'm pixel X, Y, that's my unique ID. I'm asking the noise function
+to give me a noise value. Then I need to map it to a color because we know
+that noise is from 0 to 1. Map n from 0 to 1, from a value 0 to
+255. Let's run it. What happened here? Well, it's very important point to note now. What happened here
+is that, as we said, we'll loop it here
+and every iteration within this nested loop is updating the X and Y values by one and one as we said is a huge step in
+the noise function. That's why the graph looks
+a little bit like random. It's not quite random,
+there's a lot of repetition, but it's basically a mess. It doesn't have this organic feel that
+we were going after. What we need to do is go to this x and y values and
+divide them by something. Basically we're
+making these steps only inside the noise function, we making them smaller. Let's see that and wow,
+here's what we got. We got something organic, something that already looks
+a little bit like a cloud. It could be smoke, it
+could be a mountain range, if we plotted it differently, if we give it different colors. Let's play a little bit more with this values here, this divider. What if happens if I divide
+by 10? Look at that. This is a little bit
+like zooming out. It's actually, I'll
+put them next to each other so that you can see it live as I play with their values. If I put here 100, then 100 here, and I
+save it. I'm zooming in. If I put share 1,000, I've zoomed in so
+much that I maybe I'm catching the tiny little corner and I'm almost in the cloud. So depending on what I'm making, I want to see small
+and big structures, let's say in this
+case for the demo. That's why I'm dividing by 100. You're showing this
+demo how different, again, random is from noise. With noise, we created a very nice smooth texture
+and we played with the amount of granularity we want by using the denominator here. If it is 10, 100, 1,000 to divide the values that we pass into the noise function. The way they noise
+function works is by picking this random values and then interpolating
+between them in order to create a graph like this. Then it picks up some
+other random values and it creates another wave. Now, notice this wave is
+a little bit squeezed. It has a smaller amplitude
+and higher frequency. There are more of these
+little mountains there. Then it does it
+again and yet again, smaller amplitude,
+a higher frequency. It actually does it another
+fourth time by default, and by adding them together, you get the noise wave. You have big waves, you have smaller
+intermediate waves, and you have also
+the finer detail. This is what creates
+the richness. Adding these three
+graphs together is what creates the
+richness of the noise wave. So these four graphs that noise added together
+are called octaves. By default, noise in P5 comes with four octaves, but
+you can change that. You can fine tune it
+and play with it. Here I have an example of the noise function
+being plotted in 1D. I'm using the one
+dimensional noise value and I'm plotting it
+in a graph like this. Let's just confirm that
+it's running properly. This is what I have. I'll zoom in a bit and I can go here and change
+the noise data. This is the default. If I remove it as shouldn't
+notice any difference. If I just say here,
+for example 1, and I refresh,
+notice that there is a lot less detail now
+in the mountain range. If I make it 10 and I refresh, there's a lot shear now, that we have the big
+troughs and big mountains, we have smaller waves, and we have also a
+lot of fine details in the mountain range. Let's put it back to default, four and this is
+what it comes with, probably because there's also computational expense in having a lot of detail in the noise. As I explained, at the heart
+of the noise function, there are calls to
+the random function, is that what we use to create
+the noise wave that we are together to generate them more complex
+Perlin noise wave. Just like we can seed
+the random function, we can seed the
+noise function too. Once more in order to
+create noisy result, but that are also the same
+every time we run our program. If I say here, for example, noise seed 10, every
+time I refresh, I get exactly refresh, I refresh, I refresh. Every time I get the same result. If I say 11, I refresh,
+I get a different one, but at always the same one at
+noise seed 11, it locks it. If again, if this was an artwork, this is artwork 11.

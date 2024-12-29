@@ -1,0 +1,45 @@
+There are occasions
+where we might want to create more complex waves, perhaps combine a couple
+of sine waves and even sprinkle a little bit
+of noise magic on top. This is called additive
+synthesis and I'm going to demo a simple
+example right now. So let's first of all
+visualize a wave. So I'm going to say, let's move, for safety in the middle
+of the Canvas in terms of y-coordinate and then
+inShape, endShape. Then in here, I'll just
+describe vertices, which we'll join altogether. So I'll say var x equals 0, x less or equals to width, so that I go all the way
+to the end, x plus plus. Then in here, I'll have a wave 1 which will take
+this coordinate, x. Let's start it like that, and we'll also multiply it
+with a certain amplitude. Let's do by height divided by 4, like a little wave. Let me visualize it
+for you so that you see what this does. Vertex x wave 1 [inaudible]. Let's see this in action, play. Absolutely nothing. So let's
+make sure that we have a stroke 2, 5, 5. Forgot the line, the white
+line. That's painful. So what's going on
+here? The user culprit, I'm going down too fast. X is updating one unit. What is that unit where sine
+things that its radiance. So I need to make sure that
+angleMode is set two degrees, there we go. That's more like it. So now we have a nice sine wave, let's make it move over time. So I'll have here
+plus frameCount. So I have a nice little
+wave moving down like that. So what is additive synthesis? Additive synthesis is now taking this wave and adding
+a wave on top of it. So let's make another wave here. So I'll take this wave,
+I'll call it wave 2, and I'll say that it's equal to, let's say it updates faster
+in time and it is shorter, so I'll divided by 20. I'll show you first what it looks like before I add them together. So this is what it looks like. It has a smaller amplitude, it has higher frequency, and it moves over time,
+it changes over time. So what could I do? What I could do is, I could
+take now wave 1 and wave 2 and add them together,
+and look what I'm getting. So I have the big motions
+of wave 1 and have the smaller waves on
+top added from wave 2. Let's add a little
+bit more magic to it. I'll add a bit of noise. So how about I say wave 3
+because noise is a wave itself. I'll say here noise, it will take this coordinate
+and divide by 10. I have to divide by
+10 because again, noise take small values. FrameCount divide by 100 and then I'll multiply
+that with 100 itself. Let me show you first
+of all what that makes before we actually use it. Wave 3, this is what it made. It made a noisy little thing. So I'm taking the values from X remember, they
+have to be small. If I just do that, it looks
+random so I have to divide by a value big enough so
+that I get an organic shape. So I divide by 10 and I add frameCount so
+that I move in time. So that what gets me that. So if I now add
+them all together, wave 1, let's do it in steps, wave 1 plus wave 3. Look what I get the big
+wave with a noise on top and I can add a second wave as
+well, and look at that. I get the big wave, and get the smallest sine wave, and I still have that
+noise on top of that. I could add more of the noise. I could say maybe the
+noise is like 300. Wow, that's probably too much. I mean, you have to
+choose the ingredients to see what you actually like.

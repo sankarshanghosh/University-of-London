@@ -1,0 +1,44 @@
+Up until now, we've been playing
+with screen coordinates, these are similar to Cartesian coordinates
+in that both are rectangular coordinates, and do not rely on angles. However, cartesian coordinates have
+a positive y axis heading up and not down, while our screen coordinates
+have positive y values going down. For the moment,
+this difference is insignificant, what's important is that everything
+in the 2D Cartesian coordinate space, can be described in terms
+of two parameters, x and y, which represent movement on two axes or
+dimensions. There is however, a different way
+of thinking about the location of a point in 2D space, instead of
+using the x and the y coordinates, we can think of position in
+terms of polar coordinates. In the polar coordinate system,
+each point on a plane is determined by distance from the origin,
+and an angle from the polar axis. The distance from the origin is
+called the radial coordinate, radial distance or simply radius, and
+the angle is called the polar angle. The radial coordinate is often
+denoted by r, and the angle by theta. Angles in polar notation are generally
+expressed in either degrees or radians, with 2 pi radians being
+equal to 360 degrees. Why do we need this
+alternative coordinate system? Polar coordinates are most appropriate in
+any context, where the phenomenon being considered is inherently tied to the
+direction, and length from a center point. The Archimedean spiral, for example, is much simpler to express
+using polar forums. In addition, many physical systems such as
+those concerned with bodies moving around the central point, are simpler and more intuitive to model
+using polar coordinates. For example, it's easier to model the
+movement of planets around the sun with polar coordinates, than by using
+a Cartesian coordinate system. Okay, so now we know that we can describe
+everything with radial coordinates, using an angle and a radius. However in a P5 world, all the primitives
+take Cartesian coordinates, they don't take polar ones. If we wanted to draw an ellipse
+at a particular location, we would have to provide an x and
+a y coordinate. This is where the trigonometry we looked
+at earlier comes in handy, we saw that the sine of angle theta is equal to the
+opposite side, divided by the hypotenuse. In this case, the opposite side is
+effectively the Y coordinate of point x, y, and the hypotenuse is radius r. So sin theta, is equal to y over r. Now we don't know what y is,
+that's what we're trying to figure out. So we move that to the left
+of our equation, and we move all the values
+we know to the right. That means that y equals
+sin theta times r, which is the third equation in this list. So this is the formula for calculating the y coordinate when given
+the polar coordinates of a point. Similarly, for calculating the x
+coordinate, we will use the cosine of the angle along with the radius,
+the cosine is equal to the adjacent side, which in this case is x over
+the hypotenuse, which is equal to r. When we solve for x,
+we get cosine of theta times r. Now let's use what we have learned so
+far inside a p5 sketch.

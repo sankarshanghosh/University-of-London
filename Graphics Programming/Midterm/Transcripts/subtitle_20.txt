@@ -1,0 +1,107 @@
+Hello again. Welcome to another week of
+graphics programming. During this week, we
+are going to look into generative ways of
+producing visuals, by exploring programming
+concepts such as the random and
+noise functions. Generative art
+refers to art that, in whole or in part, has been created with the
+use of an autonomous system. This system doesn't even
+have to be a computer, but for the moment,
+let's assume it is. What's important is that an autonomous system working
+independently determines features of an artwork
+that would otherwise require decisions
+made by the artist. As you have seen from
+previous lectures, programming is a very
+discipline task. We define things very precisely, and a small typing
+error can produce very different results or even cause our code not to run at all. When we program, we use
+a programming language as an interface between
+us and the machine. So when we program that machine, we engage in a logical exercise, or we have very
+clearly defined goals. We decide to put a rectangle
+in specific place and that rectangle appears
+in that place. On the other hand, art is an emotional and very
+subjective field, with a debatable definition. How many times have you heard conversations between people arguing over whether
+something is or isn't art? Generative art is where the two worlds of
+programming and art collide. We take strict called
+processes and we use them subversively in order to create unpredictable
+expressive work. As you'll see, in a way, would turn the
+machine onto itself. Generative art or design
+pieces are not built in the usual way with plants,
+materials, and tools. Generative works are grown and cultivated like a
+tree or a flower. You as a designer, set the rules in a series of logical decisions and
+mathematical formula, and the forms emerge
+out of these. So in a way, as a generative
+artist or designer, you will be working
+as a gardener. When a gardener is
+given a plot of land, they don't have absolute
+control of all the elements. They will make some decisions such as where to
+plan their roses, the petunias, the cypress trees, but then nature takes over. A gardener doesn't control things like the shape of
+the rose petals, the falling of a leaves, etc. The gardener sets
+some conditions, but the garden emerges as a collaboration between
+the gardener and nature. Similarly, generative
+content emerges from the collaboration between the programmer and the machine. This is a painting by
+William Blake showing Isaac Newton sitting naked on cloud stony rock
+covered with algae. His back turned to the
+beautiful complexity of nature as he obsessively
+works with his compass. William Blake was part of
+the Romantic Movement which reacted to the enlightenment
+in the age of pure reason. For the romantics, this was
+the dawn of a world where scientific materialism
+was seen as sterile. Newton turns away
+from the ideally [inaudible] next to him and obsesses with tools of science. You can in fact see these
+paintings reincarnation is a sculpture by artist Eduardo Paollazi at the entrance to the
+British Library in London. The generative artist is
+someone that still works with tools of reason
+and logic like Newton, but is looking towards nature, is facing the algae. Generative artists are
+inspired by nature and design production
+systems based on processes they observe
+in the natural world, whether that's biology,
+chemistry, or mathematics. The work that comes
+out of this process often looks organic and natural. The challenge for us
+is how to employ the mechanical to
+produce the organic. At this point, you might wonder, why would we choose to go down
+this path of uncertainty? Why would artists and designers, choose to relinquish some
+of the creative control, and rely on their machine
+to make choices for them? One important reason is that they can explore the full gamut of options without their taste bias
+affecting the results. Imagine, let's say
+that you were creating vases with the use of
+generative techniques. Instead of always building vases that you feel
+you would like, the machine comes in at that point and makes
+decisions for you, allowing you to be exposed to vases that you wouldn't
+necessarily have designed, but which you might
+possibly like. Generative art also
+enables us to create fluid non-repeating artworks that are generated independently. If we create the process to produce interesting
+patterns, for example, we can then run it and
+generate as many as we want, and if we have designed
+our system well enough, they will be novel
+and non-repeating, and that's a valuable
+thing to have. The last point is particularly
+useful in game design. I've talked about art and design, but I have tried to
+use these terms very loosely as I also referred to design in a very broad sense that a composite
+game design as well. Procedural generation in
+games is a huge field. Procedural generation is the term most commonly used
+in games to refer to instances when content is created quasi-randomly
+by computer, rather than built by human hand. Games such as civilization use procedural generation
+to randomize the layouts of its maps. In Mine craft and No Man's Sky generate entire worlds this way. Typically, procedural
+generation systems are used to create environments, enemy encounters, and look drops. A well-built content
+generation system can give the player
+unlimited content, so they can play forever. If a Treasure Hunt game had just a handful of fixed troops, that were played out the
+same way every time, the game wouldn't really work. But when it's
+procedurally generated, it can provide an
+infinite number of levels to crawl through
+and gear defined, and you can enjoy it
+for years in a way that you couldn't with a
+more fixed experience. The player is always presented with new challenges
+and experiences, preventing them from simply learning the game through memory. Additionally, it provides
+dedicated players within an enormous
+number of scenarios to test the skills
+and the rewards them for continuously
+refining their play. Another field that
+generative techniques have influenced is fabrication. Fabrication is a term that
+describes a plethora of new technologies that produce physical objects from
+digital representations. Designers can use generative
+techniques to produce digital objects and then use technology such as 3D printers, CNC mills, or laser cutters to fabricate them relatively
+inexpensively. Here you see vases
+that were produced by Andy Llamas, a
+computational artist. Inspired by natural process, he developed algorithms for
+growing physical objects like these vases in ways that living
+organisms actually grow.

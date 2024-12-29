@@ -1,0 +1,159 @@
+The Sierpinski carpet
+is a plane fractal first described by Waclaw
+Sierpinski in 1916. The construction of
+the Sierpinski carpet begins with the square. The square is cut into nine congruent sub squares
+in a three-by-three grid, and the central
+subsquare is removed. The same procedure
+is then applied recursively to the remaining
+aid subsquares forever. The technique of subdividing a shape into smaller
+copies of itself, removing one or more
+copies and continuing recursively can be extended
+to other shapes as well. For example, subdividing
+an equilateral triangle into four equilateral triangles, removing the middle
+triangle and recursion, leads to the Sierpinski triangle. In three dimension, a
+similar construction based on tubes is known
+as the Menger sponge. Back to our carpet. So after drawing one is in
+the first iteration here, we'll divide the square by three and draw nine
+squares around the Canvas, but remove the one in the middle, leaving only eight will
+continue until we get down to pixel level
+where we have to stop. Let's program this
+Sierpinski square. So let's define, first
+of all the initial size. I will set here like variable and I'll make
+a Canvas here 900 by 900. I want it to be square and
+here in the Start Size, I want the size to be
+divisible by three. So I want the start size, the size of the square
+where I'm going to draw in to be a power of three. So I'm doing power of three, six which effectively
+means three times three times three times three times three times
+three times three, and you'll see in a second
+why I'm doing this. But for the moment,
+let's take it as it is. Let's make some basic
+environmental decisions here. So I'll do the fill equals thing. I don't want any stroke
+and I don't want any smoothing to take place
+because I care now about pixel accuracy
+and direct mode. Direct mode I'm going to
+be drawing rectangles and I want to be able to
+define them from their center. So now, let's go to the
+middle of the screen. Translate width divide by two, height divide by two. Let's create a function
+called square that will draw the squares and this
+square function is called once from
+the draw initiates, makes the first call, so square and we pass
+to it the start Size. So we're saying start kick-off by making a rectangle
+of start size. Let's say now what we're
+doing is we're saying, side equals side
+divided by three. What we're doing
+here is we divide immediately the
+start size by three, and we're putting
+an end-conditions. So recursive functions we said is like a function calls itself. We're going down this
+rabbit hole where the function is kicked
+off by draw and then it calls itself
+more and more and perform like
+every smaller task. Well at some point,
+that leads to end. We can't go on like this forever. We'll run out of resources. So at some point it
+needs to end until we start going back to the previous function
+that called this, which was itself,
+and so on and so on. What is that end condition? Well, that end
+condition, in this case, is if side is greater or
+equal to one, keep going. What is one? One
+is the pixel size. So we're saying as long
+as the square that you asked him to draw is greater
+or equal to one pixel, I can still draw it and then possibly subdivide it and so on. So I'll keep going. So if size is greater
+or equal to one, then well, let's just
+draw the first rectangle. It's running. What
+have I done wrong? Probably background
+255 and field, let's see, I'll sketch
+here, done anything wrong? Developer tools. Indeed I have. What does it say? It says, side is not defined. There we go. Here's a square. So that's the first square
+that we are asked to draw. I'll make the Canvas a little bit darker so you see where
+exactly it's drawn. So it's drawn in the
+middle of the sketch. Now, the Sierpinski as we said, it draws the first rectangle, but then immediately
+it calls itself and draws smaller rectangles
+all the way around it. So let's do that. So I'm pushing the
+transformation. I'm saying here, push to save where I was,
+push at a formation. Pop immediately I do so
+that I don't forget, then I'm saying translate, well, where should I translate? I want to translate to the left, for example. Let's
+start from there. So I translates to the
+left and I'll going to go clockwise so that I
+don't miss anything. Now translate minus side, zero. So I am going left and then when I'm there left
+in that position, I'm calling the
+function square again, if is smaller side this time
+because side now as we know, it will be divided by three
+as soon as it's called. So let's run this,
+look what it did. So let's now do the same for, I'll just copy this. As we said, that's left. So let's say I'm going
+to go clockwise. So that's both left and above diagonally
+would do just above, which is zero here. There we go. Do you see
+what I'm getting at? So then we want to
+go right and above. So side minus side,
+start building, and now we are just
+side and zero, so to the right and I want to go now below side
+inside, very good. What's left now? I think we're left
+with one final one. So we're doing side
+zero and side. There we go. Now we
+have a final one. So you see I'm going
+clockwise to fill all the positions and
+here a minus side, side, yeah, a Sierpinski. So you see that what
+I did is effectively. This is the thing that
+actually draws everything. It just one left command at the heart of
+it, that's what draws. The only thing I'm doing is I'm translating to
+a new position, and then I'm calling the
+function again to draw there and I'm calling it
+again and again and again. So in fact, let me just make this white so that it's clear, the shape and refresh. If I zoom in a bit, be quite slow perhaps. Is very slow, but you
+can't see very well. But basically, I'm going down to pixel level
+with this thing. How do I know that? Because I have this
+conditional here. It will keep going until
+the side is equal to one. Now you'll see also with
+this division here, it starts making sense, why you need the power of three? Why do you need
+multiple of three? That's because every
+time we divide by three and we want to get
+nice, whole clean numbers. If we use anything
+else at some point, we'll get into decimals
+and you will break. We want to be able to
+go down to pixel level. Let me show you one final thing. So let me see how many times I actually call this
+function calls. So let's set that equal to zero. Now let's say every
+time square is called I'll update
+function calls. So let's see how many times I'm actually calling
+this function? Function calls. That's a huge number, that's 24 million.
+Let's run it again. It doesn't sound right.
+I mean, we can get to these numbers with recursion, but there's a little mistake
+here. What the mistake? Is that I want to, since I don't have
+any moving graphics, I'm not updating anything. Let me just stop looping
+and just run the code one. So this is a Sierpinski
+without any loops. So let's see now how big
+function calls is now. So function calls is 299,593. So I call, let's say 300,000. So I called the
+function square 300,000 times in order to draw this and at the heart of it all it's just
+a simple command, the rest of the logic
+is very simple. Jump here, draw, jump here, draw, jump here, draw,
+jump here, draw. It is not very complicated. So with just a few lines of code, I managed to build
+complexity like that that goes up to pixel
+level just because I'm using recursion and I'm
+making 300,000 almost calls, in order to build the
+Sierpinski square. In the 1990s a Boston, radio astronomer named Nathan Cohen used
+fractal mathematics to make it a technological breakthrough in electronic
+communications. His hobby was amateur
+radio operation, and for that, you need
+pretty began antennas. He learned about fractals
+by chance and for fun, he decided to make
+an antenna out of a fractal shape that
+looked like a snowflake. He was quite surprised to see that it actually
+worked the first time out of the box and he
+discovered that he could make the antenna much smaller
+using the fractal design. He also found that fractal
+design not only made antenna smaller but enabled them to receive a much wider
+range of frequencies. Cowen made his discovery
+at the time when cellphone companies
+we're facing a problem, they we're offering new features to the customers like Bluetooth, Walkie Talkie, and Wi-Fi. Each of them run on
+a separate frequency and to be able to use all
+those different frequencies, you'd need to use many antennas. Instead of using many antennas, cell phone and other wireless
+communication devices started using fractal
+antennas like these to enable them to receive
+signals of many frequencies. Perhaps you won't be surprised to hear that the Sierpinski carpet that we just coded was
+also used as an antenna, seat here etched in
+a circuit board. Now, that you have seen
+that fractal antenna work better than conventional ones, you might take a hint as to why nature uses them so often. Fractal designs
+provide solutions that natural selection has come
+up with over and over again. I really hope you
+enjoyed the last topic. We used sine and cosine to place objects in
+radial coordinates and we use the oscillating
+property of the sine function to make
+interesting visuals, we then explore the
+fascinating fractal geometry of nature and recorded our own little fractal using a recursive function. I can't wait to see
+what you'll make using the tricks you picked
+up this last few weeks.

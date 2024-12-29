@@ -1,0 +1,46 @@
+So let's hack away using
+this radial coordinates. I'm going to make a circle
+first of all to start off with. A circle of circles, a circle of ellipses. Let me just go to the center of
+the canvas width divide by 2. Height divided by 2 and
+then I'll make a for loop where say var theta. Let's use that name. That's a nice name to use since
+we're using the angle there, the radial coordinate. Theta start from 0 and continue until theta is up to 360. And then theta will say equals theta plus. Let's put ellipses every
+20 degrees let's say. And let's calculate now
+the Cartesian coordinates. So we said that x to do
+this radial to Cartesian conversion will do x equals
+cos theta times radius. I haven't defined radius. So let me put it here. So var radius equals let's
+say 200 times radius and then the y coordinate is
+sine of theta times radius. And in here we'll say ellipse xy, let's say 15, 15. I run it. Let's say nothing. I probably have forgotten to fill it,
+fill the ellipses with a color. So let's put white. And I have that so
+that doesn't look quite right and the reason it doesn't look quite right
+is because sine a cosine take radians. So I would either need
+to say radians theta like that to fix it or what I prefer doing is changing the way P5 handles angles and I'll say angle mode degrees. So from now on whenever I'm using an angle
+P5 knows that it's in degrees and not radians. So if I see that now it's perfect,
+every 20 degrees. Every 20 degrees of theta I have an ellipse of radius 15. Let's play a little bit more with this. So what if I wanted to
+rotate a circle around? What I need to do is just remove this for
+loop here. I only want to do it with one ellipse. And then there is no more theta. I want now theta to be a variable that
+changes over time so I could still maybe use theta just for it to be clear
+what somebody else with my code. But theta is really now
+equal to frame count. And we know that frame count counts
+the number of frames as the sketch run so it starts from 1, 2, 3, 4, 5 and so on. So we have about 60 frames a second. So theta will change 60 from go
+from 0 up to 60 in about a second. So let's do that. Now let's run it and there you go. We have the rotating circle. Let me make that a little bit bigger so
+you can see it properly. And we have a rotating circle using
+the frame count as the angle. We're not far off now from
+making the Archimedean spiral. But before we do notice
+that effectively 0 is here. We do a full circle 360's here. 720 is again here and so on. There is this periodicity that we
+have this repetition in the values that come out from sine and
+cosine even though theta goes from when we start the scale from 0 to
+many thousands by now probably. Still the values we get from sine and
+cosine are between negative 1 and 1. And we have,
+that's why we have this rotation and this repeating movement in
+the object that we're rotating. So let's play a little
+bit now with the radius to produce that Archimedean spiral. So all that is happening with
+that spiral is that we increase the radius so instead of having
+a static radius of 200 we'll start up. Let me just turn off
+the background refresh. And I'll turn off also the stroke that's
+what's creating the jagged lines stroke. No stroke.
+Actually no stroke. And there you go and
+frame count is probably too big of a value to its
+updating radius too fast. So what we could do is just divide by 10. So we take smaller steps in the radius. And that's how you produce
+the Archimedean spiral. All we do is we're playing with sine and
+cosine and we slowly increase
+the value of frame count.

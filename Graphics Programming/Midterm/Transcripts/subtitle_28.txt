@@ -1,0 +1,34 @@
+So what I demonstrated in the previous live coding example, is that there is something
+periodic in sine and cosine. In radial space, an object drawn at angle zero degrees will appear in the same place as
+an object at 360 degrees, 720 degrees, and so on. That leads to a very
+useful property in the values that sine and
+cosine functions return. Have a look at the sine
+function plotted here. Notice how the output
+of the sine function is a smooth curve alternating
+between negative 1 and 1. This is known as oscillation. A bouncing ball, a pendulum, and a guitar string, all exhibit the same type
+of oscillating motion. We can now treat the sine
+function as a number generator, much like we did with the noise function
+in earlier lectures. This time however, the values returned will be
+from negative 1-1, and the shape of
+the graph will be the smooth sequence
+of nonlinear values. The wave that is
+formed by plotting the sine function has an
+amplitude and a period. Amplitude is the height of the wave, and in
+our picture world, it is the distance from the center of motion
+to either extreme. That distance here. The period is the amount of time
+it takes to complete one cycle of motion, two seconds. Period is linked to frequency. Frequency is the number of
+cycles in a unit of time. Say, the unit of
+time is one second. So in this diagram, the period is a quarter of a second and the frequency is four. In other words, we can fit
+four cycles in a second. Frequency is measured in hertz. So we would say
+that the sine wave has a frequency of four hertz. In this image, the waves
+have the same amplitude, but each of them has a
+different frequency. The top one has the
+lowest frequency or the smallest number of
+cycles per unit of time, while the bottom one has
+the highest frequency or the highest number of
+cycles per unit of time. Finally, phase in
+electronic signaling is the definition of the position of a point in time on
+the waveform cycle. Say, whole cycle is 360 degrees. A phase denotes where the
+object is in the cycle. Is it at 10 degrees, 90 degrees, 180 degrees? Now let's see all these
+in a live coding example, which will hopefully answer
+any questions you have.

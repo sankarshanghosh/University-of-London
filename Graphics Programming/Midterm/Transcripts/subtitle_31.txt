@@ -1,0 +1,38 @@
+We're switching gears now to a final slightly
+more advanced topic in procedural generation of graphics, which
+involves fractals. A fractal is a rough or
+fragmented geometric shape that can be split into parts, each of which is at
+least approximately a reduced size copy of the whole. Here are some pretty fractals, both in 2D and 3D. Notice how the whole is
+repeated in smaller copies. The term fractal was coined
+by Benoit Mandelbrot, who first described the
+phenomenon fractals in the natural world and
+defined them mathematically. The word is from the
+Latin word fractus, which means broken or fractured. The concepts behind fractals had been around for centuries, but it was not until
+Mandelbrot that these great mathematical
+masterpieces were discovered. Fractals can also
+be found in nature, which is where Mandelbrot's
+first research began. We see them in clouds, in mountains, in how
+rivers are formed, on the surface of the moon, and on living organisms as well, from the leaves of plants to the way trees spread
+their branches. Have a look at the fern, the archetypal leaving fractal, where its leaf is repeated in every smaller copies or the
+stunning Romanesco broccoli, which is so mesmerizing
+to observe. We also see this self
+repetition in seashells, such as the one for the nautilus and we even see it
+in the human body. Here's an image of blood vessels. Notice the fractal
+nature of the system. Nature is complicated and it's often difficult to
+describe its structures. Classical mathematics
+is well-suited to study the world that
+we have created, the structures we have built. The patterns that
+naturally exist in nature such as mountain
+ranges, trees, and clouds were outside the
+world of mathematic until Benoit Mandelbrot introduced
+his new geometry model. He suggested that in fact you can apply mathematics
+to the structures. There is an order between
+the seeming chaos. There are formula that describe the clouds and
+flowers and plants. It's just that there are
+different kind of formula and they provide a different
+kind of geometry. The heart of it all is the
+concept of self-similarity. With fractal geometry formula, we're suddenly able to describe the world in a lot more detail. It didn't take long for
+the same techniques to be used creatively
+in the film industry. Fractal design principles have completely transformed the
+magic of special effects, and they are used everywhere where complexity of textures, surfaces or materials
+is required.

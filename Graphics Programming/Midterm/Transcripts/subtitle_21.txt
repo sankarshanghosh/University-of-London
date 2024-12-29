@@ -1,0 +1,101 @@
+One of the pillars of
+generative processes, whether they are used for art or game design, is randomness. It is one of the easiest ways to hand the reins of a
+process to an algorithm. How random is random? A random process generates
+unpredictable outcomes. For example, consider
+the throwing of a dice on the floor. We generally accept that
+this is a random process. Assuming that the dice is fair, we should expect an equal
+distribution of numbers. That is, if we throw
+the dice 600 times, we should expect about a 100, one's, a 100, two's, etc. The results of the dice though, are completely
+predictable. If I told you what the starting
+position of the dice is, how strongly a throw it, the temperature in the
+room, the air pressure, the material it's made of, the material of the floor, etc, you'd be able to predict with
+a high degree of accuracy, which number the dice will show. The apparent randomness of dice, stems from the fact that
+the outcome is very sensitive to small variations
+in initial conditions. For example, a tiny
+difference in the speed of throwing would result in a
+completely different number. A better method to
+generate random numbers, is to measure some
+physical phenomenon that is expected to be random. Example sources include
+measuring atmospheric noise, thermal noise and other external electromagnetic
+quantum phenomenon. A popular way to
+generate random numbers, is to measure the decay in radioactive material
+over a short timescale. Unlike the dice, due to the physical impossibility
+of acquiring sufficient information
+about the inside of an atomic nucleus to predict the outcome
+of such an event, a system that generates
+numbers based on radioactive decay is guaranteed
+to be random to everyone. So how does your computer
+generate random numbers? Well, the truth is it doesn't. It generates
+pseudorandom numbers. That is, numbers that look random but in fact they are not. Your machine uses an
+algorithm that can produce long sequences of
+apparently random results, which are in fact
+completely determined by shorter initial value known
+as a seed value or key. As a result, the entire
+seemingly random sequence can be reproduced if the
+seed value is known. This is why it is often called
+the pseudorandom number generator and it may be
+seeded by natural sources. The random function
+in your machine is using some information such as time to see the sequence of pseudorandom numbers
+to be generated. In any case, for our purposes, the random function looks random enough that
+we'll assume it is. So let's use the
+random function now. I'm going to make a
+very simple example, where I'm going to
+create a variable randX. The random function
+takes two parameters, optionally two parameters, the minimum and the maximum value. So I'll say that, I
+want you to return values from zero to width. So from zero to the
+width of the canvas. I'll do the same to
+get the y-coordinate, so from zero to height. I said that the minimum
+value is optional. If it's zero, you can remove
+it and it is assumed. So if I do random width, is like saying random zero width. I can use this now to plot, stroke dots on the canvas or
+a leaps randX, randY 15,15. Let's run that. I probably
+didn't do the fill. Fill 255. There we go. So I'm looping now in the draw
+function and I'm asking every time for a new
+random position and that's put on the canvas. Notice that I'm not
+updating the background. That's why the dots remained. I'm not calling the background function to clear the screen. Let's play another little
+bit of color as well. Instead of putting only white, how about if I said
+fill random 255, I do a shade of red, let's say with 0 green, 0 blue and I'll also do
+random transparency. There you go. I get random
+red dots on the screen. I can also play with the size. I can say random from
+10 to 20 size or 25, random 10 to 25. I have ellipses of various size. Now you notice that some ellipse are squeezed
+and that's because, the random calls here are
+independent of each other. If I wanted to get circles, I'd have to store that in
+another variable and say, var size equals that and then
+use the same value in here, size, size, in order for them to
+remain circles rather than be ellipses and now have dots
+of different sizes as well. Now as discussed, random
+is not really random. It's algorithmically
+generated and therefore called pseudorandom. The algorithm that generates the pseudorandom values
+has a starting condition. It needs to know
+where to start from in order to perform
+it's calculations. Usually the starting point is provided by the clock
+of the computer. Given time is a thing
+that is unique. This is what is called the
+seed of the random function. But that doesn't mean that
+we can provide our own seed. This is done using the
+random seed function. So if I say here, randomseed, let's say zero, doesn't matter what number I put, I seed the randomness
+from that number. If I load it, notice where the dots emerge. I load it again and again, the dots are always
+dropped at the same point. So notice for example,
+that they start here, every time I reload the page, the random pattern that emerges on the
+screen is the same. That's because the seed, starting point of
+the random function, was the same. Is here. I could even say that, could say random seed 50. Now it would be a different, let's say now I saw a notice that the dot started appearing here
+in the bottom left corner. Every time I reload, they will start there. If this was a
+generative art piece, you could say that this
+is generative art piece 50 because that was the seed that was used to generate it. This would be useful
+in cases where you do want random values to be generated but you want the same random values to
+be generated all the time. In the dot examples
+that I created, the dots are randomly
+distributed on the canvas. But every time I press refresh, they start from the same point. We get the same random
+distribution of the dots. Randomness is ideal to use in situations where you want
+to assign the position, the size of an
+object or its color. In many cases, you'd use a
+bit of randomness to apply a random offset to more
+carefully chosen values. Randomness is also used to
+decide movement in a system, such as the random walk example. Finally, random can be used to decide when a random
+event will take place. For example, using this code, I get a random value between 0 and 1 and then
+depending on what R is, the computer makes a
+decision on what to do. If R is less than 0.3, x happens. If it's between 0.3 and 0.9, y happens. Otherwise, z happens. So x has a 30 percent
+chance of happening, y has a 60 percent chance and z has only 10 percent chance. Using random values doesn't
+always fit the situation. Random coordinates aren't
+always what we need. We have to work hard to get
+random to produce organic, natural shapes or movement. Badly noise, which
+we'll see next, is a much better to use for that.

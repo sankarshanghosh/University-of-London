@@ -1,0 +1,48 @@
+We looked at 1D noise, where values were
+similar to the values that came before and after them. We also considered 2D noise, where the values in the
+grid were similar to the values of their
+surrounding neighbors. There's also 3D noise. 3D noise is when we use three parameters as input
+to the noise function. So far, we have
+seen things in 2D. We generated noise values as we moved in 2D space on a grid. Let's say we're working
+with 3D objects, and wanted to create
+a 3D world that has the variations of
+the Emmental cheese. 3D noise would be
+the thing to use. This is typically used for 3D terrain generation in
+games such as Minecraft. Since we haven't seen
+3D graphics yet, we are not going to use the
+z-coordinate of the space, is a third parameter in
+noise. We'll use time. In our P5 world, this is easily encoded in the frameCount parameter.
+Let's see it in action. We'll generate noise at time t, then at time t plus 1, t plus 2, and so on. Let's write the code
+that does this. So let's try now to
+live-code 3D noise. So I'm going to start with
+the 2D noise example. Let me just remove code that I don't need to clean it up a bit. I don't need the
+random grid stuff. This is the noise grid. Let's run it. Here I have what I coded before, a cloud of noise. So let's now add a third parameter in the noise function
+here to get 3D noise. I can use time, and timing must get
+this frameCount. So frame 0, frame 1, frame 2, frame 3. So frameCount. Let's run that. Look at that. Again, frameCount is big values, one, two, three, four. So each image looks completely different
+from the previous one. I need to make that
+step a lot smaller. So I'll divide by 100 to get
+a smooth passage in time. Look at that now. I'll
+zoom in a little bit. Can you see? It's a
+cloud that's slowly changing or it's
+smoke that is rising. But it's changing over time. Let's speed it up a tiny
+bit, if you can't see it. I'll divide by 50. There we go. I've zoomed in a bit so it's
+a little bit pixelated. But see how organic
+the pattern is. So if we go back to the paper
+example that I've used. So we saw 2D noise, which was that needle reading anywhere on
+the x and y-axis, the height of the paper, the crumbliness of the paper, whatever you want to call
+it, and it moves like that. Well, now with 3D noise, you can imagine since
+I'm using time, you can imagine
+that the needle is reading the paper at time t, time 1, time 2, time 3, time 4, and so on. Like I'm reading
+different papers, which are also organically
+changing over time. So imagine it like it's
+slowly crumbling around, crumbling moving over
+time as I move it. Depending on how fast
+I am moving time, that those changes would
+be faster or slower, and that's 3D noise. It can even affect actually, before I leave you, it can
+even affect the noise detail. So by default we said it's four, let's leave it at
+one. Let's see it. That could be used for example to model the movement
+of a silk cloth. It's very big changes
+in the shapes, or if I want to put more
+detail, let's put 10. That's more fine,
+that's more granular. I ran out of episets, that looks again like snow, like a cloud with
+a lot more detail.

@@ -1,0 +1,21 @@
+Hi and welcome back. Before we go any further, let's begin by
+refreshing our knowledge of trigonometry, as this is going to help us
+tackle various problems and enable us to do some really cool things. Let's start off by considering
+the meaning of sine, cosine and tangent. We'll then see how this can be used
+to draw something on the screen in terms of polar coordinates. No need to shut off your computer in
+panic, I promise this will be a gentle refresher of basic concepts and provide us
+with just enough to help us be creative. Here's a right triangle, which is a
+triangle with an angle that is 90 degrees, and another angle, let's call that theta. Opposite to this angle theta, we have
+a side which we will call opposite and adjacent side which connects
+point A to point C. And of course the hypotenuse
+of this triangle, which connects point A to point B. Sine of theta is given by
+the length of the opposite side divided by the length of the hypotenuse. Cosine of theta is given by
+the adjacent divided by the hypotenuse. And finally, tangent is the opposite
+divided by the adjacent. Now there is a link in the first
+place between the angle theta and the lengths of the sides should start
+to become a little bit obvious. For example, the bigger the angle theta,
+the longer the opposite side. If this is difficult to remember, you can
+use a little mnemonic called SOHCAHTOA, which contains all the logic
+in condensed form. These calculations will appear in
+many scenarios during this week and are very useful for building things that move in circles or
+things like move in a pendulum or spring.
