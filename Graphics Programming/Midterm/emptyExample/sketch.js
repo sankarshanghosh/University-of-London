@@ -13,6 +13,7 @@ let maxForce = 0.05; // Cap on the maximum force applied
 let aimingAngle = 0; // Angle for aiming the cue stick
 let logMessages = []; // Store messages with timestamps
 let score = 0;
+let lastPottedBall = null; // Track the last ball potted
 
 // --- Setup Section ---
 function setup() {
@@ -34,21 +35,8 @@ function setup() {
                 if (balls.includes(ball)) {
                     let ballColor = ball.render.fillStyle;
 
-                    if (ballColor === "red") {
-                        score += 1; // 1 point for red
-                    } else if (ballColor === "yellow") {
-                        score += 2; // 2 points for yellow
-                    } else if (ballColor === "green") {
-                        score += 3; // 3 points for green
-                    } else if (ballColor === "brown") {
-                        score += 4; // 4 points for brown
-                    } else if (ballColor === "blue") {
-                        score += 5; // 5 points for blue
-                    } else if (ballColor === "pink") {
-                        score += 6; // 6 points for pink
-                    } else if (ballColor === "black") {
-                        score += 7; // 7 points for black
-                    }
+                    // Update the score using the helper function
+                    score += getBallScore(ballColor);
 
                     if (ballColor === "red") {
                         // Remove the red ball from the world and array
@@ -56,20 +44,38 @@ function setup() {
                         balls.splice(balls.indexOf(ball), 1);
                         addLogMessage("Red ball pocketed and removed.");
                     } else {
-                        // Check if there are any red balls left
-                        let redBallsRemaining = balls.some(b => b.render.fillStyle === "red");
-
-                        if (redBallsRemaining) {
-                            // Reset the colored ball to its original position
-                            resetSingleColoredBall(ballColor);
-                            addLogMessage(`${ballColor} ball pocketed and reset.`);
+                        // Colored ball potted
+                        if (lastPottedBall === "color") {
+                            // Rule violation: Colored ball after colored ball
+                            score -= getBallScore(ballColor); // Subtract the score for the violation
+                            resetSingleColoredBall(ballColor); // Reset to its position
+                            addLogMessage(`Violation! ${ballColor} ball potted after a colored ball. Resetting to position. Score adjusted.`);
                         } else {
-                            // Remove the colored ball from the world and array
-                            World.remove(world, ball);
-                            balls.splice(balls.indexOf(ball), 1);
-                            addLogMessage(`${ballColor} ball pocketed and removed (no red balls left).`);
+                            // Valid potting of a colored ball
+                            lastPottedBall = "color"; // Update last potted ball
+
+                            // Check if there are any red balls left
+                            let redBallsRemaining = balls.some(b => b.render.fillStyle === "red");
+
+                            if (redBallsRemaining) {
+                                // Reset the colored ball to its original position
+                                resetSingleColoredBall(ballColor);
+                                addLogMessage(`${ballColor} ball pocketed and reset.`);
+                            } else {
+                                // Remove the colored ball from the world and array
+                                World.remove(world, ball);
+                                balls.splice(balls.indexOf(ball), 1);
+                                addLogMessage(`${ballColor} ball pocketed and removed (no red balls left).`);
+                            }
                         }
                     }
+                } else if (ball === cueBall) {
+                    // Cue ball potted
+                    addLogMessage("Cue ball potted! Resetting to placement mode.");
+                    isCueBallPlaced = false; // Allow cue ball placement again
+                    Body.setVelocity(cueBall, { x: 0, y: 0 }); // Reset velocity
+                    Body.setAngularVelocity(cueBall, 0);      // Reset angular velocity
+                    World.remove(world, cueBall); // Remove cue ball from the world
                 }
             }
         });
@@ -79,7 +85,7 @@ function setup() {
     Matter.Events.on(engine, "collisionStart", function (event) {
         event.pairs.forEach(pair => {
             let { bodyA, bodyB } = pair;
-    
+
             // Check if one of the bodies is the cue ball
             let otherBody = null;
             if (bodyA === cueBall) {
@@ -87,7 +93,7 @@ function setup() {
             } else if (bodyB === cueBall) {
                 otherBody = bodyA;
             }
-    
+
             if (otherBody) {
                 // Determine the type of collision
                 if (pockets.includes(otherBody)) {
@@ -104,7 +110,7 @@ function setup() {
                 }
             }
         });
-    });    
+    });
 
 }
 
@@ -246,6 +252,20 @@ function keyPressed() {
 
 // --- Helper Functions ---
 
+function getBallScore(color) {
+    const ballScores = {
+        red: 1,
+        yellow: 2,
+        green: 3,
+        brown: 4,
+        blue: 5,
+        pink: 6,
+        black: 7
+    };
+    return ballScores[color] || 0; // Return 0 if color is not in the mapping
+}
+
+
 function drawScore() {
     textSize(24); // Set text size
     fill(255); // Set text color to white
@@ -309,7 +329,7 @@ function addLogMessage(message) {
 
 function drawLogMessages() {
     const currentTime = millis(); // Current time
-    const duration = 3500; // Duration to display each message (in milliseconds)
+    const duration = 5000; // Duration to display each message (in milliseconds)
 
     fill(255); // White text
     textSize(14); // Text size
