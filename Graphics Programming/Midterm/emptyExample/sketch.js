@@ -1,16 +1,14 @@
 // --- Global Variables Section ---
-// Dimensions, colors, physics engine variables, etc.
 let Engine, World, Bodies, Composite;
 let engine, world, balls = [], pockets = [];
 let tableWidth, tableHeight, ballDiameter, pocketDiameter;
 let cueBall, baulkX, dRadius;
 let isCueBallPlaced = false; // Track whether the cue ball has been placed
-
-
+let mode = 1; // Default mode for ball placement
 
 // --- Setup Section ---
 function setup() {
-    createCanvas(1200, 600);
+    createCanvas(1200, 650); // Increased height to add instructions
     initializePhysics();  // Initialize Matter.js engine and world
     setupTableDimensions(); // Set table and ball sizes
     createCushions();      // Create cushions (boundaries)
@@ -22,13 +20,10 @@ function setup() {
         event.pairs.forEach(pair => {
             let { bodyA, bodyB } = pair;
 
-            // Check if one of the bodies is a pocket
             if (pockets.includes(bodyA) || pockets.includes(bodyB)) {
                 let ball = pockets.includes(bodyA) ? bodyB : bodyA;
 
-                // Check if the ball is in the balls array
                 if (balls.includes(ball)) {
-                    // Remove the ball from the physics world and balls array
                     World.remove(world, ball);
                     balls.splice(balls.indexOf(ball), 1);
                     console.log("Ball pocketed:", ball.render.fillStyle);
@@ -38,14 +33,100 @@ function setup() {
     });
 }
 
-
 // --- Draw Section ---
 function draw() {
     background(128, 128, 128);
     Engine.update(engine); // Update physics engine
     drawTable();           // Draw the table (pockets, lines, etc.)
     drawBalls();           // Render the balls based on their physics positions
+    drawInstructions();    // Draw on-screen instructions
 }
+
+
+// --- Key Interaction ---
+function keyPressed() {
+    if (key === '1') {
+        resetBallsToStartingPositions();
+    } else if (key === '2') {
+        randomizeRedBalls();
+    } else if (key === '3') {
+        randomizeAllBalls();
+    }
+}
+
+// --- Helper Functions ---
+function drawInstructions() {
+    fill(255);
+    textSize(16);
+    textAlign(CENTER);
+    text(
+        "Press '1' for Standard Mode | Press '2' for Random Reds Mode | Press '3' for Full Random Mode",
+        width / 2,
+        20
+    );
+}
+
+// --- Ball Management ---
+function resetBallsToStartingPositions() {
+    // Remove all balls from the physics world
+    balls.forEach(ball => World.remove(world, ball));
+    balls = []; // Clear the balls array
+
+    // Reinitialize the balls
+    initializeBalls();
+
+    console.log("Balls reset to starting positions");
+}
+
+function randomizeRedBalls() {
+    // Reset colored balls to their original positions
+    resetColoredBalls();
+
+    // Randomize only the red balls
+    let redBalls = balls.filter(ball => ball.render.fillStyle === "red");
+
+    redBalls.forEach(ball => {
+        let randomX = random(width / 2 - tableWidth / 4, width / 2 + tableWidth / 4);
+        let randomY = random(height / 2 - tableHeight / 2, height / 2 + tableHeight / 2);
+        Body.setPosition(ball, { x: randomX, y: randomY });
+    });
+
+    console.log("Red balls randomized, colored balls reset");
+}
+
+function resetColoredBalls() {
+    const coloredPositions = [
+        { x: baulkX, y: height / 2 + tableWidth / 12, color: "yellow" }, // Yellow (bottom)
+        { x: baulkX, y: height / 2, color: "green" },                   // Green (middle)
+        { x: baulkX, y: height / 2 - tableWidth / 12, color: "brown" }, // Brown (top)
+        { x: width / 2, y: height / 2, color: "blue" },                // Blue (center)
+        { x: width / 2 + tableWidth / 2.5, y: height / 2, color: "black" }, // Black (far right)
+        { x: width / 2 + tableWidth / 4 - ballDiameter, y: height / 2, color: "pink" } // Pink (at the triangle tip)
+    ];
+
+    coloredPositions.forEach(pos => {
+        let ball = balls.find(ball => ball.render.fillStyle === pos.color);
+        if (ball) {
+            Body.setPosition(ball, { x: pos.x, y: pos.y });
+        }
+    });
+
+    console.log("Colored balls reset to their original positions");
+}
+
+
+function randomizeAllBalls() {
+    balls.forEach(ball => {
+        if (ball) { // Exclude the cue ball
+            let randomX = random(width / 2 - tableWidth / 4, width / 2 + tableWidth / 4);
+            let randomY = random(height / 2 - tableHeight / 2, height / 2 + tableHeight / 2);
+            Body.setPosition(ball, { x: randomX, y: randomY });
+        }
+    });
+
+    console.log("All balls randomized");
+}
+
 
 // --- Initialization Functions ---
 function initializePhysics() {
@@ -121,7 +202,6 @@ function initializeBalls() {
     // Initialize cue ball without adding to the world
     cueBall = Bodies.circle(0, 0, ballDiameter / 2, {
         ...ballOptions,
-        isStatic: true, // Prevent physics interaction until placement
         render: { fillStyle: "white" }
     });
 
@@ -191,15 +271,20 @@ function drawCushions() {
     fill("#064D36");
     noStroke();
 
-    let cushionThickness = 10;
+    let cushionThickness = 5;
 
-    // Top and bottom cushions
-    rect(width / 2, height / 2 - tableHeight / 2 + cushionThickness / 2, tableWidth, cushionThickness);
-    rect(width / 2, height / 2 + tableHeight / 2 - cushionThickness / 2, tableWidth, cushionThickness);
+    // Adjust visual placement to align with physics cushions
+    // Top cushion
+    rect(width / 2, height / 2 - tableHeight / 2 + cushionThickness / 2, tableWidth - cushionThickness, cushionThickness);
 
-    // Left and right cushions
-    rect(width / 2 - tableWidth / 2 + cushionThickness / 2, height / 2, cushionThickness, tableHeight);
-    rect(width / 2 + tableWidth / 2 - cushionThickness / 2, height / 2, cushionThickness, tableHeight);
+    // Bottom cushion
+    rect(width / 2, height / 2 + tableHeight / 2 - cushionThickness / 2, tableWidth - cushionThickness, cushionThickness);
+
+    // Left cushion
+    rect(width / 2 - tableWidth / 2 + cushionThickness / 2, height / 2, cushionThickness, tableHeight - cushionThickness);
+
+    // Right cushion
+    rect(width / 2 + tableWidth / 2 - cushionThickness / 2, height / 2, cushionThickness, tableHeight - cushionThickness);
 }
 
 function drawPockets() {
@@ -255,9 +340,8 @@ function mousePressed() {
         Body.setPosition(cueBall, { x: mouseX, y: mouseY });
 
         // Ensure it's added to the physics world
-        cueBall.isStatic = false;
+        
         World.add(world, cueBall);
-
         isCueBallPlaced = true; // Mark as placed
     }
 }
