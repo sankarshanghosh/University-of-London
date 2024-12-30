@@ -617,8 +617,7 @@ function drawBalls() {
 }
 
 function startCrazyMode() {
-    const maxVelocity = 10; // Maximum velocity for balls in Crazy Mode
-    const duration = 2000; // Duration of the crazy mode (in milliseconds)
+    const maxVelocity = 20; // Maximum velocity for balls in Crazy Mode
 
     // Randomly place the cue ball on the table
     const tableLeft = width / 2 - tableWidth / 2;
