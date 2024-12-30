@@ -216,7 +216,7 @@ function addLogMessage(message) {
 
 function drawLogMessages() {
     const currentTime = millis(); // Current time
-    const duration = 2000; // Duration to display each message (in milliseconds)
+    const duration = 3000; // Duration to display each message (in milliseconds)
 
     fill(255); // White text
     textSize(14); // Text size
