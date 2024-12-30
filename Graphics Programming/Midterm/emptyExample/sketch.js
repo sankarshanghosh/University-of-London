@@ -5,6 +5,12 @@ let tableWidth, tableHeight, ballDiameter, pocketDiameter;
 let cueBall, baulkX, dRadius;
 let isCueBallPlaced = false; // Track whether the cue ball has been placed
 let mode = 1; // Default mode for ball placement
+let cueStickLength = 150; // Default length of the cue stick
+let minCueLength = 50; // Minimum length of the cue stick (least force)
+let maxCueLength = 200; // Maximum length of the cue stick (most force)
+let cueStickGrowing = true; // Whether the cue stick is currently growing
+let maxForce = 0.05; // Cap on the maximum force applied
+let aimingAngle = 0; // Angle for aiming the cue stick
 
 // --- Setup Section ---
 function setup() {
@@ -19,31 +25,158 @@ function setup() {
     Matter.Events.on(engine, "collisionStart", function (event) {
         event.pairs.forEach(pair => {
             let { bodyA, bodyB } = pair;
-
+    
             if (pockets.includes(bodyA) || pockets.includes(bodyB)) {
                 let ball = pockets.includes(bodyA) ? bodyB : bodyA;
-
+    
                 if (balls.includes(ball)) {
-                    World.remove(world, ball);
-                    balls.splice(balls.indexOf(ball), 1);
-                    console.log("Ball pocketed:", ball.render.fillStyle);
+                    let ballColor = ball.render.fillStyle;
+    
+                    if (ballColor === "red") {
+                        // Remove the red ball from the world and array
+                        World.remove(world, ball);
+                        balls.splice(balls.indexOf(ball), 1);
+                        console.log("Red ball pocketed and removed.");
+                    } else {
+                        // Check if there are any red balls left
+                        let redBallsRemaining = balls.some(b => b.render.fillStyle === "red");
+    
+                        if (redBallsRemaining) {
+                            // Reset the colored ball to its original position
+                            resetSingleColoredBall(ballColor);
+                            console.log(`${ballColor} ball pocketed and reset.`);
+                        } else {
+                            // Remove the colored ball from the world and array
+                            World.remove(world, ball);
+                            balls.splice(balls.indexOf(ball), 1);
+                            console.log(`${ballColor} ball pocketed and removed (no red balls left).`);
+                        }
+                    }
                 }
             }
         });
     });
+    
+
 }
 
-// --- Draw Section ---
+// --- Main Draw Loop ---
 function draw() {
     background(128, 128, 128);
     Engine.update(engine); // Update physics engine
+
     drawTable();           // Draw the table (pockets, lines, etc.)
     drawBalls();           // Render the balls based on their physics positions
+
+    if (isCueBallPlaced && !isCueBallMoving()) {
+        drawCueStick();    // Draw the cue stick only when cue ball is stationary
+        oscillateCueStick(); // Continuously adjust cue stick length
+    }
+
     drawInstructions();    // Draw on-screen instructions
 }
 
+function resetSingleColoredBall(color) {
+    const coloredPositions = {
+        yellow: { x: baulkX, y: height / 2 + tableWidth / 12 },
+        green: { x: baulkX, y: height / 2 },
+        brown: { x: baulkX, y: height / 2 - tableWidth / 12 },
+        blue: { x: width / 2, y: height / 2 },
+        pink: { x: width / 2 + tableWidth / 4 - ballDiameter, y: height / 2 },
+        black: { x: width / 2 + tableWidth / 2.5, y: height / 2 }
+    };
 
-// --- Key Interaction ---
+    if (coloredPositions[color]) {
+        let ball = balls.find(ball => ball.render.fillStyle === color);
+        if (ball) {
+            // Reset position
+            Body.setPosition(ball, coloredPositions[color]);
+
+            // Reset velocity and angular velocity
+            Body.setVelocity(ball, { x: 0, y: 0 });
+            Body.setAngularVelocity(ball, 0);
+        }
+    }
+}
+
+
+
+// --- Cue Stick Drawing ---
+function drawCueStick() {
+    if (!cueBall) return;
+
+    let cueBallPos = cueBall.position;
+    let mousePos = { x: mouseX, y: mouseY };
+    let dx = cueBallPos.x - mousePos.x;
+    let dy = cueBallPos.y - mousePos.y;
+    let angle = atan2(dy, dx);
+
+    let stickStartX = cueBallPos.x + cos(angle) * (ballDiameter / 2);
+    let stickStartY = cueBallPos.y + sin(angle) * (ballDiameter / 2);
+    let stickEndX = cueBallPos.x + cos(angle) * (ballDiameter / 2 + cueStickLength);
+    let stickEndY = cueBallPos.y + sin(angle) * (ballDiameter / 2 + cueStickLength);
+
+    stroke(200, 150, 50);
+    strokeWeight(3);
+    line(stickStartX, stickStartY, stickEndX, stickEndY);
+
+    // Reset the stroke after drawing the cue stick
+    noStroke();
+}
+
+function keyReleased() {
+    if (key === ' ') {
+        // On releasing space, prepare to apply force
+        applyCueForce();
+    }
+}
+
+function mouseMoved() {
+    if (isCueBallPlaced && !isCueBallMoving()) {
+        // Update aiming angle based on mouse position
+        aimingAngle = atan2(mouseY - cueBall.position.y, mouseX - cueBall.position.x);
+    }
+}
+
+function applyCueForce() {
+    if (!isCueBallPlaced || isCueBallMoving()) return;
+
+    // Calculate the force vector based on the aiming angle and cue stick length
+    let forceMagnitude = map(cueStickLength, minCueLength, maxCueLength, 0, maxForce);
+    let force = {
+        x: forceMagnitude * cos(aimingAngle),
+        y: forceMagnitude * sin(aimingAngle)
+    };
+
+    // Apply the force to the cue ball
+    Body.applyForce(cueBall, cueBall.position, force);
+
+    // Reset the cue stick length
+    cueStickLength = minCueLength;
+}
+
+function oscillateCueStick() {
+    if (cueStickGrowing) {
+        cueStickLength += 2; // Grow the cue stick
+        if (cueStickLength >= maxCueLength) {
+            cueStickGrowing = false; // Switch to shrinking
+        }
+    } else {
+        cueStickLength -= 2; // Shrink the cue stick
+        if (cueStickLength <= minCueLength) {
+            cueStickGrowing = true; // Switch to growing
+        }
+    }
+}
+
+function isCueBallMoving() {
+    return (
+        abs(cueBall.velocity.x) > 0.01 || abs(cueBall.velocity.y) > 0.01
+    );
+}
+
+
+// --- Game Loop ---
 function keyPressed() {
     if (key === '1') {
         resetBallsToStartingPositions();
@@ -56,13 +189,19 @@ function keyPressed() {
 
 // --- Helper Functions ---
 function drawInstructions() {
-    fill(255);
+
     textSize(16);
     textAlign(CENTER);
     text(
         "Press '1' for Standard Mode | Press '2' for Random Reds Mode | Press '3' for Full Random Mode",
         width / 2,
         20
+    );
+    fill(255, 0, 0);
+    text(
+        "Left-click to place the cue ball, aim with the mouse, and press (or hold & release) SPACEBAR to shoot – the longer the cue stick, the more powerful the shot.",
+        width / 2,
+        40
     );
 }
 
@@ -72,11 +211,20 @@ function resetBallsToStartingPositions() {
     balls.forEach(ball => World.remove(world, ball));
     balls = []; // Clear the balls array
 
+    // Remove the cue ball from the physics world
+    if (cueBall) {
+        World.remove(world, cueBall);
+    }
+
+    // Reset the cue ball placement flag
+    isCueBallPlaced = false;
+
     // Reinitialize the balls
     initializeBalls();
 
-    console.log("Balls reset to starting positions");
+    console.log("Balls reset to starting positions, cue ball ready for placement");
 }
+
 
 function randomizeRedBalls() {
     // Reset colored balls to their original positions
@@ -333,18 +481,37 @@ function drawBalls() {
     }
 }
 
-// --- Mouse Interaction ---
-function mousePressed() {
+function placeCueBall() {
     if (!isCueBallPlaced) {
-        // Place the cue ball at the mouse position
-        Body.setPosition(cueBall, { x: mouseX, y: mouseY });
+        // Calculate the table boundaries
+        let tableLeft = width / 2 - tableWidth / 2;
+        let tableRight = width / 2 + tableWidth / 2;
+        let tableTop = height / 2 - tableHeight / 2;
+        let tableBottom = height / 2 + tableHeight / 2;
 
-        // Ensure it's added to the physics world
-        
-        World.add(world, cueBall);
-        isCueBallPlaced = true; // Mark as placed
+        // Check if the mouse is within the table boundaries
+        if (
+            mouseX > tableLeft + ballDiameter / 2 &&
+            mouseX < tableRight - ballDiameter / 2 &&
+            mouseY > tableTop + ballDiameter / 2 &&
+            mouseY < tableBottom - ballDiameter / 2
+        ) {
+            // Place the cue ball at the mouse position
+            Body.setPosition(cueBall, { x: mouseX, y: mouseY });
+            World.add(world, cueBall); // Add the cue ball to the physics world
+            isCueBallPlaced = true; // Mark the cue ball as placed
+        } else {
+            console.log("Cue ball placement is outside the table area.");
+        }
     }
 }
+
+// --- Mouse Interaction ---
+function mousePressed() {
+    placeCueBall();
+}
+
+
 
 
 
