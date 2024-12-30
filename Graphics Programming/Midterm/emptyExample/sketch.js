@@ -11,6 +11,8 @@ let maxCueLength = 200; // Maximum length of the cue stick (most force)
 let cueStickGrowing = true; // Whether the cue stick is currently growing
 let maxForce = 0.05; // Cap on the maximum force applied
 let aimingAngle = 0; // Angle for aiming the cue stick
+let logMessages = []; // Store messages with timestamps
+
 
 // --- Setup Section ---
 function setup() {
@@ -36,7 +38,7 @@ function setup() {
                         // Remove the red ball from the world and array
                         World.remove(world, ball);
                         balls.splice(balls.indexOf(ball), 1);
-                        console.log("Red ball pocketed and removed.");
+                        addLogMessage("Red ball pocketed and removed.");
                     } else {
                         // Check if there are any red balls left
                         let redBallsRemaining = balls.some(b => b.render.fillStyle === "red");
@@ -44,12 +46,12 @@ function setup() {
                         if (redBallsRemaining) {
                             // Reset the colored ball to its original position
                             resetSingleColoredBall(ballColor);
-                            console.log(`${ballColor} ball pocketed and reset.`);
+                            addLogMessage(`${ballColor} ball pocketed and reset.`);
                         } else {
                             // Remove the colored ball from the world and array
                             World.remove(world, ball);
                             balls.splice(balls.indexOf(ball), 1);
-                            console.log(`${ballColor} ball pocketed and removed (no red balls left).`);
+                            addLogMessage(`${ballColor} ball pocketed and removed (no red balls left).`);
                         }
                     }
                 }
@@ -74,6 +76,7 @@ function draw() {
     }
 
     drawInstructions();    // Draw on-screen instructions
+    drawLogMessages();     // Display log messages
 }
 
 function resetSingleColoredBall(color) {
@@ -205,6 +208,32 @@ function drawInstructions() {
     );
 }
 
+function addLogMessage(message) {
+    const currentTime = millis(); // Current time in milliseconds
+    logMessages.push({ text: message, time: currentTime });
+}
+
+
+function drawLogMessages() {
+    const currentTime = millis(); // Current time
+    const duration = 2000; // Duration to display each message (in milliseconds)
+
+    fill(255); // White text
+    textSize(14); // Text size
+    textAlign(LEFT); // Align text to the left
+
+    // Start drawing from the bottom of the screen
+    let startY = height - 20; // Bottom margin
+    logMessages = logMessages.filter((message, index) => {
+        if (currentTime - message.time < duration) {
+            // Display message if within duration
+            text(message.text, 10, startY - index * 20); // Offset each line by 20 pixels
+            return true; // Keep the message
+        }
+        return false; // Remove the message
+    });
+}
+
 // --- Ball Management ---
 function resetBallsToStartingPositions() {
     // Remove all balls from the physics world
@@ -222,7 +251,7 @@ function resetBallsToStartingPositions() {
     // Reinitialize the balls
     initializeBalls();
 
-    console.log("Balls reset to starting positions, cue ball ready for placement");
+    addLogMessage("Balls reset to starting positions, cue ball ready for placement");
 }
 
 
@@ -239,7 +268,7 @@ function randomizeRedBalls() {
         Body.setPosition(ball, { x: randomX, y: randomY });
     });
 
-    console.log("Red balls randomized, colored balls reset");
+    addLogMessage("Red balls randomized, colored balls reset");
 }
 
 function resetColoredBalls() {
@@ -259,7 +288,7 @@ function resetColoredBalls() {
         }
     });
 
-    console.log("Colored balls reset to their original positions");
+    addLogMessage("Colored balls reset to their original positions");
 }
 
 
@@ -272,7 +301,7 @@ function randomizeAllBalls() {
         }
     });
 
-    console.log("All balls randomized");
+    addLogMessage("All balls randomized");
 }
 
 
@@ -483,28 +512,29 @@ function drawBalls() {
 
 function placeCueBall() {
     if (!isCueBallPlaced) {
-        // Calculate the table boundaries
-        let tableLeft = width / 2 - tableWidth / 2;
-        let tableRight = width / 2 + tableWidth / 2;
+        // Define the "D zone" boundaries
         let tableTop = height / 2 - tableHeight / 2;
         let tableBottom = height / 2 + tableHeight / 2;
+        let dLeft = baulkX - dRadius;
+        let dRight = baulkX;
+        let dCenter = { x: baulkX, y: height / 2 };
 
-        // Check if the mouse is within the table boundaries
-        if (
-            mouseX > tableLeft + ballDiameter / 2 &&
-            mouseX < tableRight - ballDiameter / 2 &&
-            mouseY > tableTop + ballDiameter / 2 &&
-            mouseY < tableBottom - ballDiameter / 2
-        ) {
+        // Check if the mouse is within the "D zone"
+        let withinBaulkLine = mouseX >= dLeft + ballDiameter / 2 && mouseX <= dRight - ballDiameter / 2;
+        let withinDZoneArc = dist(mouseX, mouseY, dCenter.x, dCenter.y) <= dRadius - ballDiameter / 2;
+        let withinVerticalBounds = mouseY >= tableTop + ballDiameter / 2 && mouseY <= tableBottom - ballDiameter / 2;
+
+        if (withinBaulkLine && withinDZoneArc && withinVerticalBounds) {
             // Place the cue ball at the mouse position
             Body.setPosition(cueBall, { x: mouseX, y: mouseY });
             World.add(world, cueBall); // Add the cue ball to the physics world
             isCueBallPlaced = true; // Mark the cue ball as placed
         } else {
-            console.log("Cue ball placement is outside the table area.");
+            addLogMessage("Cue ball placement is outside the 'D zone.");
         }
     }
 }
+
 
 // --- Mouse Interaction ---
 function mousePressed() {
