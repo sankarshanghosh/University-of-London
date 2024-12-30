@@ -12,7 +12,7 @@ let cueStickGrowing = true; // Whether the cue stick is currently growing
 let maxForce = 0.05; // Cap on the maximum force applied
 let aimingAngle = 0; // Angle for aiming the cue stick
 let logMessages = []; // Store messages with timestamps
-
+let score = 0;
 
 // --- Setup Section ---
 function setup() {
@@ -33,6 +33,22 @@ function setup() {
 
                 if (balls.includes(ball)) {
                     let ballColor = ball.render.fillStyle;
+
+                    if (ballColor === "red") {
+                        score += 1; // 1 point for red
+                    } else if (ballColor === "yellow") {
+                        score += 2; // 2 points for yellow
+                    } else if (ballColor === "green") {
+                        score += 3; // 3 points for green
+                    } else if (ballColor === "brown") {
+                        score += 4; // 4 points for brown
+                    } else if (ballColor === "blue") {
+                        score += 5; // 5 points for blue
+                    } else if (ballColor === "pink") {
+                        score += 6; // 6 points for pink
+                    } else if (ballColor === "black") {
+                        score += 7; // 7 points for black
+                    }
 
                     if (ballColor === "red") {
                         // Remove the red ball from the world and array
@@ -59,6 +75,7 @@ function setup() {
         });
     });
 
+    // Add collision event listener for cue ball collisions
     Matter.Events.on(engine, "collisionStart", function (event) {
         event.pairs.forEach(pair => {
             let { bodyA, bodyB } = pair;
@@ -106,6 +123,7 @@ function draw() {
 
     drawInstructions();    // Draw on-screen instructions
     drawLogMessages();     // Display log messages
+    drawScore();           // Display the player's score
 }
 
 function resetSingleColoredBall(color) {
@@ -212,14 +230,29 @@ function isCueBallMoving() {
 function keyPressed() {
     if (key === '1') {
         resetBallsToStartingPositions();
+        score = 0; // Reset the score to 0
+        addLogMessage("Score reset to 0.");
     } else if (key === '2') {
         randomizeRedBalls();
+        score = 0; // Reset the score to 0
+        addLogMessage("Score reset to 0.");
     } else if (key === '3') {
         randomizeAllBalls();
+        score = 0; // Reset the score to 0
+        addLogMessage("Score reset to 0.");
     }
 }
 
+
 // --- Helper Functions ---
+
+function drawScore() {
+    textSize(24); // Set text size
+    fill(255); // Set text color to white
+    textAlign(CENTER); // Align text to center
+    text(`Score: ${score}`, width / 2, height - 20); // Display score at the bottom
+}
+
 function drawInstructions() {
 
     textSize(16);
