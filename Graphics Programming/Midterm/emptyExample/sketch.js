@@ -690,6 +690,55 @@ function mousePressed() {
 }
 
 
+/*
+ * COMMENTARY (REPORT) 
+ *
+ * Snooker App Design Explanation
+ * 
+ * Cue Function Design
+ * 
+ * The cue ball is initially stuck to the mouse and can only be placed in the D Zone 
+ * unless in Mode 4 (more on this later). The cue ball will be stuck to the mouse 
+ * location until the left clicks inside the D Zone which will place it there. This 
+ * design allows the user to intuitively place the cue ball without any complex 
+ * keystrokes, etc. keeping things simple.
+ * 
+ * The cue stick on the other hand is designed to be keyboard and mouse based. 
+ * Once the cue ball has been placed on the table, the cue stick appears which 
+ * revolves around the cue ball in an angle based on the location of the cue ball 
+ * and the mouse. During this, the cue stick also is oscillating (growing and shrinking 
+ * in size) to convey the strength at which the cue ball will be hit. The player is 
+ * expecting to time his SPACEBAR click correctly to set the cue ball at their desired 
+ * speed in the direction of the cue stick. This cue stick dynamically updates the 
+ * aiming angle relative to the cue ball making things intuitive for the player and 
+ * keeping it user-friendly.
+ * 
+ * Crazy Mode Extension
+ * 
+ * When I was first implementing the snooker design, when I first added all the balls 
+ * on the matter.js engine’s world, I was fascinated to see all the balls fall down to 
+ * the bottom due to gravity in the y axis. This inspired me to create the Crazy Mode 
+ * Extension which can be enabled by keystroke “4”. As we know, in Standard Mode 
+ * all balls are in their designated spots while the cue ball can only be placed in the 
+ * D Zone. In Keystroke “2” mode, red balls are randomized while in “3” mode all balls 
+ * including the colored ones are randomized while the cue ball can only be placed 
+ * in the D Zone. The Crazy Mode takes things to the next level but randomizing ALL 
+ * balls including the cue ball and to make it even more fun sets all balls with random 
+ * velocity and directions. This mode visually disrupts the board, creating a dynamic, 
+ * engaging effect and then let’s the game naturally return to order as the physics 
+ * engine resolves ball movements. As the cue ball sets to rest, the user can now 
+ * continue to play as normal, putting the player at a challenging place to pot the 
+ * balls due to everything being randomized.
+ * 
+ * Technical Design Choices:
+ * - The app uses Matter.js for accurate physics simulation, ensuring realistic ball 
+ *   collisions, pocketing, and cushion interactions.
+ * - p5.js provides an intuitive canvas for rendering the snooker table, balls, cue stick, 
+ *   and game visuals. It simplifies animation and user interaction.
+ * - The game logic is modular, with separate functions for ball management, drawing, 
+ *   collision detection, and scoring. This structure ensures readability and extensibility, 
+ *   making it easy to add new features like Crazy Mode or other extensions.
+ */
 
 
 
