@@ -13,7 +13,7 @@ let maxForce = 0.05; // Cap on the maximum force applied
 let aimingAngle = 0; // Angle for aiming the cue stick
 let logMessages = [];
 let score = 0; // Player's score
-let lastPottedBall = null; // Track the last ball potted (colored or red)
+l  // Track the last ball potted (colored or red)
 
 // --- Setup Section ---
 function setup() {
@@ -264,36 +264,6 @@ function drawInstructions() {
         width / 2,
         40
     );
-}
-
-function drawCollisionMatrix(latestCollision = "") {
-    fill(0); // Black background for the matrix
-    rectMode(CORNER);
-    rect(width / 2 - 150, height - 100, 300, 80); // Matrix container
-
-    fill(255); // White text
-    textSize(14);
-    textAlign(CENTER);
-
-    let headers = ["Cushion", "Red", "Yellow", "Pink", "Green", "Black", "Blue"];
-    let xOffset = width / 2 - 140; // Starting position for columns
-
-    // Draw headers
-    for (let i = 0; i < headers.length; i++) {
-        text(headers[i], xOffset + i * 40, height - 80);
-    }
-
-    // Draw cue row
-    text("Cue", width / 2 - 170, height - 60);
-
-    // Highlight latest collision
-    if (latestCollision) {
-        let colIndex = headers.findIndex(header => latestCollision.includes(header.toLowerCase()));
-        if (colIndex >= 0) {
-            fill(255, 0, 0); // Red highlight
-            text("X", xOffset + colIndex * 40, height - 60);
-        }
-    }
 }
 
 function addLogMessage(message) {
