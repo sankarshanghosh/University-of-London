@@ -12,15 +12,15 @@ let cueStickGrowing = true; // Whether the cue stick is currently growing
 let maxForce = 0.05; // Cap on the maximum force applied
 let aimingAngle = 0; // Angle for aiming the cue stick
 let logMessages = []; // Store messages with timestamps
-let score = 0;
-let lastPottedBall = null; // Track the last ball potted
+let score = 0; // Player's score
+let lastPottedBall = null; // Track the last ball potted (colored or red)
 
 // --- Setup Section ---
 function setup() {
-    createCanvas(1200, 650); // Increased height to add instructions
+    createCanvas(1200, 650);
     initializePhysics();  // Initialize Matter.js engine and world
     setupTableDimensions(); // Set table and ball sizes
-    createCushions();      // Create cushions (boundaries)
+    createCushions();      // Create cushions
     createPockets();       // Create pockets
     initializeBalls();     // Add balls to the world
 
@@ -35,7 +35,6 @@ function setup() {
                 if (balls.includes(ball)) {
                     let ballColor = ball.render.fillStyle;
 
-                    // Update the score using the helper function
                     score += getBallScore(ballColor);
 
                     if (ballColor === "red") {
@@ -117,10 +116,10 @@ function setup() {
 // --- Main Draw Loop ---
 function draw() {
     background(128, 128, 128);
-    Engine.update(engine); // Update physics engine
+    Engine.update(engine);
 
-    drawTable();           // Draw the table (pockets, lines, etc.)
-    drawBalls();           // Render the balls based on their physics positions
+    drawTable(); // Draw the snooker table
+    drawBalls(); // Draw all the balls
 
     if (isCueBallPlaced && !isCueBallMoving()) {
         drawCueStick();    // Draw the cue stick only when cue ball is stationary
@@ -131,31 +130,6 @@ function draw() {
     drawLogMessages();     // Display log messages
     drawScore();           // Display the player's score
 }
-
-function resetSingleColoredBall(color) {
-    const coloredPositions = {
-        yellow: { x: baulkX, y: height / 2 + tableWidth / 12 },
-        green: { x: baulkX, y: height / 2 },
-        brown: { x: baulkX, y: height / 2 - tableWidth / 12 },
-        blue: { x: width / 2, y: height / 2 },
-        pink: { x: width / 2 + tableWidth / 4 - ballDiameter, y: height / 2 },
-        black: { x: width / 2 + tableWidth / 2.5, y: height / 2 }
-    };
-
-    if (coloredPositions[color]) {
-        let ball = balls.find(ball => ball.render.fillStyle === color);
-        if (ball) {
-            // Reset position
-            Body.setPosition(ball, coloredPositions[color]);
-
-            // Reset velocity and angular velocity
-            Body.setVelocity(ball, { x: 0, y: 0 });
-            Body.setAngularVelocity(ball, 0);
-        }
-    }
-}
-
-
 
 // --- Cue Stick Drawing ---
 function drawCueStick() {
@@ -249,22 +223,21 @@ function keyPressed() {
     }
 }
 
+// --- Initialization Functions ---
+function initializePhysics() {
+    Engine = Matter.Engine;
+    World = Matter.World;
+    Bodies = Matter.Bodies;
+    Body = Matter.Body;
+    engine = Engine.create();
+    world = engine.world;
+    engine.world.gravity.y = 0; // No gravity in the y-direction
 
-// --- Helper Functions ---
-
-function getBallScore(color) {
-    const ballScores = {
-        red: 1,
-        yellow: 2,
-        green: 3,
-        brown: 4,
-        blue: 5,
-        pink: 6,
-        black: 7
-    };
-    return ballScores[color] || 0; // Return 0 if color is not in the mapping
+    // Increase collision accuracy
+    engine.positionIterations = 10;
 }
 
+// --- Helper Functions ---
 
 function drawScore() {
     textSize(24); // Set text size
@@ -320,12 +293,10 @@ function drawCollisionMatrix(latestCollision = "") {
     }
 }
 
-
 function addLogMessage(message) {
     const currentTime = millis(); // Current time in milliseconds
     logMessages.push({ text: message, time: currentTime });
 }
-
 
 function drawLogMessages() {
     const currentTime = millis(); // Current time
@@ -366,7 +337,6 @@ function resetBallsToStartingPositions() {
 
     addLogMessage("Balls reset to starting positions, cue ball ready for placement");
 }
-
 
 function randomizeRedBalls() {
     // Reset colored balls to their original positions
@@ -417,19 +387,40 @@ function randomizeAllBalls() {
     addLogMessage("All balls randomized");
 }
 
+function resetSingleColoredBall(color) {
+    const coloredPositions = {
+        yellow: { x: baulkX, y: height / 2 + tableWidth / 12 },
+        green: { x: baulkX, y: height / 2 },
+        brown: { x: baulkX, y: height / 2 - tableWidth / 12 },
+        blue: { x: width / 2, y: height / 2 },
+        pink: { x: width / 2 + tableWidth / 4 - ballDiameter, y: height / 2 },
+        black: { x: width / 2 + tableWidth / 2.5, y: height / 2 }
+    };
 
-// --- Initialization Functions ---
-function initializePhysics() {
-    Engine = Matter.Engine;
-    World = Matter.World;
-    Bodies = Matter.Bodies;
-    Body = Matter.Body;
-    engine = Engine.create();
-    world = engine.world;
-    engine.world.gravity.y = 0; // No gravity in the y-direction
+    if (coloredPositions[color]) {
+        let ball = balls.find(ball => ball.render.fillStyle === color);
+        if (ball) {
+            // Reset position
+            Body.setPosition(ball, coloredPositions[color]);
 
-    // Increase collision accuracy
-    engine.positionIterations = 10;
+            // Reset velocity and angular velocity
+            Body.setVelocity(ball, { x: 0, y: 0 });
+            Body.setAngularVelocity(ball, 0);
+        }
+    }
+}
+
+function getBallScore(color) {
+    const ballScores = {
+        red: 1,
+        yellow: 2,
+        green: 3,
+        brown: 4,
+        blue: 5,
+        pink: 6,
+        black: 7
+    };
+    return ballScores[color] || 0; // Return 0 if color is not in the mapping
 }
 
 function setupTableDimensions() {
