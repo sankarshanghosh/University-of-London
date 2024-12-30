@@ -27,13 +27,13 @@ function setup() {
     Matter.Events.on(engine, "collisionStart", function (event) {
         event.pairs.forEach(pair => {
             let { bodyA, bodyB } = pair;
-    
+
             if (pockets.includes(bodyA) || pockets.includes(bodyB)) {
                 let ball = pockets.includes(bodyA) ? bodyB : bodyA;
-    
+
                 if (balls.includes(ball)) {
                     let ballColor = ball.render.fillStyle;
-    
+
                     if (ballColor === "red") {
                         // Remove the red ball from the world and array
                         World.remove(world, ball);
@@ -42,7 +42,7 @@ function setup() {
                     } else {
                         // Check if there are any red balls left
                         let redBallsRemaining = balls.some(b => b.render.fillStyle === "red");
-    
+
                         if (redBallsRemaining) {
                             // Reset the colored ball to its original position
                             resetSingleColoredBall(ballColor);
@@ -58,7 +58,36 @@ function setup() {
             }
         });
     });
+
+    Matter.Events.on(engine, "collisionStart", function (event) {
+        event.pairs.forEach(pair => {
+            let { bodyA, bodyB } = pair;
     
+            // Check if one of the bodies is the cue ball
+            let otherBody = null;
+            if (bodyA === cueBall) {
+                otherBody = bodyB;
+            } else if (bodyB === cueBall) {
+                otherBody = bodyA;
+            }
+    
+            if (otherBody) {
+                // Determine the type of collision
+                if (pockets.includes(otherBody)) {
+                    addLogMessage("Cue ball collided with a pocket.");
+                } else if (balls.includes(otherBody)) {
+                    let ballColor = otherBody.render.fillStyle;
+                    if (ballColor === "red") {
+                        addLogMessage("Cue ball collided with a red ball.");
+                    } else {
+                        addLogMessage(`Cue ball collided with a ${ballColor} ball.`);
+                    }
+                } else {
+                    addLogMessage("Cue ball collided with a cushion.");
+                }
+            }
+        });
+    });    
 
 }
 
@@ -208,6 +237,37 @@ function drawInstructions() {
     );
 }
 
+function drawCollisionMatrix(latestCollision = "") {
+    fill(0); // Black background for the matrix
+    rectMode(CORNER);
+    rect(width / 2 - 150, height - 100, 300, 80); // Matrix container
+
+    fill(255); // White text
+    textSize(14);
+    textAlign(CENTER);
+
+    let headers = ["Cushion", "Red", "Yellow", "Pink", "Green", "Black", "Blue"];
+    let xOffset = width / 2 - 140; // Starting position for columns
+
+    // Draw headers
+    for (let i = 0; i < headers.length; i++) {
+        text(headers[i], xOffset + i * 40, height - 80);
+    }
+
+    // Draw cue row
+    text("Cue", width / 2 - 170, height - 60);
+
+    // Highlight latest collision
+    if (latestCollision) {
+        let colIndex = headers.findIndex(header => latestCollision.includes(header.toLowerCase()));
+        if (colIndex >= 0) {
+            fill(255, 0, 0); // Red highlight
+            text("X", xOffset + colIndex * 40, height - 60);
+        }
+    }
+}
+
+
 function addLogMessage(message) {
     const currentTime = millis(); // Current time in milliseconds
     logMessages.push({ text: message, time: currentTime });
@@ -216,7 +276,7 @@ function addLogMessage(message) {
 
 function drawLogMessages() {
     const currentTime = millis(); // Current time
-    const duration = 3000; // Duration to display each message (in milliseconds)
+    const duration = 3500; // Duration to display each message (in milliseconds)
 
     fill(255); // White text
     textSize(14); // Text size
