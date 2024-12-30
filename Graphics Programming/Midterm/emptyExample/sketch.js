@@ -11,7 +11,7 @@ let maxCueLength = 200; // Maximum length of the cue stick (most force)
 let cueStickGrowing = true; // Whether the cue stick is currently growing
 let maxForce = 0.05; // Cap on the maximum force applied
 let aimingAngle = 0; // Angle for aiming the cue stick
-let logMessages = []; // Store messages with timestamps
+let logMessages = [];
 let score = 0; // Player's score
 let lastPottedBall = null; // Track the last ball potted (colored or red)
 
@@ -220,8 +220,11 @@ function keyPressed() {
         randomizeAllBalls();
         score = 0; // Reset the score to 0
         addLogMessage("Score reset to 0.");
+    } else if (key === '4') {
+        startCrazyMode();
     }
 }
+
 
 // --- Initialization Functions ---
 function initializePhysics() {
@@ -251,7 +254,7 @@ function drawInstructions() {
     textSize(16);
     textAlign(CENTER);
     text(
-        "Press '1' for Standard Mode | Press '2' for Random Reds Mode | Press '3' for Full Random Mode",
+        "Press '1' for Standard Mode | Press '2' for Random Reds Mode | Press '3' for Full Random Mode | Press '4' for Crazy Mode",
         width / 2,
         20
     );
@@ -554,7 +557,6 @@ function drawCushions() {
 
     let cushionThickness = 5;
 
-    // Adjust visual placement to align with physics cushions
     // Top cushion
     rect(width / 2, height / 2 - tableHeight / 2 + cushionThickness / 2, tableWidth - cushionThickness, cushionThickness);
 
@@ -586,7 +588,7 @@ function drawDZone() {
     stroke(255); // White color for the line and "D"
     strokeWeight(2);
 
-    // Draw the baulk line (white line across the table)
+    // Draw the baulk line
     line(baulkX, height / 2 - tableHeight / 2, baulkX, height / 2 + tableHeight / 2);
 
     // Draw the semi-circle ("D")
@@ -613,6 +615,49 @@ function drawBalls() {
         ellipse(cueBall.position.x, cueBall.position.y, ballDiameter);
     }
 }
+
+function startCrazyMode() {
+    const maxVelocity = 10; // Maximum velocity for balls in Crazy Mode
+    const duration = 2000; // Duration of the crazy mode (in milliseconds)
+
+    // Randomly place the cue ball on the table
+    const tableLeft = width / 2 - tableWidth / 2;
+    const tableRight = width / 2 + tableWidth / 2;
+    const tableTop = height / 2 - tableHeight / 2;
+    const tableBottom = height / 2 + tableHeight / 2;
+
+    const randomCueX = random(tableLeft + ballDiameter, tableRight - ballDiameter);
+    const randomCueY = random(tableTop + ballDiameter, tableBottom - ballDiameter);
+
+    Body.setPosition(cueBall, { x: randomCueX, y: randomCueY });
+    World.add(world, cueBall); // Ensure the cue ball is in the world
+    isCueBallPlaced = true; // Mark cue ball as placed
+
+    // Apply random velocities to all balls
+    balls.forEach(ball => {
+        const randomAngle = random(TWO_PI); // Random angle in radians
+        const randomSpeed = random(2, maxVelocity); // Random speed
+        const velocity = {
+            x: randomSpeed * cos(randomAngle),
+            y: randomSpeed * sin(randomAngle)
+        };
+        Body.setVelocity(ball, velocity);
+    });
+
+    // Apply random velocity to the cue ball
+    const randomAngle = random(TWO_PI);
+    const randomSpeed = random(2, maxVelocity);
+    const cueVelocity = {
+        x: randomSpeed * cos(randomAngle),
+        y: randomSpeed * sin(randomAngle)
+    };
+    Body.setVelocity(cueBall, cueVelocity);
+
+    // Add a log message
+    addLogMessage("Crazy Mode activated! Balls and cue ball are flying everywhere!");
+}
+
+
 
 function placeCueBall() {
     if (!isCueBallPlaced) {
