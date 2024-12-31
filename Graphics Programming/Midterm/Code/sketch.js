@@ -13,7 +13,7 @@ let maxForce = 0.05; // Cap on the maximum force applied
 let aimingAngle = 0; // Angle for aiming the cue stick
 let logMessages = [];
 let score = 0; // Player's score
-l  // Track the last ball potted (colored or red)
+let lastPottedBall = null;
 
 // --- Setup Section ---
 function setup() {
