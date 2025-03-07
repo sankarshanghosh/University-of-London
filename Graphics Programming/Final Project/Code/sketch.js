@@ -384,8 +384,7 @@ function applyFaceEffect() {
         faceImg.pixels[i + 1] = gray;
         faceImg.pixels[i + 2] = gray;
       }
-    } 
-    else if (effectType === "blur") {
+    } else if (effectType === "blur") {
       console.log("Inside Blur Effect");
 
       let kernel = [
@@ -406,13 +405,12 @@ function applyFaceEffect() {
           faceImg.pixels[index + 2] = newB;
         }
       }
-    } 
-    else if (effectType === "invert") {
+    } else if (effectType === "invert") {
       console.log("Inside YCbCr Effect");
 
       let ycbcrFace = createImage(w, h); // Create a new image buffer
       ycbcrFace.copy(faceImg, 0, 0, w, h, 0, 0, w, h); // Copy face image
-      processYCbCr(ycbcrFace, ycbcrFace); // Apply YCbCr conversion
+      processYCbCr(ycbcrFace, ycbcrFace); // Apply YCbCr conversion using existing function
       faceImg = ycbcrFace; // Replace faceImg with converted image
     }
 
@@ -420,10 +418,6 @@ function applyFaceEffect() {
     image(faceImg, x, y + 4 * boxHeight, w, h); // Draw modified face
   }
 }
-
-
-
-
 
 // Convolution Function (Based on Course Module Demonstration)
 function convolution(x, y, matrix, matrixSize, img) {
