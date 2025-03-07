@@ -204,7 +204,6 @@ function processThresholding(channel) {
 }
 
 function processYCbCr(inputImage, outputImage) {
-  outputImage.clear();
   outputImage.loadPixels();
   inputImage.loadPixels();
 
@@ -351,7 +350,7 @@ function drawFaces() {
     let [x, y, w, h] = detectedFace;
 
     // Increase size by 50%
-    let scaleFactor = 1.5; 
+    let scaleFactor = 1.5;
     let newW = w * scaleFactor;
     let newH = h * scaleFactor;
     let newX = x - (newW - w) / 2; // Center the new box
@@ -364,40 +363,91 @@ function drawFaces() {
   }
 }
 
-
 function applyFaceEffect() {
   if (detectedFace && effectType !== "none") {
-    console.log("Applying Effect:", effectType); 
+    console.log("Applying Effect:", effectType);
 
     let [x, y, w, h] = detectedFace;
-    let faceImg = video.get(x, y, w, h); // Extract the face region
-    faceImg.loadPixels(); // Load pixels for editing
+    let faceImg = video.get(x, y, w, h); // Extract face region
+    faceImg.loadPixels(); // Load pixels for processing
 
     if (effectType === "grayscale") {
       console.log("Inside Grayscale Effect");
 
-      // Loop through each pixel and convert to grayscale
       for (let i = 0; i < faceImg.pixels.length; i += 4) {
         let r = faceImg.pixels[i];
         let g = faceImg.pixels[i + 1];
         let b = faceImg.pixels[i + 2];
 
         let gray = (r + g + b) / 3; // Convert RGB to grayscale
-
-        // Set grayscale value to all color channels
-        faceImg.pixels[i] = gray;     // Red
-        faceImg.pixels[i + 1] = gray; // Green
-        faceImg.pixels[i + 2] = gray; // Blue
+        faceImg.pixels[i] = gray;
+        faceImg.pixels[i + 1] = gray;
+        faceImg.pixels[i + 2] = gray;
       }
+    } 
+    else if (effectType === "blur") {
+      console.log("Inside Blur Effect");
+
+      let kernel = [
+        [1 / 9, 1 / 9, 1 / 9],
+        [1 / 9, 1 / 9, 1 / 9],
+        [1 / 9, 1 / 9, 1 / 9],
+      ]; // 3x3 Blur Kernel
+
+      let blurredPixels = [...faceImg.pixels]; // Copy original pixels
+
+      for (let i = 1; i < w - 1; i++) {
+        for (let j = 1; j < h - 1; j++) {
+          let index = (i + j * w) * 4;
+          let [newR, newG, newB] = convolution(i, j, kernel, 3, faceImg);
+
+          faceImg.pixels[index] = newR;
+          faceImg.pixels[index + 1] = newG;
+          faceImg.pixels[index + 2] = newB;
+        }
+      }
+    } 
+    else if (effectType === "invert") {
+      console.log("Inside YCbCr Effect");
+
+      let ycbcrFace = createImage(w, h); // Create a new image buffer
+      ycbcrFace.copy(faceImg, 0, 0, w, h, 0, 0, w, h); // Copy face image
+      processYCbCr(ycbcrFace, ycbcrFace); // Apply YCbCr conversion
+      faceImg = ycbcrFace; // Replace faceImg with converted image
     }
 
-    faceImg.updatePixels(); // Apply the changes
-    image(faceImg, x, y + 4 * boxHeight, w, h); // Display modified face
+    faceImg.updatePixels(); // Apply changes
+    image(faceImg, x, y + 4 * boxHeight, w, h); // Draw modified face
   }
 }
 
 
 
+
+
+// Convolution Function (Based on Course Module Demonstration)
+function convolution(x, y, matrix, matrixSize, img) {
+  let totalRed = 0,
+    totalGreen = 0,
+    totalBlue = 0;
+  let offset = floor(matrixSize / 2);
+
+  for (let i = 0; i < matrixSize; i++) {
+    for (let j = 0; j < matrixSize; j++) {
+      let xloc = x + i - offset;
+      let yloc = y + j - offset;
+      let index = (img.width * yloc + xloc) * 4;
+
+      index = constrain(index, 0, img.pixels.length - 1); // Avoid out of bounds
+
+      totalRed += img.pixels[index] * matrix[i][j];
+      totalGreen += img.pixels[index + 1] * matrix[i][j];
+      totalBlue += img.pixels[index + 2] * matrix[i][j];
+    }
+  }
+
+  return [totalRed, totalGreen, totalBlue];
+}
 
 function keyPressed() {
   if (key === "a")
