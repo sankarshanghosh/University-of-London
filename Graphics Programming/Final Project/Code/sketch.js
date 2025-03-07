@@ -130,7 +130,7 @@ function processGrayscaleAndBrightness() {
       processedSnapshot.pixels[index] = gray;
       processedSnapshot.pixels[index + 1] = gray;
       processedSnapshot.pixels[index + 2] = gray;
-      processedSnapshot.pixels[index + 3] = 255;
+      processedSnapshot.pixels[index + 3] = 255; // Set alpha to fully opaque
     }
   }
 
@@ -163,7 +163,7 @@ function processColorChannel(channel) {
         processedSnapshot.pixels[index + 2] = b;
       }
 
-      processedSnapshot.pixels[index + 3] = 255;
+      processedSnapshot.pixels[index + 3] = 255; // Set alpha to fully opaque
     }
   }
 
@@ -196,16 +196,16 @@ function processThresholding(channel) {
         processedSnapshot.pixels[index + 2] = b >= thresholdValue ? 255 : 0;
       }
 
-      processedSnapshot.pixels[index + 3] = 255;
+      processedSnapshot.pixels[index + 3] = 255; // Set alpha to fully opaque
     }
   }
 
-  processedSnapshot.updatePixels();
+  processedSnapshot.updatePixels(); // Update the pixels of the processed snapshot
 }
 
 function processYCbCr(inputImage, outputImage) {
-  outputImage.loadPixels();
-  inputImage.loadPixels();
+  outputImage.loadPixels(); // Load the pixels of the output image
+  inputImage.loadPixels(); // Load the pixels of the input image
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -214,6 +214,7 @@ function processYCbCr(inputImage, outputImage) {
       let g = inputImage.pixels[index + 1];
       let b = inputImage.pixels[index + 2];
 
+      // Convert RGB to YCbCr
       let yValue = 0.299 * r + 0.587 * g + 0.114 * b;
       let cb = 128 + (-0.168736 * r - 0.331264 * g + 0.5 * b);
       let cr = 128 + (0.5 * r - 0.418688 * g - 0.081312 * b);
@@ -221,17 +222,17 @@ function processYCbCr(inputImage, outputImage) {
       outputImage.pixels[index] = yValue;
       outputImage.pixels[index + 1] = cb;
       outputImage.pixels[index + 2] = cr;
-      outputImage.pixels[index + 3] = 255;
+      outputImage.pixels[index + 3] = 255; // Set alpha to fully opaque
     }
   }
 
-  outputImage.updatePixels();
+  outputImage.updatePixels(); // Update the pixels of the output image
 }
 
 function processHSV(inputImage, outputImage) {
-  outputImage.clear();
-  outputImage.loadPixels();
-  inputImage.loadPixels();
+  outputImage.clear(); // Clear the output image
+  outputImage.loadPixels(); // Load the pixels of the output image
+  inputImage.loadPixels(); // Load the pixels of the input image
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -261,20 +262,20 @@ function processHSV(inputImage, outputImage) {
       outputImage.pixels[index] = (h / 360) * 255;
       outputImage.pixels[index + 1] = s * 255;
       outputImage.pixels[index + 2] = v * 255;
-      outputImage.pixels[index + 3] = 255;
+      outputImage.pixels[index + 3] = 255; // Set alpha to fully opaque
     }
   }
 
-  outputImage.updatePixels();
+  outputImage.updatePixels(); // Update the pixels of the output image
 }
 
 function processThresholdingYCbCr() {
-  processedSnapshot.clear();
+  processedSnapshot.clear(); // Clear the processed snapshot
 
   // First, process the YCbCr conversion using the existing function
   processYCbCr(snapshot, processedSnapshot);
 
-  processedSnapshot.loadPixels();
+  processedSnapshot.loadPixels(); // Load the pixels of the processed snapshot
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -284,14 +285,16 @@ function processThresholdingYCbCr() {
       let g = processedSnapshot.pixels[index + 1];
       let b = processedSnapshot.pixels[index + 2];
 
+      // Convert RGB to YCbCr
       let yValue = 0.299 * r + 0.587 * g + 0.114 * b;
       let cb = 128 + (-0.168736 * r - 0.331264 * g + 0.5 * b);
       let cr = 128 + (0.5 * r - 0.418688 * g - 0.081312 * b);
 
       if (yValue < thresholdValue) {
-        yValue = 0;
+        yValue = 0; // Apply thresholding to the Y channel
       }
 
+      // Convert YCbCr back to RGB
       let newR = yValue + 1.402 * (cr - 128);
       let newG = yValue - 0.344136 * (cb - 128) - 0.714136 * (cr - 128);
       let newB = yValue + 1.772 * (cb - 128);
@@ -299,20 +302,20 @@ function processThresholdingYCbCr() {
       processedSnapshot.pixels[index] = constrain(newR, 0, 255);
       processedSnapshot.pixels[index + 1] = constrain(newG, 0, 255);
       processedSnapshot.pixels[index + 2] = constrain(newB, 0, 255);
-      processedSnapshot.pixels[index + 3] = 255;
+      processedSnapshot.pixels[index + 3] = 255; // Set alpha to fully opaque
     }
   }
-  processedSnapshot.updatePixels();
+  processedSnapshot.updatePixels(); // Update the pixels of the processed snapshot
 }
 
 function processThresholdingHSV() {
-  processedSnapshot.clear();
-  processedSnapshot.loadPixels();
+  processedSnapshot.clear(); // Clear the processed snapshot
+  processedSnapshot.loadPixels(); // Load the pixels of the processed snapshot
 
   // First, process the HSV conversion
   processHSV(snapshot, processedSnapshot);
 
-  processedSnapshot.loadPixels();
+  processedSnapshot.loadPixels(); // Load the pixels of the processed snapshot
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -330,11 +333,12 @@ function processThresholdingHSV() {
       processedSnapshot.pixels[index] = h;
       processedSnapshot.pixels[index + 1] = s;
       processedSnapshot.pixels[index + 2] = v;
-      processedSnapshot.pixels[index + 3] = 255; // Full alpha
+      processedSnapshot.pixels[index + 3] = 255; // Set alpha to fully opaque
     }
   }
-  processedSnapshot.updatePixels();
+  processedSnapshot.updatePixels(); // Update the pixels of the processed snapshot
 }
+
 function detectFaces() {
   let faces = detector.detect(video.elt); // Detect faces in live video
 
@@ -412,6 +416,66 @@ function applyFaceEffect() {
       ycbcrFace.copy(faceImg, 0, 0, w, h, 0, 0, w, h); // Copy face image
       processYCbCr(ycbcrFace, ycbcrFace); // Apply YCbCr conversion using existing function
       faceImg = ycbcrFace; // Replace faceImg with converted image
+    } else if (effectType === "pixelate") {
+      console.log("Inside Pixelation Effect");
+
+      let blockSize = 5; // Size of pixel blocks
+      let outImage = createImage(w, h); // Create a new image buffer for output
+      outImage.loadPixels(); // Load pixels for processing
+
+      // Loop through face in blockSize x blockSize blocks
+      for (let i = 0; i < w; i += blockSize) {
+        for (let j = 0; j < h; j += blockSize) {
+          // Compute average pixel intensity in the block
+          let sum = 0;
+          let count = 0;
+
+          for (let bx = 0; bx < blockSize; bx++) {
+            for (let by = 0; by < blockSize; by++) {
+              let px = i + bx;
+              let py = j + by;
+
+              if (px < w && py < h) {
+                let index = (px + py * w) * 4;
+                let r = faceImg.pixels[index];
+                let g = faceImg.pixels[index + 1];
+                let b = faceImg.pixels[index + 2];
+                let gray = (r + g + b) / 3; // Convert to grayscale
+
+                sum += gray;
+                count++;
+              }
+            }
+          }
+
+          let avgGray = sum / count; // Average grayscale intensity
+
+          // Apply the averaged intensity to the entire block
+          for (let bx = 0; bx < blockSize; bx++) {
+            for (let by = 0; by < blockSize; by++) {
+              let px = i + bx;
+              let py = j + by;
+
+              if (px < w && py < h) {
+                let index = (px + py * w) * 4;
+                outImage.pixels[index] = avgGray;
+                outImage.pixels[index + 1] = avgGray;
+                outImage.pixels[index + 2] = avgGray;
+                outImage.pixels[index + 3] = 255; // Full alpha
+              }
+            }
+          }
+        }
+      }
+
+      outImage.updatePixels();
+      faceImg = outImage;
+    } else if (effectType === "ascii") {
+      if (effectType === "ascii") {
+        console.log("Inside ASCII Effect");
+        drawASCII(faceImg, x, y + 4 * boxHeight, w, h);
+        return; // Don't draw the normal image
+      }
     }
 
     faceImg.updatePixels(); // Apply changes
@@ -443,13 +507,44 @@ function convolution(x, y, matrix, matrixSize, img) {
   return [totalRed, totalGreen, totalBlue];
 }
 
+function drawASCII(img, x, y, w, h) {
+  // Brightness 255 (white) → "."
+  // Brightness 180–255 (light gray) → "-"
+  // Brightness 100–180 (dark gray) → "+"
+  // Brightness 50–100 (darker areas) → "*"
+  // Brightness 0–50 (black) → "#"
+
+  let asciiChars = ["@", "#", "*", "+", "-", "."];
+  img.loadPixels();
+
+  textSize(8); // Adjust size for readability
+  fill(255);
+  noStroke();
+
+  for (let i = 0; i < h; i += 8) {
+    for (let j = 0; j < w; j += 8) {
+      let index = (j + i * w) * 4;
+      let r = img.pixels[index];
+      let g = img.pixels[index + 1];
+      let b = img.pixels[index + 2];
+      let brightness = (r + g + b) / 3;
+
+      let charIndex = floor(map(brightness, 0, 255, 0, asciiChars.length - 1));
+      let charToDraw = asciiChars[charIndex];
+
+      text(charToDraw, x + j, y + i);
+    }
+  }
+}
+
 function keyPressed() {
   if (key === "a")
     effectType = "grayscale"; // Convert detected face to grayscale
   else if (key === "b") effectType = "blur"; // Placeholder (will blur face)
   else if (key === "c")
-    effectType = "invert"; // Placeholder (will invert colors)
-  else if (key === "d") effectType = "none"; // Reset effect (show face box again)
+    effectType = "invert"; // Will invert face colors to YCbCr space
+  else if (key === "d") effectType = "pixelate"; // pixelate face
+  else if (key === "e") effectType = "ascii"; // Reset to no effect
 }
 
 function drawGrid() {
