@@ -1,101 +1,117 @@
-let video;
-let snapshot;
-let processedSnapshot;
-let button;
-let resetButton;
-let thresholdSlider;
-const cols = 3;
-const rows = 5;
-const boxWidth = 160;
-const boxHeight = 120;
-let snapshotTaken = false;
-let thresholdValue = 128;
+let video; // Variable to store the video capture
+let snapshot; // Variable to store the snapshot image
+let processedSnapshot; // Variable to store the processed snapshot image
+let button; // Button to take a snapshot
+let resetButton; // Button to reset to live feed
+let thresholdSlider; // Slider to adjust the threshold value
+const cols = 3; // Number of columns in the grid
+const rows = 5; // Number of rows in the grid
+const boxWidth = 160; // Width of each box in the grid
+const boxHeight = 120; // Height of each box in the grid
+let snapshotTaken = false; // Flag to check if a snapshot has been taken
+let thresholdValue = 128; // Initial threshold value
+let classifier; // Variable to store the face detection classifier
+let detector; // Variable to store the face detection detector
+let detectedFace; // Variable to store the detected face
+let effectType = "none"; // Default effect
+
+// Load the face detection classifier
+classifier = objectdetect.frontalface;
 
 function setup() {
-  createCanvas(cols * boxWidth, rows * boxHeight);
-  video = createCapture(VIDEO);
-  video.size(boxWidth, boxHeight);
-  video.hide();
+  createCanvas(cols * boxWidth, rows * boxHeight); // Create the canvas
+  video = createCapture(VIDEO); // Capture video from the webcam
+  video.size(boxWidth, boxHeight); // Set the video size
+  video.hide(); // Hide the video element
 
-  snapshot = createGraphics(boxWidth, boxHeight);
-  processedSnapshot = createGraphics(boxWidth, boxHeight);
-  snapshot.pixelDensity(1);
-  processedSnapshot.pixelDensity(1);
+  detector = new objectdetect.detector(
+    video.width,
+    video.height,
+    1.1,
+    objectdetect.frontalface
+  ); // Create a face detector
 
-  button = createButton("Take Snapshot");
-  button.position(boxWidth * 2 + 10, 10);
-  button.mousePressed(takeSnapshot);
+  snapshot = createGraphics(boxWidth, boxHeight); // Create a graphics buffer for the snapshot
+  processedSnapshot = createGraphics(boxWidth, boxHeight); // Create a graphics buffer for the processed snapshot
+  snapshot.pixelDensity(1); // Set pixel density for the snapshot
+  processedSnapshot.pixelDensity(1); // Set pixel density for the processed snapshot
 
-  resetButton = createButton("Reset to Live Feed");
-  resetButton.position(boxWidth * 2 + 10, 40);
-  resetButton.mousePressed(resetLiveFeed);
+  button = createButton("Take Snapshot"); // Create the "Take Snapshot" button
+  button.position(boxWidth * 2 + 10, 10); // Position the button
+  button.mousePressed(takeSnapshot); // Set the button's mousePressed event
 
-  thresholdSlider = createSlider(0, 255, 128);
-  thresholdSlider.position(boxWidth * 2 + 10, 70);
-  thresholdSlider.input(() => (thresholdValue = thresholdSlider.value()));
+  resetButton = createButton("Reset to Live Feed"); // Create the "Reset to Live Feed" button
+  resetButton.position(boxWidth * 2 + 10, 40); // Position the button
+  resetButton.mousePressed(resetLiveFeed); // Set the button's mousePressed event
+
+  thresholdSlider = createSlider(0, 255, 128); // Create the threshold slider
+  thresholdSlider.position(boxWidth * 2 + 10, 70); // Position the slider
+  thresholdSlider.input(() => (thresholdValue = thresholdSlider.value())); // Update threshold value on slider input
 }
 
 function draw() {
-  background(220);
-  drawGrid();
+  background(220); // Set the background color
+  drawGrid(); // Draw the grid
 
   if (snapshotTaken) {
-    image(snapshot, 0, 0, boxWidth, boxHeight);
+    image(snapshot, 0, 0, boxWidth, boxHeight); // Display the snapshot if taken
   } else {
-    image(video, 0, 0, boxWidth, boxHeight);
+    image(video, 0, 0, boxWidth, boxHeight); // Display the live video feed
   }
 
-  image(video, 0, 4 * boxHeight, boxWidth, boxHeight);
+  image(video, 0, 4 * boxHeight, boxWidth, boxHeight); // Display the live video feed for face detection
+  detectFaces(); // Detect faces in the video feed
+  drawFaces(); // Draw the detected faces
 
   if (snapshotTaken) {
-    processGrayscaleAndBrightness();
-    image(processedSnapshot, boxWidth, 0, boxWidth, boxHeight);
+    processGrayscaleAndBrightness(); // Process the snapshot to grayscale and adjust brightness
+    image(processedSnapshot, boxWidth, 0, boxWidth, boxHeight); // Display the processed snapshot
 
-    processColorChannel("red");
-    image(processedSnapshot, 0, boxHeight, boxWidth, boxHeight);
+    processColorChannel("red"); // Process the red color channel
+    image(processedSnapshot, 0, boxHeight, boxWidth, boxHeight); // Display the processed snapshot
 
-    processColorChannel("green");
-    image(processedSnapshot, boxWidth, boxHeight, boxWidth, boxHeight);
+    processColorChannel("green"); // Process the green color channel
+    image(processedSnapshot, boxWidth, boxHeight, boxWidth, boxHeight); // Display the processed snapshot
 
-    processColorChannel("blue");
-    image(processedSnapshot, 2 * boxWidth, boxHeight, boxWidth, boxHeight);
+    processColorChannel("blue"); // Process the blue color channel
+    image(processedSnapshot, 2 * boxWidth, boxHeight, boxWidth, boxHeight); // Display the processed snapshot
 
-    processThresholding("red");
-    image(processedSnapshot, 0, 2 * boxHeight, boxWidth, boxHeight);
+    processThresholding("red"); // Apply thresholding to the red channel
+    image(processedSnapshot, 0, 2 * boxHeight, boxWidth, boxHeight); // Display the processed snapshot
 
-    processThresholding("green");
-    image(processedSnapshot, boxWidth, 2 * boxHeight, boxWidth, boxHeight);
+    processThresholding("green"); // Apply thresholding to the green channel
+    image(processedSnapshot, boxWidth, 2 * boxHeight, boxWidth, boxHeight); // Display the processed snapshot
 
-    processThresholding("blue");
-    image(processedSnapshot, 2 * boxWidth, 2 * boxHeight, boxWidth, boxHeight);
+    processThresholding("blue"); // Apply thresholding to the blue channel
+    image(processedSnapshot, 2 * boxWidth, 2 * boxHeight, boxWidth, boxHeight); // Display the processed snapshot
 
-    image(snapshot, 0, 3 * boxHeight, boxWidth, boxHeight);
-    processYCbCr(snapshot, processedSnapshot);
-    image(processedSnapshot, boxWidth, 3 * boxHeight, boxWidth, boxHeight);
-    processHSV(snapshot, processedSnapshot);
-    image(processedSnapshot, 2 * boxWidth, 3 * boxHeight, boxWidth, boxHeight);
+    image(snapshot, 0, 3 * boxHeight, boxWidth, boxHeight); // Display the original snapshot
+    processYCbCr(snapshot, processedSnapshot); // Process the snapshot to YCbCr color space
+    image(processedSnapshot, boxWidth, 3 * boxHeight, boxWidth, boxHeight); // Display the processed snapshot
+    processHSV(snapshot, processedSnapshot); // Process the snapshot to HSV color space
+    image(processedSnapshot, 2 * boxWidth, 3 * boxHeight, boxWidth, boxHeight); // Display the processed snapshot
 
-    processThresholdingYCbCr();
-    image(processedSnapshot, boxWidth, 4 * boxHeight, boxWidth, boxHeight);
-    processThresholdingHSV();
-    image(processedSnapshot, 2 * boxWidth, 4 * boxHeight, boxWidth, boxHeight);
+    processThresholdingYCbCr(); // Apply thresholding to the YCbCr color space
+    image(processedSnapshot, boxWidth, 4 * boxHeight, boxWidth, boxHeight); // Display the processed snapshot
+    processThresholdingHSV(); // Apply thresholding to the HSV color space
+    image(processedSnapshot, 2 * boxWidth, 4 * boxHeight, boxWidth, boxHeight); // Display the processed snapshot
   }
 }
 
 function takeSnapshot() {
-  snapshot.image(video, 0, 0, boxWidth, boxHeight);
-  snapshot.loadPixels();
-  snapshotTaken = true;
+  snapshot.image(video, 0, 0, boxWidth, boxHeight); // Capture the current video frame as a snapshot
+  snapshot.loadPixels(); // Load the pixels of the snapshot
+  snapshotTaken = true; // Set the snapshotTaken flag to true
 }
 
 function resetLiveFeed() {
-  snapshotTaken = false;
+  snapshotTaken = false; // Reset the snapshotTaken flag to false
 }
 
 function processGrayscaleAndBrightness() {
-  processedSnapshot.clear();
-  processedSnapshot.loadPixels();
-  snapshot.loadPixels();
+  processedSnapshot.clear(); // Clear the processed snapshot
+  processedSnapshot.loadPixels(); // Load the pixels of the processed snapshot
+  snapshot.loadPixels(); // Load the pixels of the snapshot
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -104,8 +120,8 @@ function processGrayscaleAndBrightness() {
       let g = snapshot.pixels[index + 1];
       let b = snapshot.pixels[index + 2];
 
-      let gray = (r + g + b) / 3;
-      gray = min(gray * 1.2, 255);
+      let gray = (r + g + b) / 3; // Convert to grayscale
+      gray = min(gray * 1.2, 255); // Adjust brightness
 
       processedSnapshot.pixels[index] = gray;
       processedSnapshot.pixels[index + 1] = gray;
@@ -114,13 +130,13 @@ function processGrayscaleAndBrightness() {
     }
   }
 
-  processedSnapshot.updatePixels();
+  processedSnapshot.updatePixels(); // Update the pixels of the processed snapshot
 }
 
 function processColorChannel(channel) {
-  processedSnapshot.clear();
-  processedSnapshot.loadPixels();
-  snapshot.loadPixels();
+  processedSnapshot.clear(); // Clear the processed snapshot
+  processedSnapshot.loadPixels(); // Load the pixels of the processed snapshot
+  snapshot.loadPixels(); // Load the pixels of the snapshot
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -147,13 +163,13 @@ function processColorChannel(channel) {
     }
   }
 
-  processedSnapshot.updatePixels();
+  processedSnapshot.updatePixels(); // Update the pixels of the processed snapshot
 }
 
 function processThresholding(channel) {
-  processedSnapshot.clear();
-  processedSnapshot.loadPixels();
-  snapshot.loadPixels();
+  processedSnapshot.clear(); // Clear the processed snapshot
+  processedSnapshot.loadPixels(); // Load the pixels of the processed snapshot
+  snapshot.loadPixels(); // Load the pixels of the snapshot
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -315,6 +331,46 @@ function processThresholdingHSV() {
     }
   }
   processedSnapshot.updatePixels();
+}
+function detectFaces() {
+  let faces = detector.detect(video.elt); // Detect faces in live video
+
+  if (faces.length > 0) {
+    detectedFace = faces[0]; // Store only the first detected face
+  } else {
+    detectedFace = null; // Reset if no face is detected
+  }
+}
+
+function drawFaces() {
+  if (detectedFace) {
+    let [x, y, w, h] = detectedFace;
+    noFill();
+    stroke(255, 0, 0);
+    strokeWeight(3);
+    rect(x, y + 4 * boxHeight, w, h); // Adjust position for Box 13
+  }
+}
+
+function applyFaceEffect(x, y, w, h) {
+  let faceImg = video.get(x, y - 4 * boxHeight, w, h);
+
+  if (effectType === "blur") {
+    faceImg.filter(BLUR, 3);
+  } else if (effectType === "grayscale") {
+    faceImg.filter(GRAY);
+  } else if (effectType === "invert") {
+    faceImg.filter(INVERT);
+  }
+
+  image(faceImg, x, y, w, h); // Draw processed face
+}
+
+function keyPressed() {
+  if (key === "a") effectType = "blur";
+  else if (key === "b") effectType = "grayscale";
+  else if (key === "c") effectType = "invert";
+  else if (key === "d") effectType = "none"; // Reset effect
 }
 
 function drawGrid() {
