@@ -1,8 +1,6 @@
 let video;
 let snapshot;
 let processedSnapshot;
-let ycbcrSnapshot;
-let hsvSnapshot;
 let button;
 let resetButton;
 let thresholdSlider;
@@ -21,12 +19,8 @@ function setup() {
 
   snapshot = createGraphics(boxWidth, boxHeight);
   processedSnapshot = createGraphics(boxWidth, boxHeight);
-  ycbcrSnapshot = createGraphics(boxWidth, boxHeight);
-  hsvSnapshot = createGraphics(boxWidth, boxHeight);
   snapshot.pixelDensity(1);
   processedSnapshot.pixelDensity(1);
-  ycbcrSnapshot.pixelDensity(1);
-  hsvSnapshot.pixelDensity(1);
 
   button = createButton("Take Snapshot");
   button.position(boxWidth * 2 + 10, 10);
@@ -193,8 +187,6 @@ function processYCbCr() {
   processedSnapshot.clear();
   processedSnapshot.loadPixels();
   snapshot.loadPixels();
-  ycbcrSnapshot.clear();
-  ycbcrSnapshot.loadPixels();
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -211,24 +203,16 @@ function processYCbCr() {
       processedSnapshot.pixels[index + 1] = cb;
       processedSnapshot.pixels[index + 2] = cr;
       processedSnapshot.pixels[index + 3] = 255;
-
-      ycbcrSnapshot.pixels[index] = yValue;
-      ycbcrSnapshot.pixels[index + 1] = cb;
-      ycbcrSnapshot.pixels[index + 2] = cr;
-      ycbcrSnapshot.pixels[index + 3] = 255;
     }
   }
 
   processedSnapshot.updatePixels();
-  ycbcrSnapshot.updatePixels();
 }
 
 function processHSV() {
   processedSnapshot.clear();
   processedSnapshot.loadPixels();
   snapshot.loadPixels();
-  hsvSnapshot.clear();
-  hsvSnapshot.loadPixels();
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
@@ -259,29 +243,27 @@ function processHSV() {
       processedSnapshot.pixels[index + 1] = s * 255;
       processedSnapshot.pixels[index + 2] = v * 255;
       processedSnapshot.pixels[index + 3] = 255;
-
-      hsvSnapshot.pixels[index] = (h / 360) * 255;
-      hsvSnapshot.pixels[index + 1] = s * 255;
-      hsvSnapshot.pixels[index + 2] = v * 255;
-      hsvSnapshot.pixels[index + 3] = 255;
     }
   }
 
   processedSnapshot.updatePixels();
-  hsvSnapshot.updatePixels();
 }
 
 function processThresholdingYCbCr() {
   processedSnapshot.clear();
+
+  // First, process the YCbCr conversion using the existing function
+  processYCbCr();
+
   processedSnapshot.loadPixels();
-  ycbcrSnapshot.loadPixels();
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
       let index = (x + y * boxWidth) * 4;
-      let r = ycbcrSnapshot.pixels[index];
-      let g = ycbcrSnapshot.pixels[index + 1];
-      let b = ycbcrSnapshot.pixels[index + 2];
+      
+      let r = processedSnapshot.pixels[index];
+      let g = processedSnapshot.pixels[index + 1];
+      let b = processedSnapshot.pixels[index + 2];
 
       let yValue = 0.299 * r + 0.587 * g + 0.114 * b;
       let cb = 128 + (-0.168736 * r - 0.331264 * g + 0.5 * b);
@@ -304,19 +286,25 @@ function processThresholdingYCbCr() {
   processedSnapshot.updatePixels();
 }
 
+
+
 function processThresholdingHSV() {
   processedSnapshot.clear();
   processedSnapshot.loadPixels();
-  hsvSnapshot.loadPixels();
+
+  // First, process the HSV conversion
+  processHSV();
+
+  processedSnapshot.loadPixels();
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
       let index = (x + y * boxWidth) * 4;
 
-      // Use the already computed HSV snapshot
-      let h = hsvSnapshot.pixels[index];
-      let s = hsvSnapshot.pixels[index + 1];
-      let v = hsvSnapshot.pixels[index + 2];
+      // Read HSV values from the processed snapshot
+      let h = processedSnapshot.pixels[index];
+      let s = processedSnapshot.pixels[index + 1];
+      let v = processedSnapshot.pixels[index + 2];
 
       // Apply thresholding to the Value (V) channel
       v = v >= thresholdValue ? v : 0;
