@@ -60,8 +60,12 @@ function draw() {
   }
 
   image(video, 0, 4 * boxHeight, boxWidth, boxHeight); // Display the live video feed for face detection
-  detectFaces(); // Detect faces in the video feed
-  drawFaces(); // Draw the detected faces
+  detectFaces(); // Detect faces in the live video feed
+  if (effectType === "none") {
+    drawFaces();
+  } else {
+    applyFaceEffect(); // This should be called when effectType is updated
+  }
 
   if (snapshotTaken) {
     processGrayscaleAndBrightness(); // Process the snapshot to grayscale and adjust brightness
@@ -345,32 +349,63 @@ function detectFaces() {
 function drawFaces() {
   if (detectedFace) {
     let [x, y, w, h] = detectedFace;
+
+    // Increase size by 50%
+    let scaleFactor = 1.5; 
+    let newW = w * scaleFactor;
+    let newH = h * scaleFactor;
+    let newX = x - (newW - w) / 2; // Center the new box
+    let newY = y - (newH - h) / 2;
+
     noFill();
     stroke(255, 0, 0);
     strokeWeight(3);
-    rect(x, y + 4 * boxHeight, w, h); // Adjust position for Box 13
+    rect(newX, newY + 4 * boxHeight, newW, newH); // Adjust position for Box 13
   }
 }
 
-function applyFaceEffect(x, y, w, h) {
-  let faceImg = video.get(x, y - 4 * boxHeight, w, h);
 
-  if (effectType === "blur") {
-    faceImg.filter(BLUR, 3);
-  } else if (effectType === "grayscale") {
-    faceImg.filter(GRAY);
-  } else if (effectType === "invert") {
-    faceImg.filter(INVERT);
+function applyFaceEffect() {
+  if (detectedFace && effectType !== "none") {
+    console.log("Applying Effect:", effectType); 
+
+    let [x, y, w, h] = detectedFace;
+    let faceImg = video.get(x, y, w, h); // Extract the face region
+    faceImg.loadPixels(); // Load pixels for editing
+
+    if (effectType === "grayscale") {
+      console.log("Inside Grayscale Effect");
+
+      // Loop through each pixel and convert to grayscale
+      for (let i = 0; i < faceImg.pixels.length; i += 4) {
+        let r = faceImg.pixels[i];
+        let g = faceImg.pixels[i + 1];
+        let b = faceImg.pixels[i + 2];
+
+        let gray = (r + g + b) / 3; // Convert RGB to grayscale
+
+        // Set grayscale value to all color channels
+        faceImg.pixels[i] = gray;     // Red
+        faceImg.pixels[i + 1] = gray; // Green
+        faceImg.pixels[i + 2] = gray; // Blue
+      }
+    }
+
+    faceImg.updatePixels(); // Apply the changes
+    image(faceImg, x, y + 4 * boxHeight, w, h); // Display modified face
   }
-
-  image(faceImg, x, y, w, h); // Draw processed face
 }
+
+
+
 
 function keyPressed() {
-  if (key === "a") effectType = "blur";
-  else if (key === "b") effectType = "grayscale";
-  else if (key === "c") effectType = "invert";
-  else if (key === "d") effectType = "none"; // Reset effect
+  if (key === "a")
+    effectType = "grayscale"; // Convert detected face to grayscale
+  else if (key === "b") effectType = "blur"; // Placeholder (will blur face)
+  else if (key === "c")
+    effectType = "invert"; // Placeholder (will invert colors)
+  else if (key === "d") effectType = "none"; // Reset effect (show face box again)
 }
 
 function drawGrid() {
