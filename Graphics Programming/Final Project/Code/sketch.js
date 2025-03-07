@@ -64,7 +64,7 @@ function draw() {
   if (effectType === "none") {
     drawFaces();
   } else {
-    applyFaceEffect(); // This should be called when effectType is updated
+    applyFaceEffect();
   }
 
   if (snapshotTaken) {
@@ -423,7 +423,7 @@ function applyFaceEffect() {
       let outImage = createImage(w, h); // Create a new image buffer for output
       outImage.loadPixels(); // Load pixels for processing
 
-      // Loop through face in blockSize x blockSize blocks
+      // Loop through face in blocks
       for (let i = 0; i < w; i += blockSize) {
         for (let j = 0; j < h; j += blockSize) {
           // Compute average pixel intensity in the block
@@ -517,7 +517,7 @@ function drawASCII(img, x, y, w, h) {
   let asciiChars = ["@", "#", "*", "+", "-", "."];
   img.loadPixels();
 
-  textSize(8); // Adjust size for readability
+  textSize(8);
   fill(255);
   noStroke();
 
@@ -540,11 +540,11 @@ function drawASCII(img, x, y, w, h) {
 function keyPressed() {
   if (key === "a")
     effectType = "grayscale"; // Convert detected face to grayscale
-  else if (key === "b") effectType = "blur"; // Placeholder (will blur face)
+  else if (key === "b") effectType = "blur"; //Will blur face
   else if (key === "c")
     effectType = "invert"; // Will invert face colors to YCbCr space
   else if (key === "d") effectType = "pixelate"; // pixelate face
-  else if (key === "e") effectType = "ascii"; // Reset to no effect
+  else if (key === "e") effectType = "ascii"; // ascii extension
 }
 
 function drawGrid() {
