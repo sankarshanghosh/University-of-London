@@ -70,9 +70,9 @@ function draw() {
     image(processedSnapshot, 2 * boxWidth, 2 * boxHeight, boxWidth, boxHeight);
 
     image(snapshot, 0, 3 * boxHeight, boxWidth, boxHeight);
-    processYCbCr();
+    processYCbCr(snapshot, processedSnapshot);
     image(processedSnapshot, boxWidth, 3 * boxHeight, boxWidth, boxHeight);
-    processHSV();
+    processHSV(snapshot, processedSnapshot);
     image(processedSnapshot, 2 * boxWidth, 3 * boxHeight, boxWidth, boxHeight);
 
     processThresholdingYCbCr();
@@ -183,43 +183,43 @@ function processThresholding(channel) {
   processedSnapshot.updatePixels();
 }
 
-function processYCbCr() {
-  processedSnapshot.clear();
-  processedSnapshot.loadPixels();
-  snapshot.loadPixels();
+function processYCbCr(inputImage, outputImage) {
+  outputImage.clear();
+  outputImage.loadPixels();
+  inputImage.loadPixels();
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
       let index = (x + y * boxWidth) * 4;
-      let r = snapshot.pixels[index];
-      let g = snapshot.pixels[index + 1];
-      let b = snapshot.pixels[index + 2];
+      let r = inputImage.pixels[index];
+      let g = inputImage.pixels[index + 1];
+      let b = inputImage.pixels[index + 2];
 
       let yValue = 0.299 * r + 0.587 * g + 0.114 * b;
       let cb = 128 + (-0.168736 * r - 0.331264 * g + 0.5 * b);
       let cr = 128 + (0.5 * r - 0.418688 * g - 0.081312 * b);
 
-      processedSnapshot.pixels[index] = yValue;
-      processedSnapshot.pixels[index + 1] = cb;
-      processedSnapshot.pixels[index + 2] = cr;
-      processedSnapshot.pixels[index + 3] = 255;
+      outputImage.pixels[index] = yValue;
+      outputImage.pixels[index + 1] = cb;
+      outputImage.pixels[index + 2] = cr;
+      outputImage.pixels[index + 3] = 255;
     }
   }
 
-  processedSnapshot.updatePixels();
+  outputImage.updatePixels();
 }
 
-function processHSV() {
-  processedSnapshot.clear();
-  processedSnapshot.loadPixels();
-  snapshot.loadPixels();
+function processHSV(inputImage, outputImage) {
+  outputImage.clear();
+  outputImage.loadPixels();
+  inputImage.loadPixels();
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
       let index = (x + y * boxWidth) * 4;
-      let r = snapshot.pixels[index] / 255;
-      let g = snapshot.pixels[index + 1] / 255;
-      let b = snapshot.pixels[index + 2] / 255;
+      let r = inputImage.pixels[index] / 255;
+      let g = inputImage.pixels[index + 1] / 255;
+      let b = inputImage.pixels[index + 2] / 255;
 
       let max = Math.max(r, g, b);
       let min = Math.min(r, g, b);
@@ -239,28 +239,28 @@ function processHSV() {
       let s = max === 0 ? 0 : delta / max;
       let v = max;
 
-      processedSnapshot.pixels[index] = (h / 360) * 255;
-      processedSnapshot.pixels[index + 1] = s * 255;
-      processedSnapshot.pixels[index + 2] = v * 255;
-      processedSnapshot.pixels[index + 3] = 255;
+      outputImage.pixels[index] = (h / 360) * 255;
+      outputImage.pixels[index + 1] = s * 255;
+      outputImage.pixels[index + 2] = v * 255;
+      outputImage.pixels[index + 3] = 255;
     }
   }
 
-  processedSnapshot.updatePixels();
+  outputImage.updatePixels();
 }
 
 function processThresholdingYCbCr() {
   processedSnapshot.clear();
 
   // First, process the YCbCr conversion using the existing function
-  processYCbCr();
+  processYCbCr(snapshot, processedSnapshot);
 
   processedSnapshot.loadPixels();
 
   for (let y = 0; y < boxHeight; y++) {
     for (let x = 0; x < boxWidth; x++) {
       let index = (x + y * boxWidth) * 4;
-      
+
       let r = processedSnapshot.pixels[index];
       let g = processedSnapshot.pixels[index + 1];
       let b = processedSnapshot.pixels[index + 2];
@@ -286,14 +286,12 @@ function processThresholdingYCbCr() {
   processedSnapshot.updatePixels();
 }
 
-
-
 function processThresholdingHSV() {
   processedSnapshot.clear();
   processedSnapshot.loadPixels();
 
   // First, process the HSV conversion
-  processHSV();
+  processHSV(snapshot, processedSnapshot);
 
   processedSnapshot.loadPixels();
 
@@ -318,7 +316,6 @@ function processThresholdingHSV() {
   }
   processedSnapshot.updatePixels();
 }
-
 
 function drawGrid() {
   stroke(0);
