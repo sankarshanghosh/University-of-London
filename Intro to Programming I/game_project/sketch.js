@@ -1,5 +1,6 @@
 /*
     The Game Project - Final Submission | Candidate Number: EX0100
+    Added this line for testing purposes
 */
 
 var gameChar_x;
