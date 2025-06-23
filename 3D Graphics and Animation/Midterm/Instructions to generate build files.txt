@@ -1,0 +1,1 @@
+i dont remember exactly how to do, but essentially  unzip the archived files and then run through local host or something like that (dont directly run the html file, that will be half broken)
