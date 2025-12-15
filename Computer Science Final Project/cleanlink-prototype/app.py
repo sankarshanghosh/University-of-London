@@ -1,35 +1,45 @@
 from flask import Flask, request, jsonify
-import pandas as pd
-from rapidfuzz import process, fuzz
+from rapidfuzz import fuzz
+import csv
 
 app = Flask(__name__)
 
-# Load dataset
-df = pd.read_csv("cleanlink_cities_50.csv")
+# Load your cities.csv into memory
+data = []
+with open("cities.csv", newline='', encoding='utf-8') as csvfile:
+    reader = csv.DictReader(csvfile)
+    for row in reader:
+        data.append({
+            "id": row["id"],
+            "name": row["name"],
+            "country_code": row["country_code"]
+        })
 
 @app.route("/reconcile", methods=["POST"])
 def reconcile():
-    query = request.json.get("query", {}).get("query", "")
-    if not query:
-        return jsonify({"error": "Missing query"}), 400
+    query_data = request.get_json()["query"]
+    input_name = query_data.get("name", "")
+    input_country = query_data.get("country_code")  # optional
 
-    # Fuzzy match against 'name' column
-    choices = df['name'].tolist()
-    results = process.extract(query, choices, scorer=fuzz.WRatio, limit=3)
+    # Prepare input string for fuzzy matching
+    input_combined = f"{input_name} {input_country}" if input_country else input_name
 
-    # Format results for reconciliation spec
-    formatted = []
-    for match_name, score, index in results:
-        row = df.iloc[index]
-        formatted.append({
-            "id": str(row["id"]),
-            "name": match_name,
-            "score": score / 100,
-            "match": score > 85,
-            "type": [{"id": "city", "name": "City"}]
+    results = []
+    for row in data:
+        target_country = row.get("country_code", "")
+        target_combined = f"{row['name']} {target_country}" if input_country else row["name"]
+
+        score = fuzz.token_sort_ratio(input_combined, target_combined) / 100
+
+        results.append({
+            "id": row["id"],
+            "name": f"{row['name']} ({row['country_code']})",
+            "score": score,
+            "match": score > 0.85
         })
 
-    return jsonify({"result": formatted})
+    results.sort(key=lambda x: x["score"], reverse=True)
+    return jsonify({"result": results[:3]})
 
 if __name__ == "__main__":
     app.run(debug=True)

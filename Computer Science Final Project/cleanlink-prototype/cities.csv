@@ -1,0 +1,501 @@
+id,name,country_code
+1,Vila,AD
+2,El Tarter,AD
+3,Sant Julià de Lòria,AD
+4,Pas de la Casa,AD
+5,Ordino,AD
+6,les Escaldes,AD
+7,la Massana,AD
+8,Encamp,AD
+9,Canillo,AD
+10,Arinsal,AD
+11,Anyós,AD
+12,Andorra la Vella,AD
+13,Aixirivall,AD
+14,Warīsān,AE
+15,Umm Suqaym,AE
+16,Umm Al Quwain City,AE
+17,Ţarīf Kalbā,AE
+18,Ar Rāshidīyah,AE
+19,Ras Al Khaimah,AE
+20,Muzayri‘,AE
+21,Murbaḩ,AE
+22,Maşfūţ,AE
+23,Zayed City,AE
+24,Khawr Fakkān,AE
+25,Kalbā,AE
+26,Jumayrā,AE
+27,Al Jazīrah al Ḩamrā’,AE
+28,Dubai,AE
+29,Dibba Al-Fujairah,AE
+30,Dibba Al-Hisn,AE
+31,Dayrah,AE
+32,Sharjah,AE
+33,Ash Sha‘m,AE
+34,Ar Ruways,AE
+35,Al Manāmah,AE
+36,Al Ḩamrīyah,AE
+37,Ḩattā,AE
+38,Fujairah,AE
+39,Al Ain City,AE
+40,Ajman,AE
+41,Adh Dhayd,AE
+42,Abu Dhabi,AE
+43,Abū Hayl,AE
+44,As Saţwah,AE
+45,Margham,AE
+46,Abū Mūsá,AE
+47,Nadd al Ḩumr,AE
+48,Al Lusaylī,AE
+49,Suwayḩān,AE
+50,Al Ḩamīdīyah,AE
+51,Al Waheda,AE
+52,Al Twar First,AE
+53,AL Twar Second,AE
+54,Al Qusais Second,AE
+55,Al Karama,AE
+56,Al Hudaiba,AE
+57,Knowledge Village,AE
+58,The Palm Jumeirah,AE
+59,Za'abeel,AE
+60,Oud Metha,AE
+61,Bur Dubai,AE
+62,Khalifah A City,AE
+63,Shakhbout City,AE
+64,Mirdif,AE
+65,Hawr al ‘Anz,AE
+66,Mankhūl,AE
+67,Būr Sa‘īd,AE
+68,Nāyf,AE
+69,Al Murar al Qadīm,AE
+70,Ar Riqqah,AE
+71,Al Warqaa,AE
+72,International City,AE
+73,Dubai Marina,AE
+74,Dubai Sports City,AE
+75,Dubai Internet City,AE
+76,Al Sufouh,AE
+77,Al Safa,AE
+78,Ar Rumaylah,AE
+79,Mushayrif,AE
+80,Al Jurf,AE
+81,Al Majaz,AE
+82,As Saţwah Sharq,AE
+83,Dubai Festival City,AE
+84,Dubai International Financial Centre,AE
+85,Downtown Dubai,AE
+86,Dubai Investments Park,AE
+87,Jebel Ali,AE
+88,Bani Yas City,AE
+89,Musaffah,AE
+90,Al Shamkhah City,AE
+91,Reef Al Fujairah City,AE
+92,Al Wiqan,AE
+93,Al Faqaa,AE
+94,Sha'biyyat Al Hiyar,AE
+95,Sha'biyyat Milе̄hah,AE
+96,Umm Al Sheif,AE
+97,Al Bada'a,AE
+98,Al Muteena,AE
+99,Al Mizhar First,AE
+100,Al Mizhar Second,AE
+101,Dubai Silicon Oasis,AE
+102,Dubai Motor City,AE
+103,DAMAC Hills,AE
+104,Al Furjan,AE
+105,Business Bay,AE
+106,Al Qusais 1,AE
+107,Al Twar 3,AE
+108,Al Khabaisi,AE
+109,Al Khawaneej 1,AE
+110,Halwan,AE
+111,Al Sajaah,AE
+112,Lahbab,AE
+113,Al Madam,AE
+114,Al Raafah,AE
+115,Mohammed Bin Zayed City,AE
+116,Masdar City,AE
+117,Zōr Kōṯ,AF
+118,Wulêswālī Bihsūd,AF
+119,Kuhsān,AF
+120,Lāsh,AF
+121,Tukzār,AF
+122,Bati,AF
+123,Mīray,AF
+124,Āq Kupruk,AF
+125,Zurmat,AF
+126,Zaybāk,AF
+127,Zīārat-e Shāh Maqşūd,AF
+128,Zindah Jān,AF
+129,Zarghūn Shahr,AF
+130,Zaṟah Sharan,AF
+131,Zaranj,AF
+132,Zamtō Kêlay,AF
+133,Yangī Qal‘ah,AF
+134,Bāzār-e Yakāwlang,AF
+135,Yaḩyá Khēl,AF
+136,Wāshēr,AF
+137,Tōrmay,AF
+138,Tūlak,AF
+139,Tītān,AF
+140,Tīr Pul,AF
+141,Taywarah,AF
+142,Bāzār-e Tashkān,AF
+143,Tarinkot,AF
+144,Taloqan,AF
+145,Tagāw-Bāy,AF
+146,Tagāb,AF
+147,Markaz-e Ḩukūmat-e Sulţān-e Bakwāh,AF
+148,Spīn Bōldak,AF
+149,Spērah,AF
+150,Sōzmah Qal‘ah,AF
+151,Siyāhgird,AF
+152,S̲h̲ēwah,AF
+153,Shīnḏanḏ,AF
+154,Shaykh Amīr Kêlay,AF
+155,Qāshqāl,AF
+156,Shibirghān,AF
+157,Shwāk,AF
+158,Shahr-e Şafā,AF
+159,Shahrān,AF
+160,Shahrak,AF
+161,‘Alāqahdārī Shāh Jōy,AF
+162,Wulêswālī Sayyid Karam,AF
+163,Markaz-e Sayyidābād,AF
+164,Şayād,AF
+165,Sidqābād,AF
+166,Sāyagaz,AF
+167,Sar-e Tayghān,AF
+168,Sarōbī,AF
+169,Sar Kāṉī,AF
+170,Sarfirāz Kalā,AF
+171,Sar-e Pul,AF
+172,Sar Chakān,AF
+173,Sangīn,AF
+174,Sang-e Māshah,AF
+175,Sang-e Chārak,AF
+176,Sang Atesh,AF
+177,Sangar Sarāy,AF
+178,Aībak,AF
+179,Rū-ye Sang,AF
+180,Rūdbār,AF
+181,Rustāq,AF
+182,Rabāţ-e Sangī-ye Pā’īn,AF
+183,Rāmak,AF
+184,Qurghān,AF
+185,Quchanghī,AF
+186,Qaīşār,AF
+187,Qarqīn,AF
+188,Qarghah’ī,AF
+189,Qarchī Gak,AF
+190,Qarāwul,AF
+191,Qarah Bāgh,AF
+192,Qarah Bāgh,AF
+193,Qala i Naw,AF
+194,Qal‘ah-ye Kūf,AF
+195,Qal‘ah-ye Kuhnah,AF
+196,Qal‘ah-ye Shahr,AF
+197,Qalāt,AF
+198,Qal‘ah-ye Shāhī,AF
+199,Qādis,AF
+200,Pārūn,AF
+201,Pul-e Khumrī,AF
+202,Pul-e ‘Alam,AF
+203,Pasnay,AF
+204,Pāshmūl,AF
+205,Pasāband,AF
+206,Panjāb,AF
+207,Paghmān,AF
+208,Ōmnah,AF
+209,Ōbêh,AF
+210,Uruzgān,AF
+211,Urgun,AF
+212,Nūsay,AF
+213,Nūrgal,AF
+214,Now Zād,AF
+215,Nīlī,AF
+216,Nayak,AF
+217,Nāyak,AF
+218,Now Dahānak,AF
+219,Ōkak,AF
+220,Nāṟay,AF
+221,Narang,AF
+222,Nīkêh,AF
+223,Nahrīn,AF
+224,Ḩukūmat-e Nād ‘Alī,AF
+225,Mūsá Qal‘ah,AF
+226,Bala Murghab,AF
+227,Muqêr,AF
+228,Muḩammad Āghah Wuluswālī,AF
+229,Mīzān ‘Alāqahdārī,AF
+230,Mīr Bachah Kōṯ,AF
+231,Mīrān,AF
+232,Mīrābād,AF
+233,Maymana,AF
+234,Maīdān Khūlah,AF
+235,Mingajik,AF
+236,Mehtar Lām,AF
+237,Mazār-e Sharīf,AF
+238,Māymay,AF
+239,Mutā Khān,AF
+240,Mashhad,AF
+241,Mardīān,AF
+242,Mandōl,AF
+243,Māmā Khēl,AF
+244,Lashkar Gāh,AF
+245,Lāsh-e Juwayn,AF
+246,Larkird,AF
+247,La‘l,AF
+248,Kushk,AF
+249,Rāẕay Balochi,AF
+250,Kōṯowāl,AF
+251,Kushk-e Kuhnah,AF
+252,Kuran wa Munjan,AF
+253,Kunduz,AF
+254,Khōshī,AF
+255,Khōshāmand,AF
+256,Khwājah Ghār,AF
+257,Khwājah Dū Kōh,AF
+258,Deh Khwāhān,AF
+259,Khulbisāt,AF
+260,Khūgyāṉī,AF
+261,Khōst,AF
+262,Khulm,AF
+263,Khudāydād Khēl,AF
+264,Khinjān,AF
+265,Khinj,AF
+266,Khāsh,AF
+267,Khān Neshīn,AF
+268,Khānaqāh,AF
+269,Chahār Bāgh,AF
+270,Khandūd,AF
+271,Khānaqāh,AF
+272,Khanabad,AF
+273,Khamyāb,AF
+274,Khākirān,AF
+275,Kaz̲h̲ah,AF
+276,Kishk-e Nakhūd,AF
+277,Karukh,AF
+278,Kanḏay,AF
+279,Kandahār,AF
+280,Kalān Deh,AF
+281,Kalakān,AF
+282,Kalafgān,AF
+283,Kajrān,AF
+284,Kā’ī,AF
+285,Kabul,AF
+286,Jurm,AF
+287,Jawand,AF
+288,Jānī Khēl,AF
+289,Jalrēz,AF
+290,Jalālābād,AF
+291,Jabal os Saraj,AF
+292,Ḩukūmat-e Shīnkaī,AF
+293,Herāt,AF
+294,Ḩājī Khēl,AF
+295,Ḩāfiz̧ Moghul,AF
+296,Ḩāfiz̧ān,AF
+297,Guz̄arah,AF
+298,Gōshtah,AF
+299,Gōmal Kêlay,AF
+300,‘Alāqahdārī Gēlān,AF
+301,Ghōriyān,AF
+302,Ghormach,AF
+303,Ghurayd Gharamē,AF
+304,Ghazni,AF
+305,Gereshk,AF
+306,Gardez,AF
+307,Fayzabad,AF
+308,Faīẕābād,AF
+309,Fayẕābād,AF
+310,Qal‘ah-ye Fārsī,AF
+311,Farkhār,AF
+312,Farah,AF
+313,Istālif,AF
+314,Eslam Qaleh,AF
+315,Injīl,AF
+316,Imām Şāḩib,AF
+317,Dōshī,AF
+318,Dowlatyār,AF
+319,Dowlat Shāh,AF
+320,Dowlatābād,AF
+321,Dowlatābād,AF
+322,Dū Qal‘ah,AF
+323,Dūāb,AF
+324,Dê Nārkhēl Kêlay,AF
+325,Dehī,AF
+326,Deh-e Şalāḩ,AF
+327,Deh-e Now,AF
+328,Dehdādī,AF
+329,Dwah Manḏay,AF
+330,Dasht-e Qal‘ah,AF
+331,Dasht-e Qal‘ah,AF
+332,Dasht-e Archī,AF
+333,Darzāb,AF
+334,Markaz-e Ḩukūmat-e Darwēshān,AF
+335,Darqad,AF
+336,Darāyim,AF
+337,Dāngām,AF
+338,Ḏanḏar,AF
+339,Ḩukūmatī Dahanah-ye Ghōrī,AF
+340,Tsowkêy,AF
+341,Chīras,AF
+342,Chisht-e Sharīf,AF
+343,Chinār,AF
+344,Chimtāl,AF
+345,Charkh,AF
+346,Charikar,AF
+347,Dowr-e Rabāţ,AF
+348,Tsapêraī,AF
+349,Tsamkanī,AF
+350,Chakaray,AF
+351,Chākarān,AF
+352,Chahār Qal‘ah,AF
+353,Chahār Burj,AF
+354,Chāh Āb,AF
+355,Fayrōz Kōh,AF
+356,Bulōlah,AF
+357,Bal Chirāgh,AF
+358,Bāzār-e Tālah,AF
+359,Muhmand Dara,AF
+360,Būrkah,AF
+361,Barg-e Matāl,AF
+362,Baraki Barak,AF
+363,Banū,AF
+364,Bāmyān,AF
+365,Balkh,AF
+366,Bahārak,AF
+367,Bagrāmī,AF
+368,Baghlān,AF
+369,Ḩukūmatī Azrah,AF
+370,Ārt Khwājah,AF
+371,‘Alāqahdārī Aṯghar,AF
+372,Āsmār,AF
+373,Ashkāsham,AF
+374,Asadābād,AF
+375,Āqchah,AF
+376,Andkhōy,AF
+377,’Unābah,AF
+378,Anār Darah,AF
+379,Amānzī,AF
+380,‘Alāqahdārī-ye Almār,AF
+381,‘Alī Shēr ‘Alāqahdārī,AF
+382,Wuluswālī ‘Alīngār,AF
+383,‘Alī Khēl,AF
+384,‘Alāqahdārī Yōsuf Khēl,AF
+385,‘Alāqahdārī Dīshū,AF
+386,Alah Sāy,AF
+387,Pachīr wa Āgām,AF
+388,Āfāqī,AF
+389,Adraskan,AF
+390,Āb-e Kamarī,AF
+391,Khadīr,AF
+392,Ghulām ‘Alī,AF
+393,Qarah Bāgh Bāzār,AF
+394,Zargarān,AF
+395,Surkh Bilandī,AF
+396,Pul-e Sangī,AF
+397,Langar,AF
+398,Bāgh-e Maīdān,AF
+399,Ibrāhīm Khān,AF
+400,Qaranghū Tōghaī,AF
+401,Bāzārak,AF
+402,Shērwānī-ye Bālā,AF
+403,Kirāmān,AF
+404,‘Alāqahdārī Saṟōbī,AF
+405,Zīṟūk ‘Alāqahdārī,AF
+406,Kushkak,AF
+407,Khayr Kōṯ,AF
+408,Chowṉêy,AF
+409,Wuṯahpūr,AF
+410,Karbōṟī,AF
+411,Sulţānpūr-e ‘Ulyā,AF
+412,Bābā Şāḩib,AF
+413,Chandal Bā’ī,AF
+414,Dahan-e Jarf,AF
+415,Maydanshakhr,AF
+416,Dū Laīnah,AF
+417,Qaram Qōl,AF
+418,Pul-e Ḩişār,AF
+419,Lab-Sar,AF
+420,Ţāqchah Khānah,AF
+421,March,AF
+422,Zīrakī,AF
+423,‘Alīābād,AF
+424,Pas Pul,AF
+425,Qal‘ah-ye Na‘īm,AF
+426,Markaz-e Woluswalī-ye Āchīn,AF
+427,Māṉōgay,AF
+428,Stêr Giyān,AF
+429,Sharan,AF
+430,Salām Khēl,AF
+431,Mazad,AF
+432,Willikies,AG
+433,Saint John’s,AG
+434,Potters Village,AG
+435,Piggotts,AG
+436,Parham,AG
+437,Liberta,AG
+438,Falmouth,AG
+439,Codrington,AG
+440,Bolands,AG
+441,All Saints,AG
+442,West End Village,AI
+443,The Valley,AI
+444,The Quarter,AI
+445,Farrington,AI
+446,Stoney Ground,AI
+447,South Hill Village,AI
+448,Sandy Ground Village,AI
+449,North Side,AI
+450,North Hill Village,AI
+451,Island Harbour,AI
+452,George Hill,AI
+453,East End Village,AI
+454,Blowing Point Village,AI
+455,Sandy Hill,AI
+456,Xarrë,AL
+457,Sarandë,AL
+458,Mesopotam,AL
+459,Markat,AL
+460,Livadhja,AL
+461,Konispol,AL
+462,Kakavijë,AL
+463,Finiq,AL
+464,Dhivër,AL
+465,Delvinë,AL
+466,Aliko,AL
+467,Buçimas,AL
+468,Zerqan,AL
+469,Zavalinë,AL
+470,Zapod,AL
+471,Zall-Reç,AL
+472,Zall-Dardhë,AL
+473,Xibër-Murrizë,AL
+474,Vreshtas,AL
+475,Voskopojë,AL
+476,Voskop,AL
+477,Vithkuq,AL
+478,Vithkuq,AL
+479,Vërtop,AL
+480,Vergo,AL
+481,Vendresha e Vogël,AL
+482,Velçan,AL
+483,Ujmisht,AL
+484,Udënisht,AL
+485,Tunjë,AL
+486,Tregan,AL
+487,Trebisht-Muçinë,AL
+488,Trebinjë,AL
+489,Topojan,AL
+490,Tomin,AL
+491,Tepelenë,AL
+492,Surroj,AL
+493,Sult,AL
+494,Sukë,AL
+495,Suç,AL
+496,Stravaj,AL
+497,Steblevë,AL
+498,Sllovë,AL
+499,Skore,AL
+500,Skënderbegas,AL
