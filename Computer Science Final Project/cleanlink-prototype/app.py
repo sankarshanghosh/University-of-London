@@ -1,6 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, Response
 from rapidfuzz import fuzz
-import csv
+import csv, json
 
 app = Flask(__name__)
 
@@ -16,30 +16,72 @@ with open("cities.csv", newline='', encoding='utf-8') as csvfile:
         })
 
 @app.route("/reconcile", methods=["POST"])
-def reconcile():
-    query_data = request.get_json()["query"]
-    input_name = query_data.get("name", "")
-    input_country = query_data.get("country_code")  # optional
+def reconcile_post():
+    content_type = request.headers.get("Content-Type", "")
 
-    # Prepare input string for fuzzy matching
-    input_combined = f"{input_name} {input_country}" if input_country else input_name
+    if "application/json" in content_type:
+        queries = request.get_json(force=True)
+    elif "application/x-www-form-urlencoded" in content_type:
+        # OpenRefine form-encodes the query JSON under a key like 'queries'
+        raw = request.form.get("queries")
+        if not raw:
+            return jsonify({"error": "Missing 'queries' in form data"}), 400
+        queries = json.loads(raw)
+    else:
+        return jsonify({"error": f"Unsupported Content-Type: {content_type}"}), 415
 
-    results = []
-    for row in data:
-        target_country = row.get("country_code", "")
-        target_combined = f"{row['name']} {target_country}" if input_country else row["name"]
+    # Handle single-query mode
+    if "query" in queries:
+        queries = {"q0": queries["query"]}
 
-        score = fuzz.token_sort_ratio(input_combined, target_combined) / 100
+    results = {}
+    for key, query in queries.items():
+        input_name = (query.get("name", "") or query.get("query", "")).strip()
+        input_country = query.get("country_code", "").strip()
 
-        results.append({
-            "id": row["id"],
-            "name": f"{row['name']} ({row['country_code']})",
-            "score": score,
-            "match": score > 0.85
-        })
+        input_combined = f"{input_name} {input_country}".strip()
 
-    results.sort(key=lambda x: x["score"], reverse=True)
-    return jsonify({"result": results[:3]})
+        matches = []
+        for row in data:
+            target_combined = f"{row['name']} {row['country_code']}".strip()
+            score = fuzz.token_sort_ratio(input_combined, target_combined) / 100
+
+            matches.append({
+                "id": row["id"],
+                "name": f"{row['name']} ({row['country_code']})",
+                "score": score,
+                "match": score > 0.85
+            })
+
+        matches.sort(key=lambda x: x["score"], reverse=True)
+        results[key] = { "result": matches[:3] }
+
+    return jsonify(results)
+
+
+@app.route("/reconcile", methods=["GET"])
+def reconcile_metadata():
+    metadata = {
+        "name": "CleanLink+ Cities Reconciliation",
+        "identifierSpace": "http://example.org/ids",
+        "schemaSpace": "http://example.org/schema",
+        "view": {
+            "url": "http://example.org/view/{{id}}"
+        },
+        "defaultTypes": [
+            {
+                "id": "city",
+                "name": "City"
+            }
+        ]
+    }
+
+    callback = request.args.get("callback")
+    if callback:
+        jsonp = f"{callback}({json.dumps(metadata)})"
+        return Response(jsonp, mimetype="application/javascript")
+    else:
+        return jsonify(metadata)
 
 if __name__ == "__main__":
     app.run(debug=True)
