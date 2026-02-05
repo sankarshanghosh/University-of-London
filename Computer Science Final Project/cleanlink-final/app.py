@@ -28,12 +28,32 @@ def reconcile_post():
 
     results = {}
     for key, query in queries.items():
-        input_name = (query.get("name", "") or query.get("query", "")).strip()
-        input_country = query.get("country_code", "").strip()
-        input_region = query.get("region_code", "").strip()
+        if not isinstance(query, dict):
+            results[key] = {"result": [], "error": "Invalid query format (expected object)"}
+            continue
+
+        # Raw access before converting or stripping
+        raw_name = query.get("name", "") or query.get("query", "")
+        raw_country = query.get("country_code", "")
+        raw_region = query.get("region_code", "")
+
+        # Type checks BEFORE using str.strip()
+        if not isinstance(raw_name, str) or not raw_name.strip():
+            results[key] = {"result": [], "error": "Missing or invalid 'name' or 'query' field"}
+            continue
+        if raw_country and not isinstance(raw_country, str):
+            results[key] = {"result": [], "error": "Invalid 'country_code' (must be string)"}
+            continue
+        if raw_region and not isinstance(raw_region, str):
+            results[key] = {"result": [], "error": "Invalid 'region_code' (must be string)"}
+            continue
+
+        # Now safely strip after validation
+        input_name = raw_name.strip()
+        input_country = raw_country.strip()
+        input_region = raw_region.strip()
 
         input_combined = f"{input_name} {input_country}".strip().lower()
-
 
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
@@ -62,7 +82,7 @@ def reconcile_post():
                 "id": row_id,
                 "name": f"{name} ({country})",
                 "score": boosted_score,
-                "match": boosted_score > 0.85
+                "match": boosted_score >= 0.80
             })
 
         conn.close()
@@ -86,6 +106,26 @@ def reconcile_metadata():
             {
                 "id": "city",
                 "name": "City"
+            }
+        ],
+        "propertySettings": [
+            {
+                "id": "country_code",
+                "name": "Country Code",
+                "type": {
+                    "id": "http://www.w3.org/2001/XMLSchema#string",
+                    "name": "string"
+                },
+                "extendable": True
+            },
+            {
+                "id": "region_code",
+                "name": "Region Code",
+                "type": {
+                    "id": "http://www.w3.org/2001/XMLSchema#string",
+                    "name": "string"
+                },
+                "extendable": True
             }
         ]
     }

@@ -1,0 +1,42 @@
+[
+  {
+    "query": {"name": "Vila", "country_code": "AD"},
+    "expected_id": "3038832"
+  },
+  {
+    "query": {"name": "surudeu", "country_code": "AD"},
+    "expected_id": "3038999"
+  },
+  {
+    "query": {"name": "El Tarter", "country_code": "AD", "region_code": "02"},
+    "expected_id": "3039154"
+  },
+  {
+    "query": {"name": "Ordinu", "country_code": "AD"},
+    "expected_id": "3039678"
+  },
+  {
+    "query": {"name": "Macana", "country_code": "AD"},
+    "expected_id": "3040132"
+  },
+  {
+    "query": {"name": "Casas Vila", "country_code": "AD"},
+    "expected_id": "3038832"
+  },
+  {
+    "query": {"name": "Notrealville", "country_code": "AD"},
+    "expected_id": null
+  },
+  {
+    "query": {"name": "San Julia", "country_code": "AD"},
+    "expected_id": "3039163"
+  },
+  {
+    "query": {"name": "la Massana", "country_code": "AD", "region_code": "04"},
+    "expected_id": "3040132"
+  },
+  {
+    "query": {"name": "Pas de la Kasa", "country_code": "AD"},
+    "expected_id": "3039604"
+  }
+]
