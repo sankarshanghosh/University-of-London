@@ -136,6 +136,28 @@ def reconcile_metadata():
         return Response(jsonp, mimetype="application/javascript")
     else:
         return jsonify(metadata)
+    
+@app.route("/suggest/property", methods=["GET"])
+def suggest_property():
+    prefix = request.args.get("prefix", "").lower()
+
+    properties = [
+        {"id": "country_code", "name": "Country Code"},
+        {"id": "region_code", "name": "Region Code"}
+    ]
+
+    # Optional prefix filtering (OpenRefine uses this)
+    if prefix:
+        properties = [
+            p for p in properties
+            if p["id"].lower().startswith(prefix)
+            or p["name"].lower().startswith(prefix)
+        ]
+
+    return jsonify({
+        "result": properties
+    })
+
 
 if __name__ == "__main__":
     app.run(debug=True)
