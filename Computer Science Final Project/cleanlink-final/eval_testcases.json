@@ -1,42 +1,644 @@
 [
   {
-    "query": {"name": "Vila", "country_code": "AD"},
-    "expected_id": "3038832"
+    "query": {
+      "name": "K\u0142aj",
+      "country_code": "PL"
+    },
+    "expected_id": 769135
   },
   {
-    "query": {"name": "surudeu", "country_code": "AD"},
-    "expected_id": "3038999"
+    "query": {
+      "name": "Ka\u0142j",
+      "country_code": "PL"
+    },
+    "expected_id": 769135
   },
   {
-    "query": {"name": "El Tarter", "country_code": "AD", "region_code": "02"},
-    "expected_id": "3039154"
+    "query": {
+      "name": "Klaj",
+      "country_code": "PL"
+    },
+    "expected_id": 769135
   },
   {
-    "query": {"name": "Ordinu", "country_code": "AD"},
-    "expected_id": "3039678"
+    "query": {
+      "name": "K\u0142aj",
+      "country_code": "PL",
+      "region_code": "77"
+    },
+    "expected_id": 769135
   },
   {
-    "query": {"name": "Macana", "country_code": "AD"},
-    "expected_id": "3040132"
+    "query": {
+      "name": "Muthallath \u015eab\u1e29\u0101",
+      "country_code": "JO"
+    },
+    "expected_id": 10640344
   },
   {
-    "query": {"name": "Casas Vila", "country_code": "AD"},
-    "expected_id": "3038832"
+    "query": {
+      "name": "Muthallath \u015eab\u0101\u1e29",
+      "country_code": "JO"
+    },
+    "expected_id": 10640344
   },
   {
-    "query": {"name": "Notrealville", "country_code": "AD"},
+    "query": {
+      "name": "Muthallath Sabha",
+      "country_code": "JO"
+    },
+    "expected_id": 10640344
+  },
+  {
+    "query": {
+      "name": "Muthallath \u015eab\u1e29\u0101",
+      "country_code": "JO",
+      "region_code": "15"
+    },
+    "expected_id": 10640344
+  },
+  {
+    "query": {
+      "name": "Dung",
+      "country_code": "FR"
+    },
+    "expected_id": 3020691
+  },
+  {
+    "query": {
+      "name": "Dugn",
+      "country_code": "FR"
+    },
+    "expected_id": 3020691
+  },
+  {
+    "query": {
+      "name": "Dung",
+      "country_code": "FR",
+      "region_code": "27"
+    },
+    "expected_id": 3020691
+  },
+  {
+    "query": {
+      "name": "Walnut Cove",
+      "country_code": "US"
+    },
+    "expected_id": 4497437
+  },
+  {
+    "query": {
+      "name": "Wanlut Cove",
+      "country_code": "US"
+    },
+    "expected_id": 4497437
+  },
+  {
+    "query": {
+      "name": "Walnut Cove",
+      "country_code": "US",
+      "region_code": "NC"
+    },
+    "expected_id": 4497437
+  },
+  {
+    "query": {
+      "name": "Sonoyta",
+      "country_code": "MX"
+    },
+    "expected_id": 3982837
+  },
+  {
+    "query": {
+      "name": "Sonyota",
+      "country_code": "MX"
+    },
+    "expected_id": 3982837
+  },
+  {
+    "query": {
+      "name": "Sonoyta",
+      "country_code": "MX",
+      "region_code": "26"
+    },
+    "expected_id": 3982837
+  },
+  {
+    "query": {
+      "name": "Puerto Moraz\u00e1n",
+      "country_code": "NI"
+    },
+    "expected_id": 3617146
+  },
+  {
+    "query": {
+      "name": "Puetro Moraz\u00e1n",
+      "country_code": "NI"
+    },
+    "expected_id": 3617146
+  },
+  {
+    "query": {
+      "name": "Puerto Morazan",
+      "country_code": "NI"
+    },
+    "expected_id": 3617146
+  },
+  {
+    "query": {
+      "name": "Puerto Moraz\u00e1n",
+      "country_code": "NI",
+      "region_code": "03"
+    },
+    "expected_id": 3617146
+  },
+  {
+    "query": {
+      "name": "Esl\u0101m\u0101b\u0101d-e Gharb",
+      "country_code": "IR"
+    },
+    "expected_id": 135175
+  },
+  {
+    "query": {
+      "name": "Esl\u0101m\u0101b\u0101d-e Ghrab",
+      "country_code": "IR"
+    },
+    "expected_id": 135175
+  },
+  {
+    "query": {
+      "name": "Eslamabad-e Gharb",
+      "country_code": "IR"
+    },
+    "expected_id": 135175
+  },
+  {
+    "query": {
+      "name": "Esl\u0101m\u0101b\u0101d-e Gharb",
+      "country_code": "IR",
+      "region_code": "13"
+    },
+    "expected_id": 135175
+  },
+  {
+    "query": {
+      "name": "Risti",
+      "country_code": "EE"
+    },
+    "expected_id": 589012
+  },
+  {
+    "query": {
+      "name": "Ritsi",
+      "country_code": "EE"
+    },
+    "expected_id": 589012
+  },
+  {
+    "query": {
+      "name": "Risti",
+      "country_code": "EE",
+      "region_code": "11"
+    },
+    "expected_id": 589012
+  },
+  {
+    "query": {
+      "name": "Mantongouin\u00e9",
+      "country_code": "CI"
+    },
+    "expected_id": 2596933
+  },
+  {
+    "query": {
+      "name": "aMntongouin\u00e9",
+      "country_code": "CI"
+    },
+    "expected_id": 2596933
+  },
+  {
+    "query": {
+      "name": "Mantongouine",
+      "country_code": "CI"
+    },
+    "expected_id": 2596933
+  },
+  {
+    "query": {
+      "name": "Mantongouin\u00e9",
+      "country_code": "CI",
+      "region_code": "78"
+    },
+    "expected_id": 2596933
+  },
+  {
+    "query": {
+      "name": "Trebnje",
+      "country_code": "SI"
+    },
+    "expected_id": 3188886
+  },
+  {
+    "query": {
+      "name": "rTebnje",
+      "country_code": "SI"
+    },
+    "expected_id": 3188886
+  },
+  {
+    "query": {
+      "name": "Trebnje",
+      "country_code": "SI",
+      "region_code": "D4"
+    },
+    "expected_id": 3188886
+  },
+  {
+    "query": {
+      "name": "Nantucket",
+      "country_code": "US"
+    },
+    "expected_id": 4944903
+  },
+  {
+    "query": {
+      "name": "Nantuckte",
+      "country_code": "US"
+    },
+    "expected_id": 4944903
+  },
+  {
+    "query": {
+      "name": "Nantucket",
+      "country_code": "US",
+      "region_code": "MA"
+    },
+    "expected_id": 4944903
+  },
+  {
+    "query": {
+      "name": "Augy",
+      "country_code": "FR"
+    },
+    "expected_id": 3036178
+  },
+  {
+    "query": {
+      "name": "Auyg",
+      "country_code": "FR"
+    },
+    "expected_id": 3036178
+  },
+  {
+    "query": {
+      "name": "Augy",
+      "country_code": "FR",
+      "region_code": "27"
+    },
+    "expected_id": 3036178
+  },
+  {
+    "query": {
+      "name": "Sea Ranch",
+      "country_code": "US"
+    },
+    "expected_id": 5394063
+  },
+  {
+    "query": {
+      "name": "SeaR anch",
+      "country_code": "US"
+    },
+    "expected_id": 5394063
+  },
+  {
+    "query": {
+      "name": "Sea Ranch",
+      "country_code": "US",
+      "region_code": "CA"
+    },
+    "expected_id": 5394063
+  },
+  {
+    "query": {
+      "name": "B\u00edl\u00e1 T\u0159eme\u0161n\u00e1",
+      "country_code": "CZ"
+    },
+    "expected_id": 3079368
+  },
+  {
+    "query": {
+      "name": "B\u00edl\u00e1 Te\u0159me\u0161n\u00e1",
+      "country_code": "CZ"
+    },
+    "expected_id": 3079368
+  },
+  {
+    "query": {
+      "name": "Bila Tremesna",
+      "country_code": "CZ"
+    },
+    "expected_id": 3079368
+  },
+  {
+    "query": {
+      "name": "B\u00edl\u00e1 T\u0159eme\u0161n\u00e1",
+      "country_code": "CZ",
+      "region_code": "82"
+    },
+    "expected_id": 3079368
+  },
+  {
+    "query": {
+      "name": "Rath-Anhoven",
+      "country_code": "DE"
+    },
+    "expected_id": 11608809
+  },
+  {
+    "query": {
+      "name": "Rath-nAhoven",
+      "country_code": "DE"
+    },
+    "expected_id": 11608809
+  },
+  {
+    "query": {
+      "name": "Rath-Anhoven",
+      "country_code": "DE",
+      "region_code": "07"
+    },
+    "expected_id": 11608809
+  },
+  {
+    "query": {
+      "name": "Valier",
+      "country_code": "US"
+    },
+    "expected_id": 4251879
+  },
+  {
+    "query": {
+      "name": "aVlier",
+      "country_code": "US"
+    },
+    "expected_id": 4251879
+  },
+  {
+    "query": {
+      "name": "Valier",
+      "country_code": "US",
+      "region_code": "IL"
+    },
+    "expected_id": 4251879
+  },
+  {
+    "query": {
+      "name": "Hempnall",
+      "country_code": "GB"
+    },
+    "expected_id": 2647129
+  },
+  {
+    "query": {
+      "name": "Hempnlal",
+      "country_code": "GB"
+    },
+    "expected_id": 2647129
+  },
+  {
+    "query": {
+      "name": "Hempnall",
+      "country_code": "GB",
+      "region_code": "ENG"
+    },
+    "expected_id": 2647129
+  },
+  {
+    "query": {
+      "name": "Ngori",
+      "country_code": "ID"
+    },
+    "expected_id": 7036006
+  },
+  {
+    "query": {
+      "name": "Ngroi",
+      "country_code": "ID"
+    },
+    "expected_id": 7036006
+  },
+  {
+    "query": {
+      "name": "Ngori",
+      "country_code": "ID",
+      "region_code": "08"
+    },
+    "expected_id": 7036006
+  },
+  {
+    "query": {
+      "name": "Plan de Vigas",
+      "country_code": "MX"
+    },
+    "expected_id": 3817420
+  },
+  {
+    "query": {
+      "name": "lPan de Vigas",
+      "country_code": "MX"
+    },
+    "expected_id": 3817420
+  },
+  {
+    "query": {
+      "name": "Plan de Vigas",
+      "country_code": "MX",
+      "region_code": "15"
+    },
+    "expected_id": 3817420
+  },
+  {
+    "query": {
+      "name": "Manuel Buelta 2da. Secci\u00f3n",
+      "country_code": "MX"
+    },
+    "expected_id": 8860021
+  },
+  {
+    "query": {
+      "name": "Manuel Buelta 2d.a Secci\u00f3n",
+      "country_code": "MX"
+    },
+    "expected_id": 8860021
+  },
+  {
+    "query": {
+      "name": "Manuel Buelta 2da. Seccion",
+      "country_code": "MX"
+    },
+    "expected_id": 8860021
+  },
+  {
+    "query": {
+      "name": "Manuel Buelta 2da. Secci\u00f3n",
+      "country_code": "MX",
+      "region_code": "27"
+    },
+    "expected_id": 8860021
+  },
+  {
+    "query": {
+      "name": "Vignoux-sous-les-Aix",
+      "country_code": "FR"
+    },
+    "expected_id": 2969088
+  },
+  {
+    "query": {
+      "name": "Vignoux-sous-els-Aix",
+      "country_code": "FR"
+    },
+    "expected_id": 2969088
+  },
+  {
+    "query": {
+      "name": "Vignoux-sous-les-Aix",
+      "country_code": "FR",
+      "region_code": "24"
+    },
+    "expected_id": 2969088
+  },
+  {
+    "query": {
+      "name": "Onda Verde",
+      "country_code": "BR"
+    },
+    "expected_id": 3455821
+  },
+  {
+    "query": {
+      "name": "Onad Verde",
+      "country_code": "BR"
+    },
+    "expected_id": 3455821
+  },
+  {
+    "query": {
+      "name": "Onda Verde",
+      "country_code": "BR",
+      "region_code": "27"
+    },
+    "expected_id": 3455821
+  },
+  {
+    "query": {
+      "name": "V\u00e9ron",
+      "country_code": "FR"
+    },
+    "expected_id": 2969734
+  },
+  {
+    "query": {
+      "name": "V\u00e9orn",
+      "country_code": "FR"
+    },
+    "expected_id": 2969734
+  },
+  {
+    "query": {
+      "name": "Veron",
+      "country_code": "FR"
+    },
+    "expected_id": 2969734
+  },
+  {
+    "query": {
+      "name": "V\u00e9ron",
+      "country_code": "FR",
+      "region_code": "27"
+    },
+    "expected_id": 2969734
+  },
+  {
+    "query": {
+      "name": "Largo",
+      "country_code": "US"
+    },
+    "expected_id": 4161580
+  },
+  {
+    "query": {
+      "name": "aLrgo",
+      "country_code": "US"
+    },
+    "expected_id": 4161580
+  },
+  {
+    "query": {
+      "name": "Largo",
+      "country_code": "US",
+      "region_code": "FL"
+    },
+    "expected_id": 4161580
+  },
+  {
+    "query": {
+      "name": "East Brisbane",
+      "country_code": "AU"
+    },
+    "expected_id": 2207258
+  },
+  {
+    "query": {
+      "name": "Eas tBrisbane",
+      "country_code": "AU"
+    },
+    "expected_id": 2207258
+  },
+  {
+    "query": {
+      "name": "East Brisbane",
+      "country_code": "AU",
+      "region_code": "04"
+    },
+    "expected_id": 2207258
+  },
+  {
+    "query": {
+      "name": "Atlantizz",
+      "country_code": "US"
+    },
     "expected_id": null
   },
   {
-    "query": {"name": "San Julia", "country_code": "AD"},
-    "expected_id": "3039163"
+    "query": {
+      "name": "Qwertyville",
+      "country_code": "GB"
+    },
+    "expected_id": null
   },
   {
-    "query": {"name": "la Massana", "country_code": "AD", "region_code": "04"},
-    "expected_id": "3040132"
+    "query": {
+      "name": "Londan",
+      "country_code": "IN"
+    },
+    "expected_id": null
   },
   {
-    "query": {"name": "Pas de la Kasa", "country_code": "AD"},
-    "expected_id": "3039604"
+    "query": {
+      "name": "Berlene",
+      "country_code": "DE"
+    },
+    "expected_id": null
+  },
+  {
+    "query": {
+      "name": "S\u00e3o Paulo",
+      "country_code": "BR",
+      "region_code": "ZZ"
+    },
+    "expected_id": null
   }
 ]

@@ -21,18 +21,22 @@ for idx, test in enumerate(test_cases):
     result = response_json.get("q0", {}).get("result", [])
 
     top_match = result[0] if result else None
-    top_id = top_match["id"] if top_match and top_match["match"] else None
+    top_id = top_match["id"] if top_match else None
+    top_match_flag = top_match["match"] if top_match else False
 
-    if top_id == expected_id:
+    expected_str = str(expected_id).strip() if expected_id is not None else None
+    top_id_str = str(top_id).strip() if top_id is not None else None
+
+    if expected_str == top_id_str:
         true_positives += 1
         outcome = "✅ correct"
-    elif expected_id is None and top_id is None:
+    elif expected_str is None and top_id_str is None:
         true_positives += 1
         outcome = "✅ correct (no match expected)"
-    elif expected_id is None and top_id:
+    elif expected_str is None and top_id_str:
         false_positives += 1
         outcome = "❌ false positive"
-    elif expected_id and not top_id:
+    elif expected_str and not top_id_str:
         false_negatives += 1
         outcome = "❌ missed match"
     else:
@@ -40,7 +44,7 @@ for idx, test in enumerate(test_cases):
         false_negatives += 1
         outcome = "❌ wrong match"
 
-    print(f"[{idx+1}] Query: {query['name']} → Expected: {expected_id}, Got: {top_id} → {outcome}")
+    print(f"[{idx+1}] Query: {query['name']} → Expected: {expected_str}, Got: {top_id_str} → {outcome}")
 
 # Metrics
 precision = true_positives / (true_positives + false_positives) if (true_positives + false_positives) else 0

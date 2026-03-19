@@ -2,6 +2,13 @@ from flask import Flask, request, jsonify, Response
 from rapidfuzz import fuzz
 import csv, json
 import sqlite3
+import unicodedata
+
+def normalize(text):
+    if not text:
+        return ""
+    text = unicodedata.normalize("NFKD", text)
+    return ''.join(c for c in text if not unicodedata.combining(c)).lower().strip()
 
 app = Flask(__name__)
 
@@ -49,11 +56,11 @@ def reconcile_post():
             continue
 
         # Now safely strip after validation
-        input_name = raw_name.strip()
-        input_country = raw_country.strip()
-        input_region = raw_region.strip()
+        input_name = normalize(raw_name)
+        input_country = normalize(raw_country)
+        input_region = normalize(raw_region)
 
-        input_combined = f"{input_name} {input_country}".strip().lower()
+        input_combined = f"{input_name} {input_country}".strip()
 
         conn = sqlite3.connect(DB_PATH)
         cursor = conn.cursor()
@@ -66,7 +73,6 @@ def reconcile_post():
 
             name_main = f"{name} {country}".strip().lower()
             alt_names = [alt.strip().lower() for alt in (alternate_names or "").split(",") if alt.strip()]
-            input_combined = f"{input_name} {input_country}".strip().lower()
 
             score_main = fuzz.token_sort_ratio(input_combined, name_main)
             score_alt = max(
