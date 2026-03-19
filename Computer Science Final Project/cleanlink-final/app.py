@@ -20,7 +20,7 @@ DB_PATH = "cities.db"  # Path to SQLite database
 @app.route("/reconcile", methods=["POST"])
 def reconcile_post():
     """
-    Handle reconciliation POST requests from OpenRefine or other clients.
+    Handle reconciliation POST requests from OpenRefine.
     Accepts JSON or form-encoded queries, validates input, performs fuzzy matching against cities database,
     and returns top matches with scores.
     """
